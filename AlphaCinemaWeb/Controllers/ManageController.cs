@@ -147,7 +147,7 @@ namespace AlphaCinema.Controllers
 				this.StatusMessage = "Error: Please provide a .jpg or .png file smaller than 1MB";
 				return this.RedirectToAction(nameof(Index));
 			}
-
+			// TODO : FIX
 			//await this.usersService.SaveAvatarImageAsync(
 			//	this.GetUploadsRoot(),
 			//	avatarImage.FileName,

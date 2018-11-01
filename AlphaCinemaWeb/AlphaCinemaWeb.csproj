@@ -22,4 +22,8 @@
     <Folder Include="Extensions\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AlphaCinemaData\AlphaCinemaData.csproj" />
+  </ItemGroup>
+
 </Project>

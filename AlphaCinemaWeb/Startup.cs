@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AlphaCinema.Data;
 using AlphaCinema.Models;
 using AlphaCinema.Services;
+using AlphaCinemaData.Context;
 
 namespace AlphaCinema
 {
@@ -26,11 +26,11 @@ namespace AlphaCinema
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddDbContext<ApplicationDbContext>(options =>
-				options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+			services.AddDbContext<AlphaCinemaContext>(options =>
+				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User)));
 
 			services.AddIdentity<ApplicationUser, IdentityRole>()
-				.AddEntityFrameworkStores<ApplicationDbContext>()
+				.AddEntityFrameworkStores<AlphaCinemaContext>()
 				.AddDefaultTokenProviders();
 
 			// Add application services.
