@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using AlphaCinema.Models;
 using AlphaCinema.Models.AccountViewModels;
+using AlphaCinemaData.Models;
 
 namespace AlphaCinema.Controllers
 {
@@ -12,12 +13,12 @@ namespace AlphaCinema.Controllers
 	[Route("[controller]/[action]")]
 	public class AccountController : Controller
 	{
-		private readonly UserManager<ApplicationUser> userManager;
-		private readonly SignInManager<ApplicationUser> signInManager;
+		private readonly UserManager<User> userManager;
+		private readonly SignInManager<User> signInManager;
 
 		public AccountController(
-			UserManager<ApplicationUser> userManager,
-			SignInManager<ApplicationUser> signInManager)
+			UserManager<User> userManager,
+			SignInManager<User> signInManager)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
@@ -79,7 +80,7 @@ namespace AlphaCinema.Controllers
 			if (ModelState.IsValid)
 			{
 				// TODO - CHANGE WITH Normal User
-				var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+				var user = new User { UserName = model.Email, Email = model.Email };
 				var result = await this.userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{

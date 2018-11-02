@@ -1,0 +1,28 @@
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.deps.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.runtimeconfig.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.runtimeconfig.dev.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.pdb
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.csprojAssemblyReference.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.csproj.CoreCompileInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.AssemblyInfoInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.AssemblyInfo.cs
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.pdb
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.deps.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.runtimeconfig.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.runtimeconfig.dev.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\bin\Debug\netcoreapp2.1\AlphaCinemaTests.pdb
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.csprojAssemblyReference.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.csproj.CoreCompileInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.AssemblyInfoInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.AssemblyInfo.cs
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaTests\obj\Debug\netcoreapp2.1\AlphaCinemaTests.pdb

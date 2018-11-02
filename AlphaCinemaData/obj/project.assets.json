@@ -4421,23 +4421,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Wolf\\.nuget\\packages\\": {},
+    "C:\\Users\\Etov\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaData\\AlphaCinemaData.csproj",
+      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaData\\AlphaCinemaData.csproj",
       "projectName": "AlphaCinemaData",
-      "projectPath": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaData\\AlphaCinemaData.csproj",
-      "packagesPath": "C:\\Users\\Wolf\\.nuget\\packages\\",
-      "outputPath": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaData\\obj\\",
+      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaData\\AlphaCinemaData.csproj",
+      "packagesPath": "C:\\Users\\Etov\\.nuget\\packages\\",
+      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaData\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Wolf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Etov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

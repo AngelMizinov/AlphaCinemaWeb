@@ -6122,10 +6122,11 @@
       ]
     },
     "System.Threading.Tasks.Extensions/4.3.0": {
-      "sha512": "npvJkVKl5rKXrtl1Kkm6OhOUaYGEiF9wFbppFRWSMoApKzt2PiPHT2Bb8a5sAWxprvdOAtvaARS9QYMznEUtug==",
+      "sha512": "H/qEiAmcJa9kowqQtBFkosed9A3IRfw/OkQSTlih2v97cFpAr/irN0rpX0lZ+NEGnM6EhSxIEDGPLHh9DIBZjQ==",
       "type": "package",
       "path": "system.threading.tasks.extensions/4.3.0",
       "files": [
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/System.Threading.Tasks.Extensions.dll",
@@ -6213,10 +6214,11 @@
       ]
     },
     "System.ValueTuple/4.4.0": {
-      "sha512": "BahUww/+mdP4ARCAh2RQhQTg13wYLVrBb9SYVgW8ZlrwjraGCXHGjo0oIiUfZ34LUZkMMR+RAzR7dEY4S1HeQQ==",
+      "sha512": "6FvjECwwsvwtdnm2uD91MlFEgId6C2SWsdZk23gFpynHQ9x5ruqjsfEadb0VNzpkEHDQ6cq31CXUv3ouT09EHA==",
       "type": "package",
       "path": "system.valuetuple/4.4.0",
       "files": [
+        ".signature.p7s",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
         "lib/MonoAndroid10/_._",
@@ -6583,23 +6585,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Wolf\\.nuget\\packages\\": {},
+    "C:\\Users\\Etov\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
+      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
       "projectName": "AlphaCinemaTests",
-      "projectPath": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
-      "packagesPath": "C:\\Users\\Wolf\\.nuget\\packages\\",
-      "outputPath": "D:\\Files\\C# TeamProjects\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaTests\\obj\\",
+      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
+      "packagesPath": "C:\\Users\\Etov\\.nuget\\packages\\",
+      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\Wolf\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Etov\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

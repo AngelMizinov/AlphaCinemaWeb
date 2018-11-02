@@ -13,6 +13,7 @@ using AlphaCinema.Services;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaData.Models;
 
 namespace AlphaCinema
 {
@@ -31,7 +32,7 @@ namespace AlphaCinema
 			services.AddDbContext<AlphaCinemaContext>(options =>
 				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User)));
 
-			services.AddIdentity<ApplicationUser, IdentityRole>()
+			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<AlphaCinemaContext>()
 				.AddDefaultTokenProviders();
 
