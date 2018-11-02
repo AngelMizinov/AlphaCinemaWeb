@@ -1,36 +1,82 @@
-﻿<!DOCTYPE html>
+﻿<!doctype html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Lakeview ILS</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Coda">
-    <link rel="stylesheet" href="~/lib/mdl/material.min.css">
-    <script src="~/lib/mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <title>@ViewData["Title"] - Alpha Cinema</title>
+    <link rel="stylesheet" href="~/lib/mdb/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/mdb/css/mdb.min.css" />
+    <link rel="stylesheet" href="~/lib/mdb/css/style.css" /> @*This is our custom styles*@
+    <link rel="stylesheet" href="~/lib/mdb/font/roboto/Roboto-Regular.ttf">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
-    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
-        <header class="custom-header mdl-layout__header mdl-layout__header--waterfall">
-            <div class="mdl-layout__header-row">
-                <span class="mdl-layout-title logo"><a href="#">Lakeview Library ILS</a></span>
-                <div class="mdl-layout-spacer"></div>
-                <div class="mdl-navigation mdl-layout--large-screen-only">
-                    <a class="mdl-navigation__link" asp-controller="Home" asp-action="Index">Home</a>
-                    <a class="mdl-navigation__link" asp-controller="Catalog" asp-action="Index">Catalog</a>
-                    <a class="mdl-navigation__link" asp-controller="Patron" asp-action="Index">Patrons</a>
-                    <a class="mdl-navigation__link" asp-controller="Branch" asp-action="Index">Branches</a>
-                </div>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
+        <!-- Navbar brand -->
+        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Alpha Cinema</a>
+
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Some Controller</a>
+                </li>
+
+                <!-- Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">Admin Menu</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="Admin Menu">
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
+                        <div class="dropdown-divider"></div>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add City</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update City</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
+                    </div>
+                </li>
+
+            </ul>
+            <!-- Links -->
+
+            <!--Navbar-->
+            <div class="navbar-nav">
+                <a asp-area="" asp-controller="Account" asp-action="Register" class="navbar-toggler-right nav-link">Register</a>
+                <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-toggler-right nav-link">Sign In</a>
+                @* If user is logged out validation *@
+                <a asp-area="" asp-controller="Account" asp-action="Logout" class="navbar-toggler-right nav-link">Sign Out</a>
             </div>
-        </header>
-        <div class="page-content">
-            @RenderBody()
+            <!--/.Navbar-->
         </div>
+        <!-- Collapsible content -->
+    </nav>
+    <div class="container body-content" style="margin-top:40px">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; 2018 - Fake Agents™</p>
+        </footer>
     </div>
+    <environment include="Development">
+        <script src="~/lib//mdb/js/jquery-3.3.1.min.js"></script>
+        <script src="~/lib//mdb/js/popper.min.js"></script>
+        <script src="~/lib//mdb/js/bootstrap.min.js"></script>
+        <script src="~/lib//mdb/js/mdb.min.js"></script>
+    </environment>
     @RenderSection("Scripts", required: false)
-    @RenderSection("Styles", required: false)
 </body>
 </html>

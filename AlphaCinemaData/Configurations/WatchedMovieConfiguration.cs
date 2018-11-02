@@ -12,6 +12,10 @@ namespace AlphaCinemaData.Configurations
 				.HasKey(wm => wm.Id);
 
 			builder
+				.Property(wm => wm.UserId)
+				.IsRequired(true);
+
+			builder
                 .HasIndex(wm => new
                 {
                     wm.UserId,
