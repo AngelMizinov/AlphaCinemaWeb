@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using AlphaCinema.Models;
 using AlphaCinema.Services;
 using AlphaCinemaData.Context;
+using AlphaCinemaServices;
+using AlphaCinemaServices.Contracts;
 
 namespace AlphaCinema
 {
@@ -37,7 +39,10 @@ namespace AlphaCinema
 			services.AddTransient<IEmailSender, EmailSender>();
 
 			services.AddMvc();
-		}
+
+            services.AddScoped<IProjectionService, ProjectionService>();
+            services.AddScoped<ICityService, CityService>();
+        }
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,0 +1,44 @@
+﻿@model AlphaCinemaWeb.Models.ProjectionModels.ProjectionListViewModel
+
+@{
+    ViewData["Title"] = "Projections";
+}
+
+<div id="assets">
+    <h3>Movie Catalog</h3>
+    <div id="assetsTable">
+        <table class="table table-condensed" id="catalogIndexTable">
+            <thead>
+                <!--The <thread> tag is used to group header content in an HTML table.
+                   The <thread> element is used in conjunction with the <tbody> and
+                <tfoot> elements to specify each part of a table (header, body, footer).-->
+                <tr>
+                    <th>Image</th>
+                    <th>Title</th>
+                    <th>Genres</th>
+                    <th>Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var movie in Model.Projections)
+                {
+                    <tr class="assetRow">
+                        <td>
+                            <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
+                                <img src="@(movie.ImageUrl??"~/images/default.jpg")" class="imageCell" />
+                            </a>
+                        </td>
+                        <td>@movie.MovieName</td>
+                        <td>
+                            @foreach (var genre in movie.Genres)
+                            {
+                                @genre
+                            }
+                        </td>
+                        <td>@movie.MovieDuration</td>
+                        <td>@movie.MovieStart</td>
+                    </tr>
+                }
+        </table>
+    </div>
+</div>

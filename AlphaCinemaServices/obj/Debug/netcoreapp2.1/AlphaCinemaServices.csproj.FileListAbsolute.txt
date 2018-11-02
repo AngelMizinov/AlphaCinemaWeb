@@ -1,0 +1,12 @@
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\bin\Debug\netcoreapp2.1\AlphaCinemaServices.deps.json
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\bin\Debug\netcoreapp2.1\AlphaCinemaServices.dll
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\bin\Debug\netcoreapp2.1\AlphaCinemaServices.pdb
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\bin\Debug\netcoreapp2.1\AlphaCinemaData.dll
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\bin\Debug\netcoreapp2.1\AlphaCinemaData.pdb
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.csprojAssemblyReference.cache
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.csproj.CoreCompileInputs.cache
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.AssemblyInfoInputs.cache
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.AssemblyInfo.cs
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.csproj.CopyComplete
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.dll
+D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaServices\obj\Debug\netcoreapp2.1\AlphaCinemaServices.pdb

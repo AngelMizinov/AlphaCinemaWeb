@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AlphaCinemaData\AlphaCinemaData.csproj" />
+    <ProjectReference Include="..\AlphaCinemaServices\AlphaCinemaServices.csproj" />
   </ItemGroup>
 
 </Project>
