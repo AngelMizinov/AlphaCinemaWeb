@@ -5,10 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Alpha Cinema</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=coda">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
     <link rel="stylesheet" href="~/lib/mdl/material.min.css">
     <script src="~/lib/mdl/material.min.js"></script>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=material+icons">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
@@ -28,20 +27,21 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Admin Menu
                     </a>
+                    @* Тук трябва да има проверка дали User-a има роля - admin *@
                     <div class="dropdown-menu" aria-labelledby="Admin Menu">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete</a>
-                        <a class="dropdown-item" href="#">Another action</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add City</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update City</a>
+                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
                     </div>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0 nav-item active">
                 <a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
             </form>
         </div>
     </nav>
@@ -49,7 +49,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - WebApplication1</p>
+            <p>&copy; 2018 - Fake Agents™</p>
         </footer>
     </div>
     <environment include="Development">
@@ -57,22 +57,6 @@
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
     </environment>
-    <environment exclude="Development">
-        <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha384-K+ctZQ+LL8q6tP7I94W+qzQsfRV2a+AfHIi9k8z8l9ggpc8X+Ytst4yBo/hH+8Fk">
-        </script>
-        <script src="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.7/bootstrap.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa">
-        </script>
-        <script src="~/js/site.min.js" asp-append-version="true"></script>
-    </environment>
-
     @RenderSection("Scripts", required: false)
 </body>
 </html>
