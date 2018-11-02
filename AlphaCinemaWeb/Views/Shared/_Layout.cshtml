@@ -4,31 +4,42 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Alpha Cinema</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf">
-    <link rel="stylesheet" href="~/lib/mdl/material.min.css">
-    <script src="~/lib/mdl/material.min.js"></script>
+    <link rel="stylesheet" href="~/lib/mdb/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/mdb/css/mdb.min.css" />
+    <link rel="stylesheet" href="~/lib/mdb/css/style.css" /> @*This is our custom styles*@
+    <link rel="stylesheet" href="~/lib/mdb/font/roboto/Roboto-Regular.ttf">
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
+
+        <!-- Navbar brand -->
         <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Alpha Cinema</a>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- Collapse button -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
+                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse" id="basicExampleNav">
+
+            <!-- Links -->
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home</a>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home <span class="sr-only">(current)</span></a>
                 </li>
+                <li class="nav-item">
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Some Controller</a>
+                </li>
+
+                <!-- Dropdown -->
                 <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Admin Menu
-                    </a>
-                    @* Тук трябва да има проверка дали User-a има роля - admin *@
-                    <div class="dropdown-menu" aria-labelledby="Admin Menu">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                       aria-expanded="false">Admin Menu</a>
+                    <div class="dropdown-menu dropdown-primary" aria-labelledby="Admin Menu">
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
@@ -38,14 +49,22 @@
                         <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
                     </div>
                 </li>
+
             </ul>
-            <form class="form-inline my-2 my-lg-0 nav-item active">
-                <a asp-area="" asp-controller="Account" asp-action="Register" class="nav-link">Register</a>
-                <a asp-area="" asp-controller="Account" asp-action="Login" class="nav-link">Login</a>
-            </form>
+            <!-- Links -->
+
+            <!--Navbar-->
+            <div class="navbar-nav">
+                <a asp-area="" asp-controller="Account" asp-action="Register" class="navbar-toggler-right nav-link">Register</a>
+                <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-toggler-right nav-link">Sign In</a>
+                @* If user is logged out validation *@
+                <a asp-area="" asp-controller="Account" asp-action="Logout" class="navbar-toggler-right nav-link">Sign Out</a>
+            </div>
+            <!--/.Navbar-->
         </div>
+        <!-- Collapsible content -->
     </nav>
-    <div class="container body-content">
+    <div class="container body-content" style="margin-top:40px">
         @RenderBody()
         <hr />
         <footer>
@@ -53,9 +72,10 @@
         </footer>
     </div>
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="~/js/site.js" asp-append-version="true"></script>
+        <script src="~/lib//mdb/js/jquery-3.3.1.min.js"></script>
+        <script src="~/lib//mdb/js/popper.min.js"></script>
+        <script src="~/lib//mdb/js/bootstrap.min.js"></script>
+        <script src="~/lib//mdb/js/mdb.min.js"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>
