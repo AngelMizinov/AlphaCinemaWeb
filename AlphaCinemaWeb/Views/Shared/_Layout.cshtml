@@ -49,7 +49,7 @@
                 </li>
 
                 <!-- Dropdown -->
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
                 {
                     <li class="nav-item dropdown">
                         <a asp-area="" asp-controller="" asp-action="" class="nav-link dropdown-toggle"
