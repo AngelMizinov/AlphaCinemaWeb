@@ -5,25 +5,23 @@
     ViewData["Title"] = "Movie";
 }
 
-<h1>This is the Home Page</h1>
 <div id="projections-table">
     <div clas="row">
-        <div id="ProjectionList">
-            @*This element will be updated with the content returned from the database, thats why the partial view is inside him*@
-            <div class="container">
-                <h2>Projection Days</h2>
-                <div class="btn-group">
-                    @for (int i = 0; i <= 6; i++)
-                    {
-                        var dayOfWeek = DateTime.Now.AddDays(i).DayOfWeek;
-                        <a class="btn btn-primary" asp-controller="BuyTicket" asp-action="Movie" asp-route-cityId="@Model.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
-                            @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedDayName(dayOfWeek)
-                        </a>
-                    }
-                </div>
+        @*This element will be updated with the content returned from the database, thats why the partial view is inside him*@
+        <div class="container">
+            <h2>Projection Days</h2>
+            <div class="btn-group">
+                @for (int i = 0; i <= 6; i++)
+                {
+                    var dayOfWeek = DateTime.Now.AddDays(i).DayOfWeek;
+                    <a class="btn btn-primary" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@Model.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
+                        @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedDayName(dayOfWeek)
+                    </a>
+                }
             </div>
+        </div>
+        <div id="ProjectionList">
             <partial name="Projections" model="Model" />@*The Main view is calling the partial view TeamsPlayers*@
         </div>
     </div>
 </div>
-

@@ -6591,11 +6591,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
+      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
       "projectName": "AlphaCinemaTests",
-      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
+      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaTests\\AlphaCinemaTests.csproj",
       "packagesPath": "C:\\Users\\Etov\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaTests\\obj\\",
+      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaTests\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

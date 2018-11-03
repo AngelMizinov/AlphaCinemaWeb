@@ -14337,11 +14337,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaWeb\\AlphaCinemaWeb.csproj",
+      "projectUniqueName": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaWeb.csproj",
       "projectName": "AlphaCinemaWeb",
-      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaWeb\\AlphaCinemaWeb.csproj",
+      "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaWeb\\AlphaCinemaWeb.csproj",
       "packagesPath": "C:\\Users\\Etov\\.nuget\\packages\\",
-      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaWeb\\obj\\",
+      "outputPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaWeb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -14360,11 +14360,11 @@
       "frameworks": {
         "netcoreapp2.1": {
           "projectReferences": {
-            "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaData\\AlphaCinemaData.csproj": {
-              "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaData\\AlphaCinemaData.csproj"
+            "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaData\\AlphaCinemaData.csproj": {
+              "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaData\\AlphaCinemaData.csproj"
             },
-            "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaServices\\AlphaCinemaServices.csproj": {
-              "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb[Working with MDB] - Copy\\AlphaCinemaServices\\AlphaCinemaServices.csproj"
+            "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaServices\\AlphaCinemaServices.csproj": {
+              "projectPath": "D:\\Programming\\Projects\\C#\\Telerik\\Teamworks\\ASP.NET Core MVC\\AlphaCinemaWeb\\AlphaCinemaServices\\AlphaCinemaServices.csproj"
             }
           }
         }
