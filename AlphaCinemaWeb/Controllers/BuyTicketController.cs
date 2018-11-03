@@ -37,6 +37,16 @@ namespace AlphaCinemaWeb.Controllers
             return View(model);
         }
 
+        public IActionResult UpdateMovie(int cityId, DayOfWeek day)
+        {
+            var projections = projectionsService.GetByTownId(cityId);
+            projections = projections.Where(projection => projection.Day == (int)day);
+
+            var model = new ProjectionListViewModel(projections.Select(p => new ProjectionViewModel(p)), cityId);
+
+            return PartialView("../BuyTicket/Projections",model);
+        }
+
         public IActionResult Detail(ProjectionViewModel projection)
         {
             return View();

@@ -76,7 +76,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("\r\n<h2>Manage your account</h2>\r\n\r\n<div>\r\n    <h4>Change your account settings</h4>\r\n    <hr />\r\n    <div class=\"row\">\r\n        <div class=\"col-md-3\">\r\n            <ul class=\"nav nav-pills nav-stacked\">\r\n                <li>");
             EndContext();
             BeginContext(276, 33, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "45506a84d3874093a58bcd4ab76cc4ef", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b457c24b1de248ad89bf42544d57a4ed", async() => {
                 BeginContext(298, 7, true);
                 WriteLiteral("Profile");
                 EndContext();
@@ -98,7 +98,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("</li>\r\n                <li>");
             EndContext();
             BeginContext(336, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b986964da6b04ee59efd39de43e9e103", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6927423291eb468c9334b1203f2a38f7", async() => {
                 BeginContext(367, 8, true);
                 WriteLiteral("Password");
                 EndContext();
