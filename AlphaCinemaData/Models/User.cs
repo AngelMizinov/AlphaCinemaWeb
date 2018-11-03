@@ -16,9 +16,9 @@ namespace AlphaCinemaData.Models
 
 		public int Age { get; set; }
 
-		[Required(ErrorMessage = "The email address is required")]
-		[EmailAddress(ErrorMessage = "Invalid Email Address")]
-		public override string Email { get; set; }
+		//[Required(ErrorMessage = "The email address is required")]
+		//[EmailAddress(ErrorMessage = "Invalid Email Address")]
+		//public override string Email { get; set; }
 
 		public string AvatarImageName { get; set; }
 

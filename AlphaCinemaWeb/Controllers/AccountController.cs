@@ -80,7 +80,16 @@ namespace AlphaCinema.Controllers
 			if (ModelState.IsValid)
 			{
 				// TODO - CHANGE WITH Normal User
-				var user = new User { UserName = model.Email, Email = model.Email };
+				var user = new User
+				{
+					FirstName = model.FirstName,
+					LastName = model.LastName,
+					Age = model.Age,
+					// Maybe initialize watched movies collection?
+					UserName = model.Email,
+					Email = model.Email
+				};
+
 				var result = await this.userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)
 				{
@@ -100,7 +109,7 @@ namespace AlphaCinema.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await this.signInManager.SignOutAsync();
-			return RedirectToAction(nameof(HomeController.Index), "Home");
+			return RedirectToAction("Index", "Home");
 		}
 
 		[HttpGet]

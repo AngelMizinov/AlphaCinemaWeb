@@ -49,29 +49,26 @@
                 </li>
 
                 <!-- Dropdown -->
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                       aria-expanded="false">Admin Menu</a>
-                    <div class="dropdown-menu dropdown-primary" aria-labelledby="Admin Menu">
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
-                        <div class="dropdown-divider"></div>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add City</a>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update City</a>
-                        <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
-                    </div>
-                </li>
-
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <li class="nav-item dropdown">
+                        <a asp-area="" asp-controller="" asp-action="" class="nav-link dropdown-toggle"
+                           id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
+                           aria-expanded="false">Admin Menu</a>
+                        <div class="dropdown-menu dropdown-primary" aria-labelledby="Admin Menu">
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
+                            <div class="dropdown-divider"></div>
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add City</a>
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update City</a>
+                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
+                        </div>
+                    </li>
+                }
             </ul>
+            @await Html.PartialAsync("_LoginPartial")
             <!-- Links -->
-            <!--Navbar-->
-            <div class="navbar-nav">
-                <a asp-area="" asp-controller="Account" asp-action="Register" class="navbar-toggler-right nav-link">Register</a>
-                <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-toggler-right nav-link">Sign In</a>
-                @* If user is logged out validation *@
-                <a asp-area="" asp-controller="Account" asp-action="Logout" class="navbar-toggler-right nav-link">Sign Out</a>
-            </div>
             <!--/.Navbar-->
         </div>
         <!-- Collapsible content -->
