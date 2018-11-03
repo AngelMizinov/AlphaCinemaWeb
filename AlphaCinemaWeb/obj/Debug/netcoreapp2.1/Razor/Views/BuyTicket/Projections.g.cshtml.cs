@@ -105,7 +105,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("                    <tr class=\"assetRow\">\r\n                        <td>\r\n                            ");
             EndContext();
             BeginContext(969, 221, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1b576c43d38b47e98faffbd31b8e35a8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3b74a4317973433895ebabd6f47b1ce7", async() => {
                 BeginContext(1049, 38, true);
                 WriteLiteral("\r\n                                <img");
                 EndContext();
