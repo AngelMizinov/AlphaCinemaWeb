@@ -103,7 +103,7 @@ using System.Globalization;
             WriteLiteral("                    ");
             EndContext();
             BeginContext(606, 318, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a2a1376948be47bab6224c7e2728fe23", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "973cff61c841448c8a144f434520ad38", async() => {
                 BeginContext(797, 26, true);
                 WriteLiteral("\r\n                        ");
                 EndContext();
@@ -170,7 +170,7 @@ using System.Globalization;
             WriteLiteral("            </div>\r\n        </div>\r\n        <div id=\"ProjectionList\">\r\n            ");
             EndContext();
             BeginContext(1028, 44, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "77368355e5b74a2b98b255eea3ea41ce", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("partial", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "0c4247aacee844e9b8bf6430e2332cf9", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_TagHelpers_PartialTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper>();

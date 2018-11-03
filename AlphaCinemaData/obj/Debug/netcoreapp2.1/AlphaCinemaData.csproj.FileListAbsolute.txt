@@ -9,3 +9,14 @@ D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaData\obj\Debug
 D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.AssemblyInfo.cs
 D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.dll
 D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.pdb
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\bin\Debug\netcoreapp2.1\AlphaCinemaData.deps.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\bin\Debug\netcoreapp2.1\AlphaCinemaData.runtimeconfig.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\bin\Debug\netcoreapp2.1\AlphaCinemaData.runtimeconfig.dev.json
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\bin\Debug\netcoreapp2.1\AlphaCinemaData.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\bin\Debug\netcoreapp2.1\AlphaCinemaData.pdb
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.csprojAssemblyReference.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.csproj.CoreCompileInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.AssemblyInfoInputs.cache
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.AssemblyInfo.cs
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.dll
+D:\Programming\Projects\C#\Telerik\Teamworks\ASP.NET Core MVC\AlphaCinemaWeb[Working with MDB] - Copy\AlphaCinemaData\obj\Debug\netcoreapp2.1\AlphaCinemaData.pdb

@@ -8,6 +8,7 @@ using AlphaCinema.Models.ManageViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using AlphaCinemaData.Models;
 
 namespace AlphaCinema.Controllers
 {
@@ -15,12 +16,12 @@ namespace AlphaCinema.Controllers
 	[Route("[controller]/[action]")]
 	public class ManageController : Controller
 	{
-		private readonly UserManager<ApplicationUser> userManager;
-		private readonly SignInManager<ApplicationUser> signInManager;
+		private readonly UserManager<User> userManager;
+		private readonly SignInManager<User> signInManager;
 
 		public ManageController(
-		  UserManager<ApplicationUser> userManager,
-		  SignInManager<ApplicationUser> signInManager)
+		  UserManager<User> userManager,
+		  SignInManager<User> signInManager)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;

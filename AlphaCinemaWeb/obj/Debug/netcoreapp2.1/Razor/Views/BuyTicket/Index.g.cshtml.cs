@@ -86,7 +86,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("    <li>\r\n        ");
             EndContext();
             BeginContext(184, 151, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b17a87cecfe64aed9eeb9528516fdc27", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ce129aa4fd3b4f8190b182d89568dd93", async() => {
                 BeginContext(322, 9, false);
 #line 11 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\BuyTicket\Index.cshtml"
                                                                                                                                             Write(city.Name);
