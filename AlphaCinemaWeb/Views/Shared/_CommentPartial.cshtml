@@ -1,0 +1,13 @@
+﻿@*@model CommentViewModel
+
+<div class="clearfix">
+    <div class="col-sm-1">
+        <div class="comment-avatar">
+            @char.ToUpper(Model.Author[0])
+        </div>
+    </div>
+    <div class="col-sm-11 comment-body">
+        <p><strong>@Model.Author</strong> <em>@Model.CalculatePostingTime()</em></p>
+        <p>@Model.Content</p>
+    </div>
+</div>*@
