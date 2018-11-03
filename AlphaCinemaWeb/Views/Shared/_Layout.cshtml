@@ -4,15 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Alpha Cinema</title>
-    <link rel="stylesheet" href="~/lib/mdb/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/lib/mdb/css/mdb.min.css" />
-    <link rel="stylesheet" href="~/lib/mdb/css/style.css" /> @*This is our custom styles*@
-    <link rel="stylesheet" href="~/lib/mdb/font/roboto/Roboto-Regular.ttf">
-    <link rel="stylesheet" href="~/css/site.css" />
-    <script src="~/lib/mdl/material.min.js"></script>
-    <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/mdb/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/mdb/css/mdb.min.css" />
+        <link rel="stylesheet" href="~/lib/mdb/css/style.css" /> @*This is our custom styles*@
+        <link rel="stylesheet" href="~/lib/mdb/font/roboto/Roboto-Regular.ttf">
+        <link rel="stylesheet" href="~/css/site.css" />
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/lib/mdb/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="~/lib/mdb/css/mdb.min.css" />
+        <link rel="stylesheet" href="~/lib/mdb/css/style.css" /> @*This is our custom styles*@
+        <link rel="stylesheet" href="~/lib/mdb/font/roboto/Roboto-Regular.ttf">
+        <link rel="stylesheet" href="~/css/site.css" />
+        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
+    </environment>
+
 </head>
 <body>
     <!--Navbar-->
@@ -60,17 +69,6 @@
             </ul>
             @await Html.PartialAsync("_LoginPartial")
             <!-- Links -->
-<<<<<<< HEAD
-=======
-
-            <!--Navbar-->
-            <div class="navbar-nav">
-                <a asp-area="" asp-controller="Account" asp-action="Register" class="navbar-toggler-right nav-link">Register</a>
-                <a asp-area="" asp-controller="Account" asp-action="Login" class="navbar-toggler-right nav-link">Sign In</a>
-                @* If user is logged out validation *@
-                <a asp-area="" asp-controller="Account" asp-action="Logout" class="navbar-toggler-right nav-link">Sign Out</a>
-            </div>
->>>>>>> 1863e7bb48577ef67d0746bfcc046616bbffbf62
             <!--/.Navbar-->
         </div>
         <!-- Collapsible content -->
@@ -88,6 +86,17 @@
         <script src="~/lib//mdb/js/bootstrap.min.js"></script>
         <script src="~/lib//mdb/js/mdb.min.js"></script>
         <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <script src="~/lib//mdb/js/jquery-3.3.1.min.js"></script>
+        <script src="~/lib//mdb/js/popper.min.js"></script>
+        <script src="~/lib//mdb/js/bootstrap.min.js"></script>
+        <script src="~/lib//mdb/js/mdb.min.js"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/dist/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
     </environment>
     @RenderSection("Scripts", required: false)
 </body>

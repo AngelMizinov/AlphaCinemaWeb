@@ -8,8 +8,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AlphaCinema.Models;
-using AlphaCinema.Services;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
 using AlphaCinemaServices.Contracts;
@@ -37,7 +35,6 @@ namespace AlphaCinema
 				.AddDefaultTokenProviders();
 
 			// Add application services.
-			services.AddTransient<IEmailSender, EmailSender>();
 
 			services.AddMvc();
 
