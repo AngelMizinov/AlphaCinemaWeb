@@ -1,26 +1,33 @@
-@*@using Microsoft.AspNetCore.Identity
-@using BlogSystem.Data.Models
+@using Microsoft.AspNetCore.Identity
+@using AlphaCinemaData.Models
 
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
+    <form asp-area="" asp-controller="Account" asp-action="Logout" method="post" class="navbar-nav">
+        <ul class="navbar-nav">
             <li>
-                <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
+                <a asp-controller="Manage" asp-action="Index" title="My Profile"
+                   class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Profile</a>
             </li>
             <li>
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+                <button type="submit" class="btn btn-light my-sm-0" style="height:38px; padding-top:10px;">Sign Out</button>
             </li>
         </ul>
     </form>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="" asp-controller="Account" asp-action="Register">Register</a></li>
-        <li><a asp-area="" asp-controller="Account" asp-action="Login">Log in</a></li>
+    <ul class="navbar-nav">
+        <li>
+            <a asp-area="" asp-controller="Account" asp-action="Register"
+               class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Sign Up</a>
+        </li>
+        <li>
+            <a asp-area="" asp-controller="Account" asp-action="Login"
+               class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Sign In</a>
+        </li>
     </ul>
-}*@
+}
