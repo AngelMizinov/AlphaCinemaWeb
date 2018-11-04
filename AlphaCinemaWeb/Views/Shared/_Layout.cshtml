@@ -51,24 +51,7 @@
             <!-- Split button -->
             @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
             {
-                <div class="btn-group">
-                    <a asp-area="Administration" asp-controller="Home" asp-action="Index"
-                       class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Admin</a>
-
-                    <button type="button" class="btn btn-light dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" style="height:38px; padding-top:10px;">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add Movie</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update Movie</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete Movie</a>
-                        <div class="dropdown-divider"></div>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add City</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update City</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete City</a>
-                    </div>
-                </div>
+                @await Html.PartialAsync("_AdminMenuPartial")
             }
             @await Html.PartialAsync("_LoginPartial")
             <!-- Links -->
@@ -76,7 +59,7 @@
         </div>
         <!-- Collapsible content -->
     </nav>
-    <div class="container body-content" style="margin-top:40px">
+    <div class="container body-content" style="margin-top:35px">
         @RenderBody()
         <hr />
         <footer>
