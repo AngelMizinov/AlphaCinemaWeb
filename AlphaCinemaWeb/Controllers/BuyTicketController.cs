@@ -41,10 +41,10 @@ namespace AlphaCinemaWeb.Controllers
             return View(model);
         }
 
-        public IActionResult UpdateMovie(int cityId, DayOfWeek day)
-        {
-            var projections = projectionsService.GetByTownId(cityId);
-            projections = projections.Where(projection => projection.Day == (int)day);
+		public IActionResult UpdateMovie(int cityId, DayOfWeek day)
+		{
+			var projections = projectionsService.GetByTownId(cityId);
+			projections = projections.Where(projection => projection.Day == (int)day);
 
             var model = new ProjectionListViewModel(projections.Select(p => new ProjectionViewModel(p)), cityId, day);
 
@@ -59,7 +59,7 @@ namespace AlphaCinemaWeb.Controllers
             return RedirectToAction("UpdateMovie", new { cityId = projection.CityId, day = projection.Day});
         }
 
-        public IActionResult Detail(ProjectionViewModel projection)
+		public IActionResult Detail(ProjectionViewModel projection)
         {
             return View();
         }

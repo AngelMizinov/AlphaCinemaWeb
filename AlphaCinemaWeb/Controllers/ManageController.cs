@@ -18,6 +18,8 @@ namespace AlphaCinema.Controllers
 	{
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
+		//private readonly IUsersService usersService;
+
 
 		public ManageController(
 		  UserManager<User> userManager,
@@ -41,11 +43,13 @@ namespace AlphaCinema.Controllers
 
 			var model = new IndexViewModel
 			{
-				// firstname, lastname, age, 
+				FirstName = user.FirstName,
+				LastName = user.LastName,
+				Age = user.Age,
+				// Watched movies collection? 
 				Username = user.UserName,
-				Email = user.Email,
-				PhoneNumber = user.PhoneNumber,
-				IsEmailConfirmed = user.EmailConfirmed,
+				//Email = user.Email,
+				ImageUrl = user.AvatarImageName,
 				StatusMessage = StatusMessage
 			};
 
@@ -66,26 +70,8 @@ namespace AlphaCinema.Controllers
 			{
 				throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
 			}
+			// Ако искаме да ползваме това трябва да extend-нем user-manager, за да може да добавим нашата логика - first name, last name, age и други..
 
-			var email = user.Email;
-			if (model.Email != email)
-			{
-				var setEmailResult = await this.userManager.SetEmailAsync(user, model.Email);
-				if (!setEmailResult.Succeeded)
-				{
-					throw new ApplicationException($"Unexpected error occurred setting email for user with ID '{user.Id}'.");
-				}
-			}
-
-			var phoneNumber = user.PhoneNumber;
-			if (model.PhoneNumber != phoneNumber)
-			{
-				var setPhoneResult = await this.userManager.SetPhoneNumberAsync(user, model.PhoneNumber);
-				if (!setPhoneResult.Succeeded)
-				{
-					throw new ApplicationException($"Unexpected error occurred setting phone number for user with ID '{user.Id}'.");
-				}
-			}
 
 			StatusMessage = "Your profile has been updated";
 			return RedirectToAction(nameof(Index));

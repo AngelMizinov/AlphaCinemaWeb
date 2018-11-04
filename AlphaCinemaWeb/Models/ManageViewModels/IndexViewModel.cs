@@ -9,17 +9,14 @@ namespace AlphaCinema.Models.ManageViewModels
 	public class IndexViewModel
 	{
 		public string Username { get; set; }
+		public string FirstName { get; set; }
+		public string LastName { get; set; }
+		public int Age { get; set; }
 
-		public bool IsEmailConfirmed { get; set; }
+		public string ImageUrl { get; set; }
 
-		[Required]
-		[EmailAddress]
-		public string Email { get; set; }
-
-		[Phone]
-		[Display(Name = "Phone number")]
-		public string PhoneNumber { get; set; }
 
 		public string StatusMessage { get; set; }
+
 	}
 }

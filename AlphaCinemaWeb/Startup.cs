@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
@@ -8,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using AlphaCinema.Models;
-using AlphaCinema.Services;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
 using AlphaCinemaServices.Contracts;
@@ -17,7 +13,7 @@ using AlphaCinemaData.Models;
 
 namespace AlphaCinema
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -37,16 +33,15 @@ namespace AlphaCinema
 				.AddDefaultTokenProviders();
 
 			// Add application services.
-			services.AddTransient<IEmailSender, EmailSender>();
 
 			services.AddMvc();
 
-            services.AddScoped<IProjectionService, ProjectionService>();
-            services.AddScoped<ICityService, CityService>();
-        }
+			services.AddScoped<IProjectionService, ProjectionService>();
+			services.AddScoped<ICityService, CityService>();
+		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
@@ -63,12 +58,82 @@ namespace AlphaCinema
 
 			app.UseAuthentication();
 
+			// seed an admin account
+			//AdministrationManager(serviceProvider);
+
+
 			app.UseMvc(routes =>
 			{
+				routes.MapRoute(
+					name: "Administration",
+					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
 				routes.MapRoute(
 					name: "default",
 					template: "{controller=Home}/{action=Index}/{id?}");
 			});
+		}
+
+
+		private void AdministrationManager(IServiceProvider serviceProvider)
+		{
+			const string adminRoleName = "Administrator";
+			//string[] roleNames = { adminRoleName, "Manager", "Member" };
+
+
+			CreateRole(serviceProvider, adminRoleName);
+
+			// Get these value from "appsettings.json" file.
+			string adminUserEmail = "krasimir@alpha.com";
+			string adminPwd = "Krasimir123!";
+			AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
+		}
+
+		private void CreateRole(IServiceProvider serviceProvider, string roleName)
+		{
+			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+
+			Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
+			roleExists.Wait();
+
+			if (!roleExists.Result)
+			{
+				Task<IdentityResult> roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
+				roleResult.Wait();
+			}
+		}
+
+		private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,
+			string userPwd, string roleName)
+		{
+			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
+
+			Task<User> checkUser = userManager.FindByEmailAsync(userEmail);
+			checkUser.Wait();
+
+			var user = checkUser.Result;
+
+			if (checkUser.Result == null)
+			{
+				var newUser = new User
+				{
+					FirstName = "Krasimir",
+					LastName = "Etov",
+					Age = 21,
+					Email = userEmail,
+					UserName = userEmail
+				};
+
+				Task<IdentityResult> taskCreateUser = userManager.CreateAsync(newUser, userPwd);
+				taskCreateUser.Wait();
+
+				if (taskCreateUser.Result.Succeeded)
+				{
+					user = newUser;
+				}
+			}
+			Task<IdentityResult> newUserRole = userManager.AddToRoleAsync(user, roleName);
+			newUserRole.Wait();
 		}
 	}
 }
