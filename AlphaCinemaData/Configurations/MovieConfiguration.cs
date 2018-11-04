@@ -19,9 +19,13 @@ namespace AlphaCinemaData.Configurations
 				.HasIndex(m => m.Name)
 				.IsUnique(true);
 
+            builder.Property(m => m.Name)
+                .IsRequired(true);
+
 			builder
 				.Property(m => m.Description)
-				.HasMaxLength(150);
+                .IsRequired(true)
+				.HasMaxLength(400);
 
 			builder
 				.Property(m => m.ReleaseYear);

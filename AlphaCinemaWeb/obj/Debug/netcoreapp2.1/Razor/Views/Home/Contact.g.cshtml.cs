@@ -24,22 +24,37 @@ using AlphaCinema;
 #line default
 #line hidden
 #line 3 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
-using AlphaCinema.Models;
+using AlphaCinemaWeb;
 
 #line default
 #line hidden
 #line 4 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
-using AlphaCinema.Models.AccountViewModels;
+using AlphaCinemaWeb.Models.CityModels;
 
 #line default
 #line hidden
 #line 5 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
+using AlphaCinemaWeb.Models.ProjectionModels;
+
+#line default
+#line hidden
+#line 6 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
+using AlphaCinema.Models;
+
+#line default
+#line hidden
+#line 7 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
+using AlphaCinema.Models.AccountViewModels;
+
+#line default
+#line hidden
+#line 8 "D:\Files\C# TeamProjects\AlphaCinemaWeb\AlphaCinemaWeb\AlphaCinemaWeb\Views\_ViewImports.cshtml"
 using AlphaCinema.Models.ManageViewModels;
 
 #line default
 #line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"b93df4061ff384cf01ca37cf92dff41c251f235f", @"/Views/Home/Contact.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"f7a067fd21f8a0ba7a895f7a75510b6444d4761d", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bb3c345fb1dcf79ad8c4913fb50d70943e0df87b", @"/Views/_ViewImports.cshtml")]
     public class Views_Home_Contact : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

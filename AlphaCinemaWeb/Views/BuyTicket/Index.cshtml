@@ -1,13 +1,98 @@
-﻿@model AlphaCinemaWeb.Models.CityModels.CityListViewModel
+﻿@model CityListViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Choose Town</h2>
+<div id="carouselExampleFade" class="carousel slide carousel-fade" data-ride="carousel" data-interval="3000">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img class="d-block w-100" src="~/images/cinema1.jpg" alt="First slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="~/images/cinema2.jpg" alt="Second slide">
+        </div>
+        <div class="carousel-item">
+            <img class="d-block w-100" src="~/images/cinema3.jpg" alt="Third slide">
+        </div>
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
 
-@foreach (var city in Model.Cities)
-{
-    <li>
-        <a class="dropdown-item" asp-controller="BuyTicket" asp-action="Movie" asp-route-cityId="@city." asp-route-day="@DateTime.Now.DayOfWeek">@city.Name</a>
-    </li>
-}
+<div>
+    <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+        <div class="btn-group" role="group" style="padding: 30px">
+            <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                Choose Town
+            </button>
+            <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                @foreach (var city in Model.Cities)
+                {
+                    <a class="dropdown-item" asp-controller="BuyTicket" asp-action="Movie" asp-route-cityId="@city.Id" asp-route-day="@DateTime.Now.DayOfWeek">@city.Name</a>
+                }
+            </div>
+        </div>
+    </div>
+    <p1 style="font-size: 30px; padding: 10px 40px">Our week Specials</p1>
+</div>
+
+
+<!-- Grid row -->
+<div class="row" style="justify-content: flex-end">
+    @foreach (var movie in Model.ListOfMovies.Projections)
+    {
+
+        <!-- Grid column -->
+        <div class="col-lg-3">
+
+            <!--Card Narrower-->
+            <div class="card card-cascade narrower">
+
+                <!--Card image-->
+                <div class="view view-cascade overlay">
+                    @if (movie.ImageUrl == null)
+                    {
+                        <img src="~/images/defaultMovie.jpg" class="card-img-top"
+                             alt="narrower">
+                    }
+                    else
+                    {
+                        <img src="movie.ImageUrl" class="card-img-top"
+                             alt="narrower">
+                    }
+                    <a>
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <!--/.Card image-->
+                <!--Card content-->
+                <div class="card-body card-body-cascade">
+                    <h5 class="pink-text"><i class="fa fa-cutlery"></i>@string.Join(" ", movie.Genres.Take(2))</h5>
+                    <!--Title-->
+                    <h4 class="card-title">@movie.MovieName</h4>
+                    <!--Text-->
+                    <p class="card-text">
+                        @movie.MovieDescription.Substring(0, Math.Min(movie.MovieDescription.Length, 200))...
+                    </p>
+                    @*<a class="btn btn-unique">Button</a>*@
+                    @*Ако решим да добавим бутон за нещо*@
+                </div>
+                <!--/.Card content-->
+
+            </div>
+            <!--/.Card Narrower-->
+
+        </div>
+        <!-- Grid column -->
+    }
+
+
+</div>
+<!-- Grid row -->

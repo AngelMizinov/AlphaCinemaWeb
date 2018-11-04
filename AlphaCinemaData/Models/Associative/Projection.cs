@@ -23,6 +23,8 @@ namespace AlphaCinemaData.Models.Associative
 		[Range(0, 6, ErrorMessage = "Day must be between 0-6")]
 		public int Day { get; set; }
 
-		public ICollection<WatchedMovie> WatchedMovies { get; set; }
+        public int Seats { get; set; }
+
+        public ICollection<WatchedMovie> WatchedMovies { get; set; }
 	}
 }
