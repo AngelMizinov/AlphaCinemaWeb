@@ -1,16 +1,16 @@
 ﻿@model CityViewModel
 
 @{
-    ViewData["Title"] = "Add City";
+    ViewData["Title"] = "Remove City";
 }
 <div class="card">
     <div class="card-header">
-        <h4>Add City into database</h4>
+        <h4>Remove City from database</h4>
     </div>
     <div class="card-body">
         <h5 class="card-title">Type a city name</h5>
         <!-- Grid row -->
-        <form asp-area="Administration" asp-controller="City" asp-action="Add" method="post">
+        <form asp-area="Administration" asp-controller="City" asp-action="Remove" method="post">
             <div class="form-row">
                 <!-- Grid column -->
                 <div class="col-4">
@@ -24,7 +24,7 @@
             </div>
 
             <!-- Grid row -->
-            <button class="btn btn-light my-sm-0" type="submit">Add</button>
+            <button class="btn btn-light my-sm-0" type="submit">Remove</button>
         </form>
         <br />
         <div asp-validation-summary="All" class="text-danger"></div>

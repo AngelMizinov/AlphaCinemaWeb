@@ -10,34 +10,36 @@ using System.Threading.Tasks;
 
 namespace AlphaCinemaServices
 {
-    public class CityService : ICityService
-    {
-        private readonly AlphaCinemaContext context;
+	public class CityService : ICityService
+	{
+		private readonly AlphaCinemaContext context;
 		private City city;
 
 		public CityService(AlphaCinemaContext context)
-        {
-            this.context = context;
-        }
+		{
+			this.context = context;
+		}
 
-        public ICollection<City> GetCities()
-        {
-            return this.context.Cities.ToList();
-        }
+		public async Task<ICollection<City>> GetCities()
+		{
+			var cities = await this.context.Cities
+				.ToListAsync();
+			return cities;
+		}
 
 		public async Task<City> GetCity(string cityName)
 		{
 			var city = await this.context.Cities
 				.Where(c => c.Name == cityName)
 				.FirstOrDefaultAsync();
-			return city; 
+			return city;
 		}
 
 		public async Task AddCity(string cityName)
 		{
 			if (cityName.Length > 50)
 			{
-				throw new ArgumentException("City Name can't be more than 50 characters");
+				throw new ArgumentException("City name should be less than 50 characters");
 			}
 
 			city = await GetCity(cityName);
@@ -51,7 +53,7 @@ namespace AlphaCinemaServices
 				}
 				else
 				{
-					throw new Exception("\nCity is already present in the database.");
+					throw new Exception($"\nCity {cityName} is already present in the database.");
 
 					//throw new EntityAlreadyExistsException("\nCity is already present in the database.");
 				}
@@ -65,6 +67,37 @@ namespace AlphaCinemaServices
 				await this.context.Cities.AddAsync(city);
 				await this.context.SaveChangesAsync();
 			}
+		}
+
+		public async Task DeleteCity(string cityName)
+		{
+			city = await GetCity(cityName);
+			if (city == null || city.IsDeleted)
+			{
+				throw new Exception($"\nCity {cityName} is not present in the database.");
+			}
+
+			this.context.Cities.Remove(city);
+			await this.context.SaveChangesAsync();
+		}
+
+		public async Task UpdateName(string oldName, string newName)
+		{
+			if (oldName.Length > 50)
+			{
+				throw new ArgumentException("City name should be less than 50 characters");
+			}
+
+			city = await GetCity(oldName);
+
+			if (city == null || city.IsDeleted)
+			{
+				throw new Exception($"\nCity {oldName} is not present in the database.");
+			}
+			city.Name = newName;
+
+			this.context.Cities.Update(city);
+			await this.context.SaveChangesAsync();
 		}
 	}
 }

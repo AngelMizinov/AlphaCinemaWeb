@@ -6,9 +6,10 @@ namespace AlphaCinemaServices.Contracts
 {
     public interface ICityService
     {
-        ICollection<City> GetCities();
+		Task<ICollection<City>> GetCities();
 		Task<City> GetCity(string cityName);
 		Task AddCity(string cityName);
-
+		Task DeleteCity(string cityName);
+		Task UpdateName(string oldName, string newName);
 	}
 }
