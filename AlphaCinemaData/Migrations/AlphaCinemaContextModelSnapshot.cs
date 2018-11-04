@@ -61,6 +61,8 @@ namespace AlphaCinemaData.Migrations
 
                     b.Property<int>("OpenHourId");
 
+                    b.Property<int>("Seats");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CityId");
@@ -87,15 +89,15 @@ namespace AlphaCinemaData.Migrations
 
                     b.Property<int>("ProjectionId");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("UserId")
+                        .IsRequired();
 
                     b.HasKey("Id");
 
                     b.HasIndex("ProjectionId");
 
                     b.HasIndex("UserId", "ProjectionId", "Date")
-                        .IsUnique()
-                        .HasFilter("[UserId] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("WatchedMovies");
                 });
@@ -153,13 +155,15 @@ namespace AlphaCinemaData.Migrations
                     b.Property<DateTime?>("DeletedOn");
 
                     b.Property<string>("Description")
-                        .HasMaxLength(150);
+                        .IsRequired()
+                        .HasMaxLength(400);
 
                     b.Property<int>("Duration");
 
                     b.Property<bool>("IsDeleted");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasMaxLength(50);
 
                     b.Property<int>("ReleaseYear");
@@ -167,8 +171,7 @@ namespace AlphaCinemaData.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("Name")
-                        .IsUnique()
-                        .HasFilter("[Name] IS NOT NULL");
+                        .IsUnique();
 
                     b.ToTable("Movies");
                 });
@@ -295,7 +298,7 @@ namespace AlphaCinemaData.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "91482aeb-bcec-4966-bfae-f70079278cfb", ConcurrencyStamp = "ae70f826-f04c-4dfe-85f0-1c7a39aeed81", Name = "Admin" }
+                        new { Id = "30f149b5-fc0c-4e90-9a8a-3536b7ba07da", ConcurrencyStamp = "0c36e591-7319-4ab2-af93-3fff70410f88", Name = "Admin" }
                     );
                 });
 
@@ -425,7 +428,8 @@ namespace AlphaCinemaData.Migrations
 
                     b.HasOne("AlphaCinemaData.Models.User", "User")
                         .WithMany("WatchedMovies")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

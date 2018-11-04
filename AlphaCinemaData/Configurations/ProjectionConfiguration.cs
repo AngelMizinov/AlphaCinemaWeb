@@ -21,7 +21,6 @@ namespace AlphaCinemaData.Configurations
 				})
 				.IsUnique(true);
 
-
 			builder
 				.HasOne(m => m.Movie)
 				.WithMany(p => p.Projections)
