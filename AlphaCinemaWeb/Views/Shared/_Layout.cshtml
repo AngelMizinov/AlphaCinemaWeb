@@ -47,26 +47,29 @@
                 <li class="nav-item">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Some Controller</a>
                 </li>
-
-                <!-- Dropdown -->
-                @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
-                {
-                    <li class="nav-item dropdown">
-                        <a asp-area="" asp-controller="" asp-action="" class="nav-link dropdown-toggle"
-                           id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
-                           aria-expanded="false">Admin Menu</a>
-                        <div class="dropdown-menu dropdown-primary" aria-labelledby="Admin Menu">
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add Movie</a>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update Movie</a>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete Movie</a>
-                            <div class="dropdown-divider"></div>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Add City</a>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Update City</a>
-                            <a asp-area="" asp-controller="Admin" asp-action="Index" class="dropdown-item">Delete City</a>
-                        </div>
-                    </li>
-                }
             </ul>
+            <!-- Split button -->
+            @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+            {
+                <div class="btn-group">
+                    <a asp-area="Administration" asp-controller="Home" asp-action="Index"
+                       class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Admin</a>
+
+                    <button type="button" class="btn btn-light dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false" style="height:38px; padding-top:10px;">
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    <div class="dropdown-menu">
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add Movie</a>
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update Movie</a>
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete Movie</a>
+                        <div class="dropdown-divider"></div>
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add City</a>
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update City</a>
+                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete City</a>
+                    </div>
+                </div>
+            }
             @await Html.PartialAsync("_LoginPartial")
             <!-- Links -->
             <!--/.Navbar-->
