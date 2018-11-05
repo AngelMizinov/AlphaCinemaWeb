@@ -17,6 +17,7 @@ namespace AlphaCinemaWeb.Models.CityModels
         {
             this.Name = city.Name;
             this.Id = city.Id;
+			OldName = Name;
         }
 
 		[Required]
@@ -25,6 +26,11 @@ namespace AlphaCinemaWeb.Models.CityModels
 			MinimumLength = 3)]
 		public string Name { get; set; }
 
-        public int Id { get; set; }
+		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "City name cannot have any numbers.")]
+		[StringLength(15, ErrorMessage = "City name should be between 3 and 50 symbols.",
+			MinimumLength = 3)]
+		public string OldName { get; set; }
+
+		public int Id { get; set; }
 	}
 }
