@@ -92,7 +92,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("\r\n<h2>Manage your account</h2>\r\n\r\n<div>\r\n    <h4>Change your account settings</h4>\r\n    <hr />\r\n    <div class=\"row\">\r\n        <div class=\"col-md-3\">\r\n            <ul class=\"nav nav-pills nav-stacked\">\r\n                <li>\r\n                    ");
             EndContext();
             BeginContext(298, 76, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "32fb8dc7c3eb4115b249d94c77079d4b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b9e33281a7dd4404bee07b36f2ad0be2", async() => {
                 BeginContext(355, 15, true);
                 WriteLiteral("Change password");
                 EndContext();

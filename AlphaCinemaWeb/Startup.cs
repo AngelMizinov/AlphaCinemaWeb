@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
+
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
 

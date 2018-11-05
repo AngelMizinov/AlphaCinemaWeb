@@ -14,7 +14,7 @@
                 @for (int i = 0; i <= 6; i++)
                 {
                     var dayOfWeek = DateTime.Now.AddDays(i).DayOfWeek;
-                    <a class="btn btn-primary" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@Model.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
+                    <a class="btn btn-primary" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
                         @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedDayName(dayOfWeek)
                     </a>
                 }

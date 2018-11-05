@@ -35,7 +35,7 @@
             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                 @foreach (var city in Model.Cities)
                 {
-                    <a class="dropdown-item" asp-controller="BuyTicket" asp-action="Movie" asp-route-cityId="@city.Id" asp-route-day="@DateTime.Now.DayOfWeek">@city.Name</a>
+                    <a class="dropdown-item" asp-controller="BuyTicket" asp-action="Movie" asp-route-cityId="@city.Id">@city.Name</a>
                 }
             </div>
         </div>
@@ -43,18 +43,14 @@
     <p1 style="font-size: 30px; padding: 10px 40px">Our week Specials</p1>
 </div>
 
-
 <!-- Grid row -->
 <div class="row" style="justify-content: flex-end">
     @foreach (var movie in Model.ListOfMovies.Projections)
     {
-
         <!-- Grid column -->
         <div class="col-lg-3">
-
             <!--Card Narrower-->
             <div class="card card-cascade narrower">
-
                 <!--Card image-->
                 <div class="view view-cascade overlay">
                     @if (movie.ImageUrl == null)
@@ -85,14 +81,10 @@
                     @*Ако решим да добавим бутон за нещо*@
                 </div>
                 <!--/.Card content-->
-
             </div>
             <!--/.Card Narrower-->
-
         </div>
         <!-- Grid column -->
     }
-
-
 </div>
 <!-- Grid row -->

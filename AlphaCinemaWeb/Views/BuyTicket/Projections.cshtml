@@ -4,63 +4,87 @@
     ViewData["Title"] = "Projections";
 }
 
-<div id="assets">
-    <h2 style="padding: 20px 0px;">Movie Catalog</h2>
-    <div id="assetsTable">
-        <table class="table table-condensed" id="catalogIndexTable">
-            <thead>
-                <!--The <thread> tag is used to group header content in an HTML table.
-                   The <thread> element is used in conjunction with the <tbody> and
-                <tfoot> elements to specify each part of a table (header, body, footer).-->
-                <tr class="header peach-gradient">
-                    <th style="font-size: 20px; font-weight: bold">Image</th>
-                    <th style="font-size: 20px; font-weight: bold">Title</th>
-                    <th style="font-size: 20px; font-weight: bold">Genres</th>
-                    <th style="font-size: 20px; font-weight: bold">Duration</th>
-                    <th style="font-size: 20px; font-weight: bold">Starting</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var movie in Model.Projections)
-                {
-                    <tr class="assetRow">
-                        <td>
-                            <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
-                                @if (movie.ImageUrl == null)
-                                {
-                                    <img src="~/images/defaultMovie.jpg" class="imageCell" />
-                                }
-                                else
-                                {
-                                    <img src="movie.ImageUrl" class="imageCell" />
-                                }
-                            </a>
-                        </td>
-                        <td>@movie.MovieName</td>
-                        <td>
-                            @foreach (var genre in movie.Genres)
-                            {
-                                <p>@genre </p>
-                            }
-                        </td>
-                        <td>@movie.MovieDuration</td>
-                        <td>@movie.MovieStart</td>
-                        @if (User.Identity.IsAuthenticated)
-                        {
-                        <td>
-                            @{var projection = new ProjectionBookModel();}
-                            <form asp-controller="BuyTicket" asp-action="Book" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                                <input type="hidden" asp-for="@projection.UserName" value="@User.Identity.Name" />
-                                <input type="hidden" asp-for="@projection.ProjectionId" value="@movie.ProjectionId" />
-                                <input type="hidden" asp-for="@projection.Day" value="@Model.Day" />
-                                <input type="hidden" asp-for="@projection.CityId" value="@Model.CityId" />
-                                <button type="submit" class="btn btn-lg btn-success">Book</button>
-                            </form>
-                        </td>
-                        }
-                    </tr>
-                }
-        </table>
+<div class="jumbotron" style="padding: 32px;">
+    <div style="display: flex; align-items: center;">
+        <h2 style="padding: 20px 0px">Movie Catalog</h2>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <h5 class="text-danger" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">You should be registered to book a ticket</h5>
+        }
     </div>
-</div>
+    <div class="row header peach-gradient" style="font-size: 20px; font-weight: bold">
+        <div class="col-md-2">Image</div>
+        <a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.TitleSort" data-ajax="true" data-ajax-update="#ProjectionList">Title</a>
+        <div class="col-md-2">Genres</div>
+        <div class="col-md-2">Duration</div>
+        <a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.HourSort" data-ajax="true" data-ajax-update="#ProjectionList">Starting</a>
+        <div class="col-md-2"></div>
+    </div>
 
+    @foreach (var movie in Model.Projections)
+    {
+        <div class="row" style="display:flex; align-items:center;">
+            <div class="col-md-2">
+                <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
+                    @if (movie.ImageUrl == null)
+                    {
+                        <img src="~/images/defaultMovie.jpg" class="imageCell" />
+                    }
+                    else
+                    {
+                        <img src="movie.ImageUrl" class="imageCell" />
+                    }
+                </a>
+            </div>
+            <div class="col-md-2">@movie.MovieName</div>
+            <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
+            <div class="col-md-2">@movie.MovieDuration</div>
+            <div class="col-md-2">@movie.MovieStart</div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="col-md-2">
+                    @{var projection = new ProjectionBookModel();}
+                    <form asp-controller="BuyTicket" asp-action="Book" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
+                        <input type="hidden" asp-for="@projection.UserName" value="@User.Identity.Name" />
+                        <input type="hidden" asp-for="@projection.ProjectionId" value="@movie.ProjectionId" />
+                        <input type="hidden" asp-for="@projection.Day" value="@ViewBag.DayOfWeek" />
+                        <input type="hidden" asp-for="@projection.CityId" value="@ViewBag.CityId" />
+                        <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Book</button>
+                    </form>
+                </div>
+            }
+            else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
+            {
+                <div class="col-md-2">
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-warning disabled">@movie.Seats Left</button>
+                </div>
+            }
+            else
+            {
+                <div class="col-md-2">
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">NoSeats</button>
+                </div>
+            }
+        </div>
+    }
+
+    <nav aria-label="Page navigation example">
+        <ul class="pagination pg-blue">
+            @for (int p = 1; p <= ViewBag.MaxPages; p++)
+            {
+                if (p == ViewBag.CurrentPage)
+                {
+                    <li class="page-item active">
+                        <a class="page-link" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.DayOfWeek" asp-route-sortOrder="@ViewBag.CurrentSort" asp-route-page=@p data-ajax="true" data-ajax-update="#ProjectionList">@p</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="page-item">
+                        <a class="page-link" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.DayOfWeek" asp-route-sortOrder="@ViewBag.CurrentSort" asp-route-page=@p data-ajax="true" data-ajax-update="#ProjectionList">@p</a>
+                    </li>
+                }
+            }
+        </ul>
+    </nav>
+</div>

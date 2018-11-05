@@ -8,15 +8,18 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
     {
         public ProjectionViewModel(Projection projection)
         {
-            this.MovieStart = projection.OpenHour.Hours + ":" + projection.OpenHour.Minutes + "h";
-            this.MovieName = projection.Movie.Name;
+            this.Seats = projection.Seats;
             this.ProjectionId = projection.Id;
+            this.MovieName = projection.Movie.Name;
             this.MovieDuration = projection.Movie.Duration;
             this.MovieDescription = projection.Movie.Description;
             this.Genres = projection.Movie.MovieGenres.Select(mg => mg.Genre.Name);
+            this.MovieStart = $"{projection.OpenHour.Hours:D2}:{projection.OpenHour.Minutes:D2}h";
         }
 
         public int ProjectionId { get; set; }
+
+        public int Seats { get; set; }
 
         public string MovieStart { get; set; }
 

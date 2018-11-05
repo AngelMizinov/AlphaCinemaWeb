@@ -115,12 +115,12 @@ using AlphaCinemaData.Models;
             WriteLiteral("    ");
             EndContext();
             BeginContext(200, 554, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5692b96d19e8471eb147cd9c21753e2b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7ac5c76df88b4fe0ac26421e791db7d1", async() => {
                 BeginContext(296, 69, true);
                 WriteLiteral("\r\n        <ul class=\"navbar-nav\">\r\n            <li>\r\n                ");
                 EndContext();
                 BeginContext(365, 179, false);
-                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "037add101f5a4d3da62cfab50af4c3a0", async() => {
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c2000d201fb9423fb35d67b0de131907", async() => {
                     BeginContext(533, 7, true);
                     WriteLiteral("Profile");
                     EndContext();
@@ -184,7 +184,7 @@ else
             WriteLiteral("    <ul class=\"navbar-nav\">\r\n        <li>\r\n            ");
             EndContext();
             BeginContext(823, 172, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "029079b0ed37483faf825a59ed629804", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c02b825a4654fdaa0e60cb974c01dab", async() => {
                 BeginContext(984, 7, true);
                 WriteLiteral("Sign Up");
                 EndContext();
@@ -213,7 +213,7 @@ else
             WriteLiteral("\r\n        </li>\r\n        <li>\r\n            ");
             EndContext();
             BeginContext(1038, 169, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "de3eb020fcae4bdf8a313585b0f83ba2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9e2397ca44d845098520b4b6947233df", async() => {
                 BeginContext(1196, 7, true);
                 WriteLiteral("Sign In");
                 EndContext();

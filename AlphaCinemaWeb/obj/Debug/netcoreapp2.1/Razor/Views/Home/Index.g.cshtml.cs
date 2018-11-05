@@ -107,7 +107,7 @@ using AlphaCinema.Models.ManageViewModels;
                     ");
             EndContext();
             BeginContext(346, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "0abbbe916ede4951872d67010ae9b273", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "e832b91c5afb418ab0237d808cd0d859", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -128,7 +128,7 @@ using AlphaCinema.Models.ManageViewModels;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(460, 143, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d45563fba56040f0abb65e19b6ae726a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "589da064c657456fbc95053810f7b4b6", async() => {
                 BeginContext(509, 90, true);
                 WriteLiteral("\r\n                        <div class=\"mask rgba-white-slight\"></div>\r\n                    ");
                 EndContext();
@@ -159,7 +159,7 @@ using AlphaCinema.Models.ManageViewModels;
                     <small class=""text-muted"">");
             EndContext();
             BeginContext(964, 82, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3cba5f60252041709807322c1d851f86", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0499a5bd041a4beb9668c471b8c539af", async() => {
                 BeginContext(1034, 8, true);
                 WriteLiteral("Book Now");
                 EndContext();
@@ -196,7 +196,7 @@ using AlphaCinema.Models.ManageViewModels;
                     ");
             EndContext();
             BeginContext(1408, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "9d069d68ad6040eba4e7fac4ca05fd61", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "80af9a1be4434b83be36d4606ccfcb72", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -227,7 +227,7 @@ using AlphaCinema.Models.ManageViewModels;
                     <small class=""text-muted"">");
             EndContext();
             BeginContext(1989, 84, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5f0073e29f9449aabf8e637f66975b96", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "684d6052f4d44bc7bcc3dae86819ec30", async() => {
                 BeginContext(2061, 8, true);
                 WriteLiteral("Book Now");
                 EndContext();
@@ -267,7 +267,7 @@ using AlphaCinema.Models.ManageViewModels;
                     ");
             EndContext();
             BeginContext(2435, 92, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "83891b853bed40ac9d71437fb74e4175", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagOnly, "79a6b9bd3b9f4e47bc0e2c91dfb1048f", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -298,7 +298,7 @@ using AlphaCinema.Models.ManageViewModels;
                     <small class=""text-muted"">");
             EndContext();
             BeginContext(3016, 84, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6281aeace1934f68ab214b6f85949a1b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d1395480dc074d2da733ca064f573cf0", async() => {
                 BeginContext(3088, 8, true);
                 WriteLiteral("Book Now");
                 EndContext();
