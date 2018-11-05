@@ -1,6 +1,8 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaServices.Exceptions;
+using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -37,9 +39,9 @@ namespace AlphaCinemaServices
 
 		public async Task AddCity(string cityName)
 		{
-			if (cityName.Length > 50)
+			if (cityName.Length > 50 || cityName.Length < 3)
 			{
-				throw new ArgumentException("City name should be less than 50 characters");
+				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
 			}
 
 			city = await GetCity(cityName);
@@ -53,9 +55,8 @@ namespace AlphaCinemaServices
 				}
 				else
 				{
-					throw new Exception($"\nCity {cityName} is already present in the database.");
 
-					//throw new EntityAlreadyExistsException("\nCity is already present in the database.");
+					throw new EntityAlreadyExistsException($"\nCity {cityName} is already present in the database.");
 				}
 			}
 			else
@@ -74,7 +75,7 @@ namespace AlphaCinemaServices
 			city = await GetCity(cityName);
 			if (city == null || city.IsDeleted)
 			{
-				throw new Exception($"\nCity {cityName} is not present in the database.");
+				throw new EntityDoesntExistException($"\nCity [{cityName}] is not present in the database.");
 			}
 
 			this.context.Cities.Remove(city);
@@ -83,16 +84,21 @@ namespace AlphaCinemaServices
 
 		public async Task UpdateName(string oldName, string newName)
 		{
-			if (oldName.Length > 50)
+			if (oldName == newName)
 			{
-				throw new ArgumentException("City name should be less than 50 characters");
+				throw new EntityAlreadyExistsException($"\nCity [{oldName}] is already present in the database");
+			}
+			if (oldName.Length > 50 || oldName.Length < 3
+				|| newName.Length > 50 || newName.Length < 3)
+			{
+				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
 			}
 
 			city = await GetCity(oldName);
 
 			if (city == null || city.IsDeleted)
 			{
-				throw new Exception($"\nCity {oldName} is not present in the database.");
+				throw new EntityDoesntExistException($"\nCity [{oldName}] is not present in the database.");
 			}
 			city.Name = newName;
 

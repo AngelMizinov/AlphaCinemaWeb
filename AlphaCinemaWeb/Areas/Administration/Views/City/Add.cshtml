@@ -22,13 +22,11 @@
                     </div>
                 </div>
             </div>
-
             <!-- Grid row -->
             <button class="btn btn-light my-sm-0" type="submit">Add</button>
         </form>
-        <br />
         <div asp-validation-summary="All" class="text-danger"></div>
-        @await Html.PartialAsync("_CityResultPartial")
+        @await Html.PartialAsync("_ResultPartial")
     </div>
 </div>
 

@@ -1,4 +1,6 @@
 ﻿using AlphaCinemaData.Models;
+using AlphaCinemaWeb.Models.CityModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
