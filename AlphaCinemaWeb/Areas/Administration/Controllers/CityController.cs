@@ -62,8 +62,8 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			catch (EntityAlreadyExistsException e)
 			{
 				this.TempData["Error-Message"] = e.Message;
-				return this.RedirectToAction("Add", "City");
-			}
+                return this.RedirectToAction("Add", "City");
+            }
 
 			this.TempData["Success-Message"] = $"You successfully added city with name [{cityViewModel.Name}]!";
 

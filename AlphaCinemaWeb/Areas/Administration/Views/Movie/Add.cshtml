@@ -1,0 +1,79 @@
+﻿@model MovieViewModel
+
+@{
+    ViewData["Title"] = "Add Movie";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Add Movie</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Type a movie name</h5>
+        <!-- Grid row -->
+        <form asp-area="Administration" asp-controller="Movie" asp-action="Add" method="post">
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="Description" class="control-label">Description</label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="ReleaseYear" class="control-label">Release year</label>
+                        <input asp-for="ReleaseYear" class="form-control" />
+                        <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="Duration" class="control-label">Duration (in minutes)</label>
+                        <input asp-for="Duration" class="form-control" />
+                        <span asp-validation-for="Duration" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid row -->
+            <button class="btn btn-light my-sm-0" type="submit">Add</button>
+        </form>
+
+        <br />
+        
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @await Html.PartialAsync("_MovieResultPartial")
+
+
+    </div>
+
+
+
+</div>
