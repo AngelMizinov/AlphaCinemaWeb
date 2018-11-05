@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Alpha Cinema</title>
+    <title>@ViewData["Title"] = Home</title>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     <environment include="Development">
@@ -27,7 +27,6 @@
     <!--Navbar-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-        <!-- Navbar brand -->
         <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Alpha Cinema</a>
 
         <!-- Collapse button -->
@@ -44,31 +43,11 @@
                 <li class="nav-item">
                     <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link">Some Controller</a>
-                </li>
             </ul>
             <!-- Split button -->
             @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
             {
-                <div class="btn-group">
-                    <a asp-area="Administration" asp-controller="Home" asp-action="Index"
-                       class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Admin</a>
-
-                    <button type="button" class="btn btn-light dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false" style="height:38px; padding-top:10px;">
-                        <span class="sr-only">Toggle Dropdown</span>
-                    </button>
-                    <div class="dropdown-menu">
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add Movie</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update Movie</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete Movie</a>
-                        <div class="dropdown-divider"></div>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Add City</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update City</a>
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Delete City</a>
-                    </div>
-                </div>
+                @await Html.PartialAsync("_AdminMenuPartial")
             }
             @await Html.PartialAsync("_LoginPartial")
             <!-- Links -->
@@ -76,11 +55,11 @@
         </div>
         <!-- Collapsible content -->
     </nav>
-    <div class="container body-content" style="margin-top:40px">
+    <div class="container body-content" style="margin-top:35px">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; 2018 - Fake Agents™</p>
+            <p>&copy; @DateTime.Now.Year - Fake Agents™</p>
         </footer>
     </div>
     <environment include="Development">

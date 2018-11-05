@@ -1,0 +1,37 @@
+﻿@model MovieRemoveViewModel
+
+@{
+    ViewData["Title"] = "Remove Movie";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Remove Movie</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Type a movie name</h5>
+        <!-- Grid row -->
+        <form asp-area="Administration" asp-controller="Movie" asp-action="Remove" method="post">
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="Name" class="control-label">Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid row -->
+            <button class="btn btn-light my-sm-0" type="submit">Remove</button>
+        </form>
+        <br />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @await Html.PartialAsync("_MovieResultPartial")
+    </div>
+</div>
+
+
+

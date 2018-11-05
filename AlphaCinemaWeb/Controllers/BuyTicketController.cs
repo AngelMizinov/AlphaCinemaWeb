@@ -5,6 +5,7 @@ using AlphaCinemaWeb.Models.ProjectionModels;
 using AlphaCinemaWeb.Models.CityModels;
 using System;
 using AlphaCinemaWeb.Models.BindingModels.ProjectionModels;
+using System.Threading.Tasks;
 
 namespace AlphaCinemaWeb.Controllers
 {
@@ -19,10 +20,14 @@ namespace AlphaCinemaWeb.Controllers
             this.cityService = cityService;
         }
 
+<<<<<<< HEAD
         [HttpGet]
         public IActionResult Index()
+=======
+        public async Task<IActionResult> Index()
+>>>>>>> 32bfdd23403d63363b2ed3ff63ac5046846c5c28
         {
-            var cities = cityService.GetCities();
+            var cities = await cityService.GetCities();
             var projections = projectionsService.GetTopProjections(3);
 
             var topProjections = new ProjectionListViewModel(projections.Select(p => new ProjectionViewModel(p)));

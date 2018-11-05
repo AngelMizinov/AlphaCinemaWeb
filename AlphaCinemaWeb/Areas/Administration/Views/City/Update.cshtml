@@ -1,0 +1,17 @@
+﻿@model CityUpdateViewModel
+
+@{
+    ViewData["Title"] = "Update City";
+}
+<div class="card">
+    <div class="card-header">
+        <h4>Update City name</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Type city names</h5>
+        <!-- Grid row -->
+        @await Html.PartialAsync("_CityInputPartial")
+
+        @await Html.PartialAsync("_ResultPartial")
+    </div>
+</div>
