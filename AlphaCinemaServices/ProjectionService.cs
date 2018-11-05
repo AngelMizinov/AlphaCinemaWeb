@@ -31,7 +31,7 @@ namespace AlphaCinemaServices
                 .Include(p => p.Movie)
                     .ThenInclude(m => m.MovieGenres)
                         .ThenInclude(mg => mg.Genre)
-                //.Where(p => p.Day == (int)day)
+                .Where(p => p.Day == (int)day)
                 .ToList();
         }
 
