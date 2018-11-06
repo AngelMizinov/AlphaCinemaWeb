@@ -8,8 +8,10 @@ namespace AlphaCinemaServices.Contracts
     {
 		Task<ICollection<City>> GetCities();
 		Task<City> GetCity(string cityName);
-		Task AddCity(string cityName);
+        Task<City> GetCity(int cityId);
+
+        Task AddCity(string cityName);
 		Task DeleteCity(string cityName);
-		Task UpdateName(string oldName, string newName);
+		Task UpdateName(int cityId, string newName);
 	}
 }

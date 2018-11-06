@@ -1,6 +1,8 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaServices.Exceptions;
+using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -90,17 +92,21 @@ namespace AlphaCinemaServices
 
         public async Task UpdateName(string oldName, string newName)
         {
+            if (oldName == newName)
+            {
+                throw new EntityAlreadyExistsException($"\nMovie {oldName} is already present in the database");
+            }
+            
             if (oldName.Length > 50)
             {
-                throw new ArgumentException("Movie name should be less than 50 characters");
+                throw new InvalidClientInputException("Movie name should be less than 50 characters");
             }
 
             movie = await this.GetMovie(oldName);
 
             if(movie == null || movie.IsDeleted)
             {
-                throw new Exception($"\nMovie {oldName} is not present in the database.");
-                //throw new EntityDoesntExistException($"\nMovie {oldName} is not present in the database.");
+                throw new EntityDoesntExistException($"\nMovie {oldName} is not present in the database.");
             }
 
             movie.Name = newName;

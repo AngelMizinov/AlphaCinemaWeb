@@ -23,6 +23,7 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
         }
 
         [Required]
+        [MaxLength(50, ErrorMessage = "Movie length cannot be more tha 50 symbols.")]
         public string Name { get; set; }
 
         [Required]

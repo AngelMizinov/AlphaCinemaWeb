@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaServices.Exceptions;
 using AlphaCinemaWeb.Areas.Administration.Models.MovieModels;
+using AlphaCinemaWeb.Exceptions;
 using AlphaCinemaWeb.Models.MovieViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,7 +20,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         {
             this.movieService = movieService;
         }
-        
+
         [Area("Administration")]
         [Authorize(Roles = "Administrator")]
         public IActionResult Index()
@@ -47,7 +49,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
             var movie = await this.movieService.GetMovie(viewModel.Name);
 
-            if(movie != null)
+            if (movie != null)
             {
                 this.TempData["Error-Message"] = $"Movie with name {viewModel.Name} already exist!";
                 return this.View();
@@ -65,7 +67,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             }
 
             this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
-            
+
             return this.View();
         }
 
@@ -111,6 +113,56 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             return this.View();
         }
 
+        [Area("Administration")]
+        [Authorize(Roles = "Administrator")]
+        [HttpGet]
+        public ActionResult Update()
+        {
+            return this.View();
+        }
 
+
+        [Area("Administration")]
+        [Authorize(Roles = "Administrator")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Update(MovieUpdateViewModel viewModel)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return View();
+            }
+
+            var movie = await this.movieService.GetMovie(viewModel.OldName);
+
+            if(movie == null)
+            {
+                this.TempData["Error-Message"] = $"Movie with name [{viewModel.OldName}] doesn't exist!";
+                return this.View();
+            }
+
+            try
+            {
+                await this.movieService.UpdateName(viewModel.OldName, viewModel.Name);
+            }
+            catch (EntityAlreadyExistsException e)
+            {
+                this.TempData["Error-Message"] = e.Message;
+                return this.View();
+            }
+            catch (InvalidClientInputException e)
+            {
+                this.TempData["Error-Message"] = e.Message;
+                return this.View();
+            }
+            catch (EntityDoesntExistException e)
+            {
+                this.TempData["Error-Message"] = e.Message;
+                return this.View();
+            }
+
+            this.TempData["Success-Message"] = $"You successfully changed movie name {viewModel.OldName} to {viewModel.Name}!";
+            return this.View();
+        }
     }
 }

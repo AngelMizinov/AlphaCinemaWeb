@@ -29,10 +29,10 @@ namespace AlphaCinemaWeb.Areas.Administration.Models.CityModels
 
 		public int Id { get; set; }
 
-		[Required]
-		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "City name cannot have any numbers.")]
-		[StringLength(15, ErrorMessage = "City name should be between 3 and 50 symbols.",
-			MinimumLength = 3)]
-		public string OldName { get; set; }
+		//[Required]
+		//[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "City name cannot have any numbers.")]
+		//[StringLength(15, ErrorMessage = "City name should be between 3 and 50 symbols.",
+		//	MinimumLength = 3)]
+		//public string OldName { get; set; }
 	}
 }

@@ -1,4 +1,4 @@
-﻿@model CityUpdateViewModel
+﻿@model CityUpdateListViewModel
 
 @{
     ViewData["Title"] = "Update City";
@@ -8,9 +8,29 @@
         <h4>Update City name</h4>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Type city names</h5>
         <!-- Grid row -->
-        @await Html.PartialAsync("_CityInputPartial")
+
+        <div>
+            <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+                <div class="btn-group" role="group" style="padding: 30px">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        Choose City
+                    </button>
+                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                        @foreach (var city in Model.Cities)
+                        {
+                            <a class="dropdown-item" asp-controller="City" asp-action="SetId" asp-route-cityId="@city.Id" asp-route-cityName="@city.Name" data-ajax="true" data-ajax-update="#city-form">@city.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="city-form">
+            <partial name="_CityInputPartial" model="@(new CityUpdateViewModel())" />
+        </div>
+
 
         @await Html.PartialAsync("_ResultPartial")
     </div>

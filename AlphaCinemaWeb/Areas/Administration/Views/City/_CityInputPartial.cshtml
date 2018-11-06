@@ -5,15 +5,13 @@
         <!-- Grid column -->
         <div class="col-4">
             <!-- Material input -->
-            <div class="md-form" style="margin-bottom:40px;">
-                <label asp-for="OldName" class="control-label">Old City Name</label>
-                <input asp-for="OldName" class="form-control" />
-                <span asp-validation-for="OldName" class="text-danger"></span>
-            </div>
+
             <div class="md-form">
-                <label asp-for="Name" class="control-label">New City Name</label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                @*<label asp-for="@Model.Name" class="control-label"></label>*@
+                <input asp-for="@Model.Name" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                <div asp-validation-summary="All" class="text-danger"></div>
             </div>
         </div>
     </div>
@@ -21,4 +19,3 @@
     <button class="btn btn-light my-sm-0" type="submit">Update</button>
 </form>
 <br />
-<div asp-validation-summary="All" class="text-danger"></div>
