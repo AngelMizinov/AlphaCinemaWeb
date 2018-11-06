@@ -14,19 +14,15 @@ namespace AlphaCinemaData.Configurations
 			builder
 				.Property(opHour => opHour.Hours)
 				.IsRequired(true);
-
-			builder
-				.HasIndex(opHour => opHour.Hours)
-				.IsUnique(true);
-
+            
 			builder
 				.Property(opHour => opHour.Minutes)
 				.IsRequired(true);
 
-			builder
-				.HasIndex(opHour => opHour.Minutes)
-				.IsUnique(true);
-
+            builder
+                .HasIndex(opHour => new { opHour.Hours, opHour.Minutes })
+                .IsUnique(true);
+            
 			builder
 				.HasMany(oh => oh.Projections)
 				.WithOne(p => p.OpenHour)

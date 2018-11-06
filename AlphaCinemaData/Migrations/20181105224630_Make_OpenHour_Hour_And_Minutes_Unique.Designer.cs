@@ -4,14 +4,16 @@ using AlphaCinemaData.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AlphaCinemaData.Migrations
 {
     [DbContext(typeof(AlphaCinemaContext))]
-    partial class AlphaCinemaContextModelSnapshot : ModelSnapshot
+    [Migration("20181105224630_Make_OpenHour_Hour_And_Minutes_Unique")]
+    partial class Make_OpenHour_Hour_And_Minutes_Unique
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -54,8 +56,6 @@ namespace AlphaCinemaData.Migrations
                     b.Property<int>("Day");
 
                     b.Property<DateTime?>("DeletedOn");
-
-                    b.Property<bool>("IsBooked");
 
                     b.Property<bool>("IsDeleted");
 
@@ -297,9 +297,7 @@ namespace AlphaCinemaData.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-
-                        new { Id = "8e2700f0-96ff-443c-89aa-a99e5205e418", ConcurrencyStamp = "c7ba712b-9971-4c74-8c7c-6ddb8bac102f", Name = "Admin" }
-
+                        new { Id = "7f73432b-332b-402f-8952-7854ba9cf09c", ConcurrencyStamp = "0efc1faf-95d7-47f9-8da7-e3da2e790429", Name = "Admin" }
                     );
                 });
 

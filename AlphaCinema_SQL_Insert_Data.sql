@@ -1,4 +1,4 @@
-use AlphaCinema
+use AlphaCinemaDB
 
 --First delete all data in tables
 --and set Id to start from 1
@@ -31,8 +31,8 @@ Cities([IsDeleted],[Name])
 VALUES 
 ('false','Sofia'),
 ('false','Plovdiv'),
-('false','Varna')
---('false','Burgas'),
+('false','Varna'),
+('false','Burgas')
 --('false','Veliko Turnovo'),
 --('false','Vidin'),
 --('false','Blagoevgrad')
