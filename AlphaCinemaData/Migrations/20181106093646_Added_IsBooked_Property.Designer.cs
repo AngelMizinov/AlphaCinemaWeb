@@ -4,14 +4,16 @@ using AlphaCinemaData.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AlphaCinemaData.Migrations
 {
     [DbContext(typeof(AlphaCinemaContext))]
-    partial class AlphaCinemaContextModelSnapshot : ModelSnapshot
+    [Migration("20181106093646_Added_IsBooked_Property")]
+    partial class Added_IsBooked_Property
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -194,7 +196,10 @@ namespace AlphaCinemaData.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Hours", "Minutes")
+                    b.HasIndex("Hours")
+                        .IsUnique();
+
+                    b.HasIndex("Minutes")
                         .IsUnique();
 
                     b.ToTable("OpenHours");
@@ -297,9 +302,7 @@ namespace AlphaCinemaData.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-
                         new { Id = "8e2700f0-96ff-443c-89aa-a99e5205e418", ConcurrencyStamp = "c7ba712b-9971-4c74-8c7c-6ddb8bac102f", Name = "Admin" }
-
                     );
                 });
 

@@ -6,7 +6,7 @@ namespace AlphaCinemaServices.Contracts
 {
     public interface IProjectionService
     {
-        IEnumerable<Projection> GetByTownId(int townId, DayOfWeek? day = null);
+        IEnumerable<Projection> GetByTownId(int townId, string userId, DayOfWeek? day = null);
 
         IEnumerable<Projection> GetTopProjections(int count);
     }

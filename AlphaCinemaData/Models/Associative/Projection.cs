@@ -25,6 +25,8 @@ namespace AlphaCinemaData.Models.Associative
 
         public int Seats { get; set; }
 
+        public bool IsBooked { get; set; }
+
         public ICollection<WatchedMovie> WatchedMovies { get; set; }
 	}
 }
