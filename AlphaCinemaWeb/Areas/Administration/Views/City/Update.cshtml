@@ -10,10 +10,10 @@
     <div class="card-body">
         <!-- Grid row -->
 
-        <div>
+        <div class="d-inline-block">
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group" style="padding: 30px">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                <div class="btn-group" role="group">
+                    <button id="btnGroupDrop1" type="button" class="btn btn-light my-sm-0 btn-info dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         Choose City
                     </button>
@@ -23,6 +23,11 @@
                             <a class="dropdown-item" asp-controller="City" asp-action="SetId" asp-route-cityId="@city.Id" asp-route-cityName="@city.Name" data-ajax="true" data-ajax-update="#city-form">@city.Name</a>
                         }
                     </div>
+
+                    <div>
+                        <h3></h3>
+                    </div>
+
                 </div>
             </div>
         </div>

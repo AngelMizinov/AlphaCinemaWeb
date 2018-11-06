@@ -12,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinemaWeb.Areas.Administration.Controllers
 {
+    [Area("Administration")]
+    [Authorize(Roles = "Administrator")]
     public class MovieController : Controller
     {
         private readonly IMovieService movieService;
@@ -21,23 +23,17 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             this.movieService = movieService;
         }
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         public IActionResult Index()
         {
             return View();
         }
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add(MovieViewModel viewModel)
@@ -72,16 +68,12 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public IActionResult Remove()
         {
             return this.View();
         }
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Remove(MovieRemoveViewModel viewModel)
@@ -113,8 +105,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             return this.View();
         }
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpGet]
         public ActionResult Update()
         {
@@ -122,8 +112,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
 
-        [Area("Administration")]
-        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Update(MovieUpdateViewModel viewModel)

@@ -49,7 +49,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			var city = await this.cityService.GetCity(cityViewModel.Name);
 			if (city != null)
 			{
-				this.TempData["Error-Message"] = $"City with name [{cityViewModel.Name}] already exists!";
+				this.TempData["Error-Message"] = $"City with name {cityViewModel.Name} already exists!";
 				return this.RedirectToAction("Add", "City");
 			}
 			try
@@ -67,7 +67,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
                 return this.RedirectToAction("Add", "City");
             }
 
-			this.TempData["Success-Message"] = $"You successfully added city with name [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully added city with name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Add", "City");
 		}
@@ -94,7 +94,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			var city = await this.cityService.GetCity(cityViewModel.Name);
 			if (city == null)
 			{
-				this.TempData["Error-Message"] = $"City with name [{cityViewModel.Name}] doesn't exist!";
+				this.TempData["Error-Message"] = $"City with name {cityViewModel.Name} doesn't exist!";
 				return this.RedirectToAction("Remove", "City");	
 			}
 
@@ -108,7 +108,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 				return this.RedirectToAction("Remove", "City");
 			}
 
-			this.TempData["Success-Message"] = $"You successfully deleted city with name [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully deleted city with name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Remove", "City");
 		}
@@ -151,9 +151,8 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 		{
 			if (!this.ModelState.IsValid)
 			{
-                
                 return RedirectToAction("Update");
-			}
+            }
 			var city = await this.cityService.GetCity(cityViewModel.Id);
 			if (city == null)
 			{
@@ -181,7 +180,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 				return this.RedirectToAction("Update", "City");
 			}
 
-			this.TempData["Success-Message"] = $"You successfully changed the city with new name [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully changed the city with new name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Update", "City");
 		}
