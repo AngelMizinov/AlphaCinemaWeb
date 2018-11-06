@@ -36,7 +36,7 @@ namespace AlphaCinemaWeb.Controllers
         [HttpGet]
         public IActionResult Movie(int cityId)
         {
-            var projections = projectionsService.GetByTownId(cityId).OrderBy(p => p.Movie.Name);
+            var projections = projectionsService.GetByTownId(cityId, "1").OrderBy(p => p.Movie.Name);
             const int pageSize = 3;
             var projectionsModel = new ProjectionListViewModel(projections.Take(pageSize).Select(p => new ProjectionViewModel(p)));
             ViewBag.TitleSort = "title_desc";
@@ -52,7 +52,7 @@ namespace AlphaCinemaWeb.Controllers
 		public IActionResult UpdateMovie(int cityId, DayOfWeek day, string sortOrder = "title", int page = 1)
 		{
             const int pageSize = 3;
-            var projections = projectionsService.GetByTownId(cityId, day);
+            var projections = projectionsService.GetByTownId(cityId, "1");
             ViewBag.TitleSort = sortOrder == "title" ? "title_desc" : "title";//Тук нагласяме какво да се подаде от view-то следващия път като кликнем на сорт-линка
             //Винаги когато подадем нещо друго, различно от title следващото сортиране по име ще е в нарастващ ред
             ViewBag.HourSort = sortOrder == "hour" ? "hour_desc" : "hour";
