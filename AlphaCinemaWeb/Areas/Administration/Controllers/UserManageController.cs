@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaCinemaServices.Contracts;
-using AlphaCinemaWeb.Areas.Administration.Models.ManageRoleViewModels;
+using AlphaCinemaWeb.Areas.Administration.Models.UserManageViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,11 +11,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinemaWeb.Areas.Administration.Controllers
 {
-	public class ManageRoleController : Controller
+	public class UserManageController : Controller
 	{
+		// GET: /<controller>/
 		private readonly IUserService userService;
 
-		public ManageRoleController(IUserService userService)
+		public UserManageController(IUserService userService)
 		{
 			this.userService = userService;
 		}
@@ -35,7 +36,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 				}
 			}
 			var model = new UsersListViewModel(userViewModels.Select(u => u));
-			
+
 			return View(model);
 		}
 
@@ -49,13 +50,13 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			if (user == null)
 			{
 				this.TempData["Error-Message"] = $"User does not exist!";
-				return this.RedirectToAction("ManageRole", "Index");
+				return this.RedirectToAction("Index", "UserManage");
 			}
 			await this.userService.SetRole(user.Id, "Administrator");
 
 			this.TempData["Success-Message"] = $"You successfully made [{user.UserName}] administrator!";
 
-			return this.RedirectToAction("Index", "ManageRole");
+			return this.RedirectToAction("Index", "UserManage");
 		}
 
 		[Area("Administration")]
@@ -68,14 +69,14 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			if (user == null)
 			{
 				this.TempData["Error-Message"] = $"User does not exist!";
-				return this.RedirectToAction("ManageRole", "Index");
+				return this.RedirectToAction("Index", "UserManage");
 			}
-			
+
 			await this.userService.RemoveRole(user.Id, "Administrator");
 
 			this.TempData["Success-Message"] = $"You successfully removed [{user.UserName}] from administrator!";
 
-			return this.RedirectToAction("Index", "ManageRole");
+			return this.RedirectToAction("Index", "UserManage");
 		}
 	}
 }
