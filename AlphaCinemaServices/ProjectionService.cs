@@ -39,10 +39,14 @@ namespace AlphaCinemaServices
                 )).ToDictionary(pair => pair.Key, pair => pair.Value);
 
             //Тук пазим резервациите на нашия User
-            var userBookings = bookings
-                .Where(booking => booking.UserId == userId)
-                .Select(booking => booking.ProjectionId)
-                .ToHashSet();
+            var userBookings = new HashSet<int>();
+            if (!string.IsNullOrWhiteSpace(userId))
+            {
+                userBookings = bookings
+                    .Where(booking => booking.UserId == userId)
+                    .Select(booking => booking.ProjectionId)
+                    .ToHashSet();
+            }
 
             var projections = this.context.Projections
                 .Where(p => p.CityId == townId)
@@ -52,12 +56,11 @@ namespace AlphaCinemaServices
                 .Include(p => p.Movie)
                     .ThenInclude(m => m.MovieGenres)
                         .ThenInclude(mg => mg.Genre)
-                .Where(p => p.Day == (int)day)//Тук ги взимаме за текущия ден от седмицата
-                //.Select(p => p.Seats - projectionSeats[p.Id]) //&&/ p.IsBooked = userBookings.Contains(p.Id))//Вадим от всяка прожекция местата и за деня
+                //.Where(p => p.Day == (int)day)//Тук ги взимаме за текущия ден от седмицата
                 .ToList();
 
-            projections.ForEach(p => p.Seats -= projectionSeats[p.Id]);
-
+            projections.ForEach(p => { p.Seats -= projectionSeats.TryGetValue(p.Id, out int taken) ? taken : 0; p.IsBooked = userBookings.Contains(p.Id); });
+            //Вадим от всяка прожекция местата и за деня и проверяваме дали в booking-а на нашия user има съответната прожекция
             return projections;
         }
 
