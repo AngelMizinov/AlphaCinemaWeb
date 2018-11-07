@@ -1,19 +1,27 @@
 ﻿@model CityUpdateViewModel
 
+<div class="blockquote">
+    <div>
+        <font color="#343a40" size="4">@Model.Name</font>
+    </div>
+</div>
+
+
 <form asp-area="Administration" asp-controller="City" asp-action="Update" method="post">
+
     <div class="form-row">
         <!-- Grid column -->
+
         <div class="col-4">
             <!-- Material input -->
-            <div class="md-form" style="margin-bottom:40px;">
-                <label asp-for="OldName" class="control-label">Old City Name</label>
-                <input asp-for="OldName" class="form-control" />
-                <span asp-validation-for="OldName" class="text-danger"></span>
-            </div>
+
             <div class="md-form">
-                <label asp-for="Name" class="control-label">New City Name</label>
-                <input asp-for="Name" class="form-control" />
+                <label asp-for="Name" class="control-label">New Name</label>
+                <input asp-for="Name" value="" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+                
+                <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
+                <div asp-validation-summary="All" class="text-danger"></div>
             </div>
         </div>
     </div>
@@ -21,4 +29,3 @@
     <button class="btn btn-light my-sm-0" type="submit">Update</button>
 </form>
 <br />
-<div asp-validation-summary="All" class="text-danger"></div>
