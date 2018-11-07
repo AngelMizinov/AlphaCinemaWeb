@@ -4,9 +4,12 @@
     ViewData["Title"] = "Add Movie";
 }
 
+
 <div class="card">
     <div class="card-header">
+
         <h4>Add Movie</h4>
+
     </div>
     <div class="card-body">
         <h5 class="card-title">Type a movie name</h5>
@@ -24,7 +27,6 @@
                 </div>
             </div>
 
-
             <div class="form-row">
                 <!-- Grid column -->
                 <div class="col-4">
@@ -36,7 +38,6 @@
                     </div>
                 </div>
             </div>
-
 
             <div class="form-row">
                 <!-- Grid column -->
@@ -62,17 +63,36 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="col-4">
+                    <div class="card">
+
+                        <h5 class="card-header">Genres</h5>
+
+                        <div class="card-body">
+                            @foreach (var genre in ViewBag.Genres)
+                            {
+                               <label class="customcheck">@genre.Name<input type="checkbox">
+                                    <span class="checkmark"></span>
+                                </label>
+                            }
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <br />
+
             <!-- Grid row -->
             <button class="btn btn-light my-sm-0" type="submit">Add</button>
-        </form>
 
+            <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary">Go Back</a>
+        </form>
         <br />
-        
+
         <div asp-validation-summary="All" class="text-danger"></div>
         @await Html.PartialAsync("_ResultPartial")
 
     </div>
-
-
 
 </div>

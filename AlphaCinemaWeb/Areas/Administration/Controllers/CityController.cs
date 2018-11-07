@@ -115,19 +115,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
         [Area("Administration")]
         [Authorize(Roles = "Administrator")]
-        [HttpGet]
-        public IActionResult SetId(int cityId,string cityName)
+        [HttpPost]
+        public IActionResult SetId(CityUpdateListViewModel viewModel)
         {
-            this.ViewBag.CityId = cityId;
-            this.ViewBag.CityName = cityName;
-
-            City city = new City()
+            var model = new CityUpdateListViewModel()
             {
-                Id = cityId,
-                Name = cityName
+                Id = viewModel.Id,
+                Name = viewModel.Name
             };
             
-            return PartialView("_CityInputPartial", new CityUpdateViewModel(city));
+            return PartialView("_CityInputPartial", model);
         }
         
         [Area("Administration")]
@@ -147,7 +144,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Update(CityUpdateViewModel cityViewModel)
+		public async Task<IActionResult> Update(CityUpdateListViewModel cityViewModel)
 		{
 			if (!this.ModelState.IsValid)
 			{
@@ -162,7 +159,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
 			try
 			{
-				//await this.cityService.UpdateName(cityViewModel.Id, cityViewModel.Name);
+				await this.cityService.UpdateName(city.Id, cityViewModel.Name);
 			}
 			catch (EntityAlreadyExistsException e)
 			{

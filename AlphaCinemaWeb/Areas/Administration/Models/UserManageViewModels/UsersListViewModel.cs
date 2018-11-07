@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace AlphaCinemaWeb.Areas.Administration.Models.ManageRoleViewModels
+namespace AlphaCinemaWeb.Areas.Administration.Models.UserManageViewModels
 {
 	public class UsersListViewModel
 	{

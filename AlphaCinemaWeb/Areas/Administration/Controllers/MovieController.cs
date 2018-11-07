@@ -17,10 +17,12 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
     public class MovieController : Controller
     {
         private readonly IMovieService movieService;
+        private readonly IGenreService genreService;
 
-        public MovieController(IMovieService movieService)
+        public MovieController(IMovieService movieService, IGenreService genreService)
         {
             this.movieService = movieService;
+            this.genreService = genreService;
         }
 
         public IActionResult Index()
@@ -29,8 +31,13 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public IActionResult Add()
+        public async Task<IActionResult> Add()
         {
+            //take all genres from Database
+            var allGenres =  await this.genreService.GetGenres();
+
+            this.ViewBag.Genres = allGenres;
+
             return View();
         }
 

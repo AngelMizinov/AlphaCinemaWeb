@@ -1,4 +1,5 @@
 ﻿using AlphaCinemaData.Models;
+using AlphaCinemaData.Models.Associative;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,7 +12,7 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
     {
         public MovieViewModel()
         {
-
+           
         }
 
         public MovieViewModel(Movie movie)
@@ -20,6 +21,8 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
             this.Description = movie.Description;
             this.ReleaseYear = movie.ReleaseYear.ToString();
             this.Duration = movie.Duration.ToString();
+
+            this.Genres = new List<Genre>();
         }
 
         [Required]
@@ -38,5 +41,6 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
         [Required]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Duration must have only digits.")]
         public string Duration { get; set; }
+        public ICollection<Genre> Genres { get; set; }
     }
 }
