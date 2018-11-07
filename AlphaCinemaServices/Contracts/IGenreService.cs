@@ -6,18 +6,15 @@ using System.Threading.Tasks;
 
 namespace AlphaCinemaServices.Contracts
 {
-    public interface IGenreService
-    {
-        Task<ICollection<Genre>> GetGenres();
+	public interface IGenreService
+	{
+		Task<ICollection<Genre>> GetGenres();
+		Task<Genre> GetGenre(string genreName);
+		Task<Genre> GetGenre(int genreId);
 
-        Task<Genre> GetGenre(string genreName);
+		Task AddGenre(string genreName);
+		Task DeleteGenre(string genreName);
 
-        Task<Genre> GetGenre(int genreId);
-
-        Task AddGenre(string genreName);
-
-        Task DeleteGenre(string genreName);
-
-        Task UpdateName(int genreId, string newName);
-    }
+		Task UpdateName(int genreId, string newName);
+	}
 }

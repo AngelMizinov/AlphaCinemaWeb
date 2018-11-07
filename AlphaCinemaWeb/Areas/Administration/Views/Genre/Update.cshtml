@@ -1,45 +1,42 @@
-﻿@model CityUpdateListViewModel
+﻿@model GenreUpdateListViewModel
 
 @{
-    ViewData["Title"] = "Update City";
+    ViewData["Title"] = "Update Genre";
 }
 <div class="card">
     <div class="card-header">
-
-        <h4>Update City name</h4>
+        <h4>Update Genre name</h4>
     </div>
-
     <div class="card-body">
         <!-- Grid row -->
 
-        <div>
+        <div class="d-inline-block">
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light my-sm-0 btn-info dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                        Choose City
+                        Choose Genre
                     </button>
-
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        @foreach (var city in Model.Cities)
+                        @foreach (var genre in Model.Genres)
                         {
-                            <form asp-controller="City" asp-action="SetId" method="post" data-ajax="true" data-ajax-update="#city-form">
-                                <input type="hidden" asp-for="@Model.Id" value="@city.Id" />
-                                <input type="hidden" asp-for="@Model.Name" value="@city.Name" />
-                                <button type="submit" class="dropdown-item">@city.Name</button>
-                            </form>
+                            <a class="dropdown-item" asp-controller="Genre" asp-action="SetId" asp-route-genreId="@genre.Id" asp-route-genreName="@genre.Name"
+                               data-ajax="true" data-ajax-update="#genre-form">@genre.Name</a>
                         }
+                    </div>
+
+                    <div>
+                        <h3></h3>
                     </div>
 
                 </div>
             </div>
         </div>
 
-        <div id="city-form">
-
-            <partial name="_CityInputPartial" model="@Model" />
-
+        <div id="genre-form">
+            <partial name="_GenreInputPartial" model="@(new GenreUpdateViewModel())" />
         </div>
+
 
         @await Html.PartialAsync("_ResultPartial")
     </div>

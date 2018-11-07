@@ -103,21 +103,22 @@ namespace AlphaCinemaServices
 		{
             city = await this.GetCity(cityId);
 
-			//if (oldName == newName)
-			//{
-			//	throw new EntityAlreadyExistsException($"\nCity [{oldName}] is already present in the database");
-			//}
-
-			//if (oldName.Length > 50 || oldName.Length < 3
-			//	|| newName.Length > 50 || newName.Length < 3)
-			//{
-			//	throw new InvalidClientInputException("City name should be between 3 and 50 characters");
-			//}
-            
 			if (city == null || city.IsDeleted)
 			{
 				throw new EntityDoesntExistException($"\nCity is not present in the database.");
 			}
+
+			if (city.Name == newName)
+			{
+				throw new EntityAlreadyExistsException($"\nCity [{city.Name}] is already present in the database");
+			}
+
+			if (city.Name.Length > 50 || city.Name.Length < 3
+				|| newName.Length > 50 || newName.Length < 3)
+			{
+				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
+			}
+
 			city.Name = newName;
 
 			this.context.Cities.Update(city);
