@@ -4,35 +4,35 @@
     font-weight: bold;
 }
 
-.logo > a {
-    color: #ddd; 
-    text-decoration: none;
-    transition-duration: 0.5s;
-}
+    .logo > a {
+        color: #ddd;
+        text-decoration: none;
+        transition-duration: 0.5s;
+    }
 
-.logo > a:hover{
-    color: #fff; 
-    transition: ease;
-    text-decoration: none;
-    transition-duration: 0.5s;
-}
+        .logo > a:hover {
+            color: #fff;
+            transition: ease;
+            text-decoration: none;
+            transition-duration: 0.5s;
+        }
 
-.page-content{
+.page-content {
     padding: 20px;
     margin: 10px auto;
 }
 
-.page-heading{
+.page-heading {
     color: #e9e8e7;
 }
 
-.splash{
+.splash {
     background-image: url("/images/catalog.png");
     background-repeat: no-repeat;
     min-height: 200px;
 }
 
-.card-icon{
+.card-icon {
     color: #777;
     font-size: 40px;
     padding: 24px;
@@ -62,7 +62,7 @@
     color: #fff;
 }
 
-.homeLabel{
+.homeLabel {
     background-color: rgba(0,0,0,0.3);
     padding: 4px;
 }
@@ -75,27 +75,27 @@
     font-size: 1.3em;
 }
 
-#catalogIndexTable td{
-    vertical-align:middle;
-}
+    #catalogIndexTable td {
+        vertical-align: middle;
+    }
 
-#catalogIndexTable tr:hover{
-    background-color: #eee;
-}
+    #catalogIndexTable tr:hover {
+        background-color: #eee;
+    }
 
-#patrons{
+#patrons {
     background: url('/images/patron.jpg') bottom left 15% no-repeat #555;
 }
 
-.branchInfo{
+.branchInfo {
     padding-top: 30px;
 }
 
-#branches{
+#branches {
     background: url('/images/bldg.jpg') bottom right 15% no-repeat #555;
 }
 
-#assets{
+#assets {
     margin: 0 auto;
 }
 
@@ -104,13 +104,13 @@
     font-size: 1.2em;
 }
 
-.strongTd{
+.strongTd {
     font-weight: bold;
 }
 
-.strongTd a{
-    color: #337ab7;
-}
+    .strongTd a {
+        color: #337ab7;
+    }
 
 .customTable th {
     text-align: left;
@@ -123,84 +123,84 @@
     padding: 10px;
 }
 
-#assetsTable td{
+#assetsTable td {
     border-bottom: 1px solid #ddd;
 }
 
-.authorLabel{
+.authorLabel {
     font-weight: bold;
     font-size: 1.3em;
 }
 
-.titleLabel{
+.titleLabel {
     font-weight: bold;
     font-size: 1.3em;
 }
 
-#itemTitle{
+#itemTitle {
     font-size: 2.3em;
 }
 
-#itemAuthor{
+#itemAuthor {
     font-size: 1.6em;
 }
 
-#itemStatus{
+#itemStatus {
     font-weight: bold;
     font-size: 1.3em;
 }
 
-#itemType{
+#itemType {
     font-size: 1.6em;
     color: #888;
 }
 
-.itemLabel{
-    font-weight:bold;
+.itemLabel {
+    font-weight: bold;
 }
 
 
-.itemValue{
-    text-align:right;
+.itemValue {
+    text-align: right;
     font-size: 0.8em;
 }
 
-.availability{
+.availability {
     padding-top: 20px;
     font-size: 1.2em;
 }
 
-.detailImage{
+.detailImage {
     width: 200px;
     padding-bottom: 6px;
 }
 
-.detailInfo{
+.detailInfo {
     padding: 10px;
     font-size: 1.3em;
     color: #555;
 }
 
-.detailHeading{
+.detailHeading {
     padding: 10px;
 }
 
-#branchDescription{
+#branchDescription {
     width: 500px;
     padding: 18px 0 12px 4px;
 }
 
-.branchContact{
+.branchContact {
     padding: 12px 0 16px 0;
     font-size: 1.2em;
 }
 
-#patronHasFees{
+#patronHasFees {
     color: #c62222;
     font-weight: bold;
 }
 
-#patronNoFees{
+#patronNoFees {
     color: #2f6fc7;
     font-weight: bold;
 }
@@ -212,3 +212,27 @@ input[type="submit"].makealink {
     color: blue;
     cursor: pointer;
 }
+
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 15px;
+    right: 20px;
+    z-index: 99;
+    font-size: 18px;
+    border: none;
+    outline: none;
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+    padding: 12px;
+    border-radius: 4px;
+    margin: 4px 2px;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+    #scrollToTopBtn:hover {
+        background-color: dodgerblue;
+        opacity: 1;
+    }

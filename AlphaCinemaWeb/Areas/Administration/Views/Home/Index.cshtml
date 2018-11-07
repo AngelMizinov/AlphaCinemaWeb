@@ -1,54 +1,49 @@
 ﻿@{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Admin Panel";
 }
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" id="myTabAttr" role="tablist">
-    <li class="nav-item">
-        <a class="nav-link active" id="movie-tab-attr" data-toggle="tab" href="#movie-attr" role="tab" aria-controls="movie-attr" aria-selected="true">Movie</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link" id="city-tab-attr" data-toggle="tab" href="#city-attr" role="tab" aria-controls="city-attr" aria-selected="false">City</a>
-    </li>
-</ul>
-
-<!-- Tab panes -->
-<div class="tab-content">
-    <div class="tab-pane active" id="movie-attr" role="tabpanel" aria-labelledby="movie-tab-attr">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4>Available Movie operations</h4>
-            </div>
-            <div class="form-row">
-                <div class="card-body col-5">
-                    <a asp-area="Administration" asp-controller="Movie" asp-action="Add" class="btn btn-light my-sm-0">Add Movie</a>
+<div class="container">
+    <!-- Grid row -->
+    <div class="row">
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-12 mb-4">
+            <!--Card Primary-->
+            <div class="card" style="height:435px; width:350px">
+                <div class="view overlay">
+                    <img class="card-img-top" src="~/images/BuyTickets.png" alt="Card image" style="height:230px; width:100%">
+                    <a asp-area="Administration" asp-controller="Database" asp-action="Index">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
                 </div>
-                <div class="card-body col-5">
-                    <a asp-area="Administration" asp-controller="Movie" asp-action="Update" class="btn btn-light my-sm-0">Update Movie</a>
+                <div class="card-body">
+                    <h4 class="card-title">Редактирай базата!</h4>
+                    <p class="card-text">Тук можеш да манипулираш данните в базата!</p>
                 </div>
-                <div class="card-body col-2">
-                    <a asp-area="Administration" asp-controller="Movie" asp-action="Remove" class="btn btn-light my-sm-0">Remove Movie</a>
+                <div class="card-footer">
+                    <small class="text-muted"><a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-secondary">Manage Database</a></small>
                 </div>
             </div>
+            <!--/.Card Primary-->
         </div>
-    </div>
-
-    <div class="tab-pane" id="city-attr" role="tabpanel" aria-labelledby="city-tab-attr">
-        <div class="card">
-            <div class="card-header text-center">
-                <h4>Available City operations</h4>
+        <!-- Grid column -->
+        <div class="col-lg-4 col-md-6 mb-4">
+            <!--Card Primary-->
+            <div class="card" style="height:435px; width:350px">
+                <div class="view overlay">
+                    <img class="card-img-top" src="~/images/BuyTickets.png" alt="Card image" style="height:230px; width:100%">
+                    <a asp-area="Administration" asp-controller="ManageRole" asp-action="Index">
+                        <div class="mask rgba-white-slight"></div>
+                    </a>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Присвои роля!</h4>
+                    <p class="card-text">Тук можеш да присвоиш роля на даден потребител</p>
+                </div>
+                <div class="card-footer">
+                    <small class="text-muted"><a asp-area="Administration" asp-controller="ManageRole" asp-action="Index" class="btn btn-secondary">Change Role</a></small>
+                </div>
             </div>
-            <div class="form-row">
-                <div class="card-body col-5">
-                    <a asp-area="Administration" asp-controller="City" asp-action="Add" class="btn btn-light my-sm-0">Add City</a>
-                </div>
-                <div class="card-body col-5">
-                    <a asp-area="Administration" asp-controller="City" asp-action="Update" class="btn btn-light my-sm-0">Update City</a>
-                </div>
-                <div class="card-body col-2">
-                    <a asp-area="Administration" asp-controller="City" asp-action="Remove" class="btn btn-light my-sm-0">Remove City</a>
-                </div>
-            </div>
+            <!--/.Card Primary-->
         </div>
     </div>
 </div>

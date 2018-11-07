@@ -1,0 +1,23 @@
+﻿@model  MovieUpdateViewModel
+
+
+@{
+    ViewData["Title"] = "Update Movie";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>Update Movie</h4>
+
+        <div class="card-body">
+            <h5 class="card-title">Type city names</h5>
+            @await Html.PartialAsync("_MovieInputPartial")
+
+            @await Html.PartialAsync("_ResultPartial")
+        </div>
+
+
+    </div>
+
+</div>
+

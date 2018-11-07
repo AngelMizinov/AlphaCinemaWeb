@@ -29,15 +29,15 @@
                     <span asp-validation-for="Password" class="text-danger"></span>
                 </div>
                 <div class="form-group">
-                    <div class="checkbox">
-                        <label asp-for="RememberMe">
-                            <input asp-for="RememberMe" />
+                    <div class="custom-control custom-checkbox">
+                        <input asp-for="RememberMe" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                        <label asp-for="RememberMe" class="custom-control-label" for="defaultUnchecked">
                             @Html.DisplayNameFor(m => m.RememberMe)
                         </label>
                     </div>
                 </div>
                 <div class="form-group">
-                    <button type="submit" class="btn btn-default">Log in</button>
+                    <button type="submit" class="btn btn-primary">Log in</button>
                 </div>
                 <div class="form-group">
                     <p>

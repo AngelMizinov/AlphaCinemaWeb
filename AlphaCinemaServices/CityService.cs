@@ -46,7 +46,15 @@ namespace AlphaCinemaServices
 			return city;
 		}
 
-		public async Task AddCity(string cityName)
+        public async Task<City> GetCity(int cityId)
+        {
+            var city = await this.context.Cities
+                .Where(c => c.Id== cityId)
+                .FirstOrDefaultAsync();
+            return city;
+        }
+
+        public async Task AddCity(string cityName)
 		{
 			if (cityName.Length > 50 || cityName.Length < 3)
 			{
@@ -91,23 +99,24 @@ namespace AlphaCinemaServices
 			await this.context.SaveChangesAsync();
 		}
 
-		public async Task UpdateName(string oldName, string newName)
+		public async Task UpdateName(int cityId, string newName)
 		{
-			if (oldName == newName)
-			{
-				throw new EntityAlreadyExistsException($"\nCity [{oldName}] is already present in the database");
-			}
-			if (oldName.Length > 50 || oldName.Length < 3
-				|| newName.Length > 50 || newName.Length < 3)
-			{
-				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
-			}
+            city = await this.GetCity(cityId);
 
-			city = await GetCity(oldName);
+			//if (oldName == newName)
+			//{
+			//	throw new EntityAlreadyExistsException($"\nCity [{oldName}] is already present in the database");
+			//}
 
+			//if (oldName.Length > 50 || oldName.Length < 3
+			//	|| newName.Length > 50 || newName.Length < 3)
+			//{
+			//	throw new InvalidClientInputException("City name should be between 3 and 50 characters");
+			//}
+            
 			if (city == null || city.IsDeleted)
 			{
-				throw new EntityDoesntExistException($"\nCity [{oldName}] is not present in the database.");
+				throw new EntityDoesntExistException($"\nCity is not present in the database.");
 			}
 			city.Name = newName;
 

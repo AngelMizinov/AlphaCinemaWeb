@@ -1,19 +1,15 @@
 ﻿<div class="btn-group">
     <a asp-area="Administration" asp-controller="Home" asp-action="Index"
-       class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Admin</a>
+       class="btn btn-light my-sm-0" role="button" style="height:38px; padding-top:10px;">Admin Panel</a>
 
     <button type="button" class="btn btn-light dropdown-toggle px-3" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false" style="height:38px; padding-top:10px;">
         <span class="sr-only">Toggle Dropdown</span>
     </button>
     <div class="dropdown-menu">
-        <a asp-area="Administration" asp-controller="Movie" asp-action="Add" class="dropdown-item">Add Movie</a>
-        <a asp-area="Administration" asp-controller="Home" asp-action="Index" class="dropdown-item">Update Movie</a>
-        <a asp-area="Administration" asp-controller="Movie" asp-action="Remove" class="dropdown-item">Remove Movie</a>
+        <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="dropdown-item">Manage Database</a>
         <div class="dropdown-divider"></div>
-        <a asp-area="Administration" asp-controller="City" asp-action="Add" class="dropdown-item">Add City</a>
-        <a asp-area="Administration" asp-controller="City" asp-action="Update" class="dropdown-item">Update City</a>
-        <a asp-area="Administration" asp-controller="City" asp-action="Remove" class="dropdown-item">Remove City</a>
+        <a asp-area="Administration" asp-controller="ManageRole" asp-action="Index" class="dropdown-item">Update User Role</a>
     </div>
 </div>
 

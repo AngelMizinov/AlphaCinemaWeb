@@ -7,11 +7,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Models.CityModels
 {
 	public class CityUpdateListViewModel
 	{
+        public CityUpdateListViewModel()
+        {
+
+        }
+
 		public CityUpdateListViewModel(IEnumerable<CityUpdateViewModel> cities)
 		{
 			this.Cities = cities;
-		}
-
-		public IEnumerable<CityUpdateViewModel> Cities{ get; set; }
+        }
+        
+        public IEnumerable<CityUpdateViewModel> Cities{ get; set; }
 	}
 }

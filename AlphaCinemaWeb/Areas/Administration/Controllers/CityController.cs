@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
+using System.Threading.Tasks;
+using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaServices.Exceptions;
 using AlphaCinemaWeb.Areas.Administration.Models.CityModels;
@@ -47,7 +49,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			var city = await this.cityService.GetCity(cityViewModel.Name);
 			if (city != null)
 			{
-				this.TempData["Error-Message"] = $"City with name [{cityViewModel.Name}] already exists!";
+				this.TempData["Error-Message"] = $"City with name {cityViewModel.Name} already exists!";
 				return this.RedirectToAction("Add", "City");
 			}
 			try
@@ -65,7 +67,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
                 return this.RedirectToAction("Add", "City");
             }
 
-			this.TempData["Success-Message"] = $"You successfully added city with name [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully added city with name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Add", "City");
 		}
@@ -92,7 +94,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			var city = await this.cityService.GetCity(cityViewModel.Name);
 			if (city == null)
 			{
-				this.TempData["Error-Message"] = $"City with name [{cityViewModel.Name}] doesn't exist!";
+				this.TempData["Error-Message"] = $"City with name {cityViewModel.Name} doesn't exist!";
 				return this.RedirectToAction("Remove", "City");	
 			}
 
@@ -106,17 +108,38 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 				return this.RedirectToAction("Remove", "City");
 			}
 
-			this.TempData["Success-Message"] = $"You successfully deleted city with name [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully deleted city with name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Remove", "City");
 		}
 
-		[Area("Administration")]
+        [Area("Administration")]
+        [Authorize(Roles = "Administrator")]
+        [HttpGet]
+        public IActionResult SetId(int cityId,string cityName)
+        {
+            this.ViewBag.CityId = cityId;
+            this.ViewBag.CityName = cityName;
+
+            City city = new City()
+            {
+                Id = cityId,
+                Name = cityName
+            };
+            
+            return PartialView("_CityInputPartial", new CityUpdateViewModel(city));
+        }
+        
+        [Area("Administration")]
 		[Authorize(Roles = "Administrator")]
 		[HttpGet]
-		public ActionResult Update()
+		public async Task<IActionResult> Update()
 		{
-			return this.View();
+            var cities = await this.cityService.GetCities();
+
+            var models = new CityUpdateListViewModel(cities.Select(city => new CityUpdateViewModel(city)));
+            
+            return this.View(models);
 		}
 
 
@@ -128,18 +151,18 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 		{
 			if (!this.ModelState.IsValid)
 			{
-				return View();
-			}
-			var city = await this.cityService.GetCity(cityViewModel.OldName);
+                return RedirectToAction("Update");
+            }
+			var city = await this.cityService.GetCity(cityViewModel.Id);
 			if (city == null)
 			{
-				this.TempData["Error-Message"] = $"City with name [{cityViewModel.OldName}] doesn't exist!";
+				this.TempData["Error-Message"] = $"City doesn't exist!";
 				return this.RedirectToAction("Update", "City");
 			}
 
 			try
 			{
-				await this.cityService.UpdateName(cityViewModel.OldName, cityViewModel.Name);
+				await this.cityService.UpdateName(cityViewModel.Id, cityViewModel.Name);
 			}
 			catch (EntityAlreadyExistsException e)
 			{
@@ -157,7 +180,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 				return this.RedirectToAction("Update", "City");
 			}
 
-			this.TempData["Success-Message"] = $"You successfully changed [{cityViewModel.OldName}] to [{cityViewModel.Name}]!";
+			this.TempData["Success-Message"] = $"You successfully changed the city with new name {cityViewModel.Name}!";
 
 			return this.RedirectToAction("Update", "City");
 		}
