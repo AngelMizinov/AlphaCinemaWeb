@@ -22,12 +22,13 @@ namespace AlphaCinemaServices
             var hour = DateTime.Now.Hour;
             var minute = DateTime.Now.Minute;
             var dateDay = DateTime.Now.Day;
-            var dateMonth = DateTime.Now.Day;
-            var dateYear = DateTime.Now.Day;
+            var dateMonth = DateTime.Now.Month;
+            var dateYear = DateTime.Now.Year;
             day = day ?? DateTime.Now.DayOfWeek;
 
-            //Взимаме запазените места за деня за всяка прожекция
+            //Взимаме запазените места за деня за всяка прожекция, които не са били изтрити по някаква причина
             var bookings = this.context.WatchedMovies
+                .Where(booking => booking.IsDeleted == false)
                 .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay);
 
             //Създаваме речник, в който ключа ни е Id-то на прожекцията, стойността броя хора които са я резервирали
@@ -77,16 +78,58 @@ namespace AlphaCinemaServices
                 .ToList();
         }
 
-        public void AddReservation(string userId, int projectionId)
+        public WatchedMovie AddReservation(string userId, int projectionId)
         {
-            var reservation = new WatchedMovie()
-            {
-                UserId = userId,
-                ProjectionId = projectionId,
-                Date = DateTime.Now
-            };
+            var reservation = CheckIfReservationExist(userId, projectionId);
 
-            this.context.Add(reservation);
+            if (reservation == null)
+            {
+                reservation = new WatchedMovie()
+                {
+                    UserId = userId,
+                    ProjectionId = projectionId,
+                    Date = DateTime.Now
+                };
+                this.context.Add(reservation);
+            }
+            else
+            {
+                reservation.Date = DateTime.Now;
+                reservation.IsDeleted = false;
+                this.context.Update(reservation);
+            }
+
+            this.context.SaveChanges();
+            return reservation;
+        }
+
+        private WatchedMovie CheckIfReservationExist(string userId, int projectionId)
+        {
+            var dateDay = DateTime.Now.Day;
+            var dateMonth = DateTime.Now.Month;
+            var dateYear = DateTime.Now.Year;
+
+            return this.context.WatchedMovies
+                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
+                .Where(booking => booking.UserId == userId && booking.ProjectionId == projectionId)
+                .FirstOrDefault();
+        }
+
+        public WatchedMovie DeclineReservation(string userId, int projectionId)
+        {
+            var dateDay = DateTime.Now.Day;
+            var dateMonth = DateTime.Now.Month;
+            var dateYear = DateTime.Now.Year;
+
+            var currentBooking = this.context.WatchedMovies
+                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
+                .Where(booking => booking.UserId == userId && booking.ProjectionId == projectionId)
+                .FirstOrDefault();
+
+            this.context.WatchedMovies.Remove(currentBooking);
+            this.context.SaveChanges();
+
+            return currentBooking;
         }
     }
 }

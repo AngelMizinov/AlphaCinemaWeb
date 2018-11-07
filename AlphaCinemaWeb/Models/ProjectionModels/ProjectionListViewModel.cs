@@ -23,6 +23,8 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
             this.CurrentPage = currentPage;
             this.Projections = projections;
         }
+        public int ProjectionId { get; set; }
+
         public DayOfWeek Day { get; set; }
 
         public string SortOrder { get; set; }

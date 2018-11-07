@@ -26,39 +26,32 @@
             <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
             <div class="col-md-2">@movie.MovieDuration</div>
             <div class="col-md-2">@movie.MovieStart</div>
-            @if (User.Identity.IsAuthenticated && !movie.IsBooked)
-            {
-                <div class="col-md-2">
-                    <form asp-controller="BuyTicket" asp-action="Book" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                        <input type="hidden" name="UserId" value="@Model.UserId" />
-                        <input type="hidden" name="CityId" value="@Model.CityId" />
-                        <input type="hidden" name="ProjectionId" value="@movie.ProjectionId" />
-                        <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Book</button>
+            <div class="col-md-2">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <form asp-controller="BuyTicket" asp-action="@(movie.IsBooked ? "Decline" : "Book")" method="post">
+                        <input type="hidden" asp-for="ProjectionId" value="@movie.ProjectionId" />
+                        <input type="hidden" asp-for="Day" value="@Model.Day" />
+                        <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+                        <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                        <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
+                        <input type="hidden" asp-for="CurrentPage" value="@Model.CurrentPage" />
+                        <button type="submit" style="width: 100%;" class="btn btn-lg @(movie.IsBooked ? "btn-danger" : "btn-success")">@(movie.IsBooked ? "Decline" : "Book")</button>
                     </form>
-                </div>
-            }
-            else if (User.Identity.IsAuthenticated && movie.IsBooked)
-            {
-                <div class="col-md-2">
-                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">Booked</button>
-                </div>
-            }
-            else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
-            {
-                <div class="col-md-2">
+                }
+                else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
+                {
                     <button type="submit" style="width: 100%;" class="btn btn-lg btn-warning disabled">@movie.Seats Left</button>
-                </div>
-            }
-            else if (!User.Identity.IsAuthenticated && (movie.Seats == 0))
-            {
-                <div class="col-md-2">
-                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">Booked</button>
-                </div>
-            }
+                }
+                else if (!User.Identity.IsAuthenticated && (movie.Seats == 0))
+                {
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">NoSeats</button>
+                }
+            </div>
         </div>
     }
 
     <partial name="_NavigationPartial" model="Model" />
 
-    
+
 </div>

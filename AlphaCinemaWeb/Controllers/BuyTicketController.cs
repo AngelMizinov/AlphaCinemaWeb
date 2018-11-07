@@ -91,12 +91,20 @@ namespace AlphaCinemaWeb.Controllers
 
         [HttpPost]
         [Authorize]
-        public IActionResult Book(ProjectionBookModel projection)
+        public IActionResult Book(ProjectionListViewModel projection)
         {
-            //this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
+            this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
 
             return RedirectToAction("Movie", new { cityId = projection.CityId});
         }
+
+        public IActionResult Decline(ProjectionBookModel projection)
+        {
+            this.projectionsService.DeclineReservation(projection.UserId, projection.ProjectionId);
+
+            return RedirectToAction("Movie", new { cityId = projection.CityId });
+        }
+
 
         public IActionResult Detail(ProjectionViewModel projection)
         {
