@@ -12,12 +12,10 @@ namespace AlphaCinemaWeb.Models.BindingModels.ProjectionModels
 
         }
 
-        public string UserName { get; set; }
-
-        public int ProjectionId { get; set; }
-
-        public DayOfWeek Day { get; set; }
+        public string UserId { get; set; }
 
         public int CityId { get; set; }
+
+        public int ProjectionId { get; set; }
     }
 }

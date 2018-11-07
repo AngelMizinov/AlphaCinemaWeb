@@ -1,0 +1,64 @@
+﻿@model ProjectionListViewModel
+@{
+    ViewData["Title"] = "Projections";
+}
+
+<div class="jumbotron" style="padding: 32px;">
+
+    <partial name="_HeaderPartial" model="Model" />
+
+    @foreach (var movie in Model.Projections)
+    {
+        <div class="row" style="display:flex; align-items:center;">
+            <div class="col-md-2">
+                <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
+                    @if (movie.ImageUrl == null)
+                    {
+                        <img src="~/images/defaultMovie.jpg" class="imageCell" />
+                    }
+                    else
+                    {
+                        <img src="movie.ImageUrl" class="imageCell" />
+                    }
+                </a>
+            </div>
+            <div class="col-md-2">@movie.MovieName</div>
+            <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
+            <div class="col-md-2">@movie.MovieDuration</div>
+            <div class="col-md-2">@movie.MovieStart</div>
+            @if (User.Identity.IsAuthenticated && !movie.IsBooked)
+            {
+                <div class="col-md-2">
+                    <form asp-controller="BuyTicket" asp-action="Book" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
+                        <input type="hidden" name="UserId" value="@Model.UserId" />
+                        <input type="hidden" name="CityId" value="@Model.CityId" />
+                        <input type="hidden" name="ProjectionId" value="@movie.ProjectionId" />
+                        <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Book</button>
+                    </form>
+                </div>
+            }
+            else if (User.Identity.IsAuthenticated && movie.IsBooked)
+            {
+                <div class="col-md-2">
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">Booked</button>
+                </div>
+            }
+            else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
+            {
+                <div class="col-md-2">
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-warning disabled">@movie.Seats Left</button>
+                </div>
+            }
+            else if (!User.Identity.IsAuthenticated && (movie.Seats == 0))
+            {
+                <div class="col-md-2">
+                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">Booked</button>
+                </div>
+            }
+        </div>
+    }
+
+    <partial name="_NavigationPartial" model="Model" />
+
+    
+</div>

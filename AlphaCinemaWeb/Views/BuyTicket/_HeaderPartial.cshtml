@@ -1,0 +1,39 @@
+﻿@model ProjectionListViewModel
+@{
+    ViewData["Title"] = "_HeaderPartial";
+}
+
+<div style="display: flex; align-items: center;">
+    <h2 style="padding: 20px 0px">Movie Catalog For @ViewBag.CityName</h2>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h5 class="text-danger" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">You should be registered to book a ticket</h5>
+    }
+</div>
+<div class="row header peach-gradient" style="font-size: 20px; font-weight: bold">
+    <div class="col-md-2">Image</div>
+    <div class="col-md-2">
+        <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
+            <input type="hidden" asp-for="Day" value="@Model.Day" />
+            <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            <input type="hidden" asp-for="SortOrder" value="@Model.TitleSort" />
+            <input type="submit" value="Title" class="makealink" data-ajax="true" data-ajax-update="#ProjectionList">
+        </form>
+    </div>
+    @*<a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.TitleSort" data-ajax="true" data-ajax-update="#ProjectionList">Title</a>*@
+    <div class="col-md-2">Genres</div>
+    <div class="col-md-2">Duration</div>
+    <div class="col-md-2">
+        <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
+            <input type="hidden" asp-for="Day" value="@Model.Day" />
+            <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+            <input type="hidden" asp-for="SortOrder" value="@Model.HourSort" />
+            <input type="submit" value="Starting" class="makealink">
+        </form>
+    </div>
+    @*<a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.HourSort" data-ajax="true" data-ajax-update="#ProjectionList">Starting</a>*@
+    <div class="col-md-2"></div>
+</div>
+

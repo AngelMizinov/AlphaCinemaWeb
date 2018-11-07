@@ -1,4 +1,4 @@
-﻿@model AlphaCinemaWeb.Models.ProjectionModels.ProjectionListViewModel
+﻿@model ProjectionListViewModel
 @using System.Globalization;
 @using System;
 @{
@@ -9,18 +9,29 @@
     <div clas="row">
         @*This element will be updated with the content returned from the database, thats why the partial view is inside him*@
         <div class="container">
-            <h2>Projection Days</h2>
+            <h2>Projection Days For @ViewBag.CityName</h2>
             <div class="btn-group">
                 @for (int i = 0; i <= 6; i++)
                 {
                     var dayOfWeek = DateTime.Now.AddDays(i).DayOfWeek;
-                    <a class="btn btn-primary" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
-                        @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedDayName(dayOfWeek)
-                    </a>
+                    <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
+                        <input type="hidden" asp-for="@Model.Day" value="@dayOfWeek" />
+                        <input type="hidden" asp-for="@Model.CityId" value="@Model.CityId" />
+                        <input type="hidden" asp-for="@Model.UserId" value="@Model.UserId" />
+                        <input type="hidden" asp-for="@Model.SortOrder" value="@Model.SortOrder" />
+                        @*Тези свойства се bind-ват със обекта който чака в action-а динамично
+                        Зада имаме валидация за тях, трябва да използваме property-тата от модела
+                        Затова за да не губим type-safety-то по-добре да си изпращам същия модел към action-а*@
+                        <button type="submit" class="btn btn-primary">
+                            @CultureInfo.CurrentCulture.DateTimeFormat.GetAbbreviatedDayName(dayOfWeek)
+                        </button>
+                    </form>
+                    @*<a class="btn btn-primary" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@dayOfWeek" data-ajax="true" data-ajax-update="#ProjectionList">
+                        </a>*@
                 }
             </div>
             <div id="ProjectionList">
-                <partial name="Projections" model="Model" />@*The Main view is calling the partial view Projections*@
+                <partial name="_ProjectionsPartial" model="Model" />@*The Main view is calling the partial view Projections*@
             </div>
         </div>
     </div>

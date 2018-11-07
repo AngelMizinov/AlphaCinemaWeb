@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using AlphaCinemaData.Models;
+using AlphaCinemaServices.Contracts;
 
 namespace AlphaCinema.Controllers
 {
@@ -18,27 +19,31 @@ namespace AlphaCinema.Controllers
 	{
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
+		private readonly IUserService userService;
+
 		//private readonly IUsersService usersService;
 
 
 		public ManageController(
 		  UserManager<User> userManager,
-		  SignInManager<User> signInManager)
+		  SignInManager<User> signInManager,
+		  IUserService userService)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
+			this.userService = userService;
 		}
 
 		[TempData]
 		public string StatusMessage { get; set; }
 
 		[HttpGet]
-		public async Task<IActionResult> Index()
+		public async Task<IActionResult> Index(string userId)
 		{
-			var user = await this.userManager.GetUserAsync(User);
+			var user = await this.userService.GetUser(userId);
 			if (user == null)
 			{
-				throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
+				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 			}
 
 			var model = new IndexViewModel
@@ -52,7 +57,6 @@ namespace AlphaCinema.Controllers
 				ImageUrl = user.AvatarImageName,
 				StatusMessage = StatusMessage
 			};
-
 			return View(model);
 		}
 

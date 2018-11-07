@@ -205,14 +205,12 @@
     font-weight: bold;
 }
 
-.assetDetails {
-    width: unset;
-    background-color: white;
-}
-
-.branchImage {
-    max-width: 400px;
-    max-height: 150px;
+input[type="submit"].makealink {
+    background: transparent;
+    border: 0px;
+    text-decoration: underline;
+    color: blue;
+    cursor: pointer;
 }
 
 #scrollToTopBtn {

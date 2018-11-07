@@ -12,6 +12,9 @@ namespace AlphaCinemaServices.Contracts
 
         Task AddCity(string cityName);
 		Task DeleteCity(string cityName);
+
+        Task<string> GetCityName(int cityId);
 		Task UpdateName(int cityId, string newName);
+
 	}
 }

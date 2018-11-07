@@ -10,12 +10,15 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
         {
             this.Seats = projection.Seats;
             this.ProjectionId = projection.Id;
+            this.IsBooked = projection.IsBooked;
             this.MovieName = projection.Movie.Name;
             this.MovieDuration = projection.Movie.Duration;
             this.MovieDescription = projection.Movie.Description;
             this.Genres = projection.Movie.MovieGenres.Select(mg => mg.Genre.Name);
             this.MovieStart = $"{projection.OpenHour.Hours:D2}:{projection.OpenHour.Minutes:D2}h";
         }
+
+        public bool IsBooked { get; set; }
 
         public int ProjectionId { get; set; }
 

@@ -1,19 +1,17 @@
-﻿using AlphaCinemaData.Models;
-using AlphaCinemaWeb.Models.ProjectionModels;
-using System;
+﻿using AlphaCinemaWeb.Models.ProjectionModels;
 using System.Collections.Generic;
 
 namespace AlphaCinemaWeb.Models.CityModels
 {
     public class CityListViewModel
     {
-        public CityListViewModel(IEnumerable<CityViewModel> cities, ProjectionListViewModel projections)
+        public CityListViewModel(IEnumerable<CityViewModel> cities, TopProjectionsViewModel projections)
         {
             this.Cities = cities;
             this.ListOfMovies = projections;
         }
 
-        public ProjectionListViewModel ListOfMovies { get; set; }
+        public TopProjectionsViewModel ListOfMovies { get; set; }
 
         public IEnumerable<CityViewModel> Cities { get; set; }
     }

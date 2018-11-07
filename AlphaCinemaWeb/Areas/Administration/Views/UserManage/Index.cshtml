@@ -1,0 +1,57 @@
+﻿@model UsersListViewModel
+@{
+    ViewData["Title"] = "Manage Roles";
+}
+<!--
+    Card -->
+@await Html.PartialAsync("_ResultPartial")
+<div class="card">
+    <!-- Card content -->
+    <div class="card-body">
+        <table class="table table-hover table-bordered table-responsive">
+            <thead>
+                <tr>
+                    <th class="th-lg" scope="col" style="text-align:center">Username</th>
+                    <th class="th-lg" scope="col" style="text-align:center">Name</th>
+                    <th class="th-lg" scope="col" style="text-align:center">Age</th>
+                    <th class="th-lg" scope="col" style="text-align:center">Roles</th>
+                    <th class="th-lg" scope="col" style="text-align:center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.UserViewModels)
+                {
+                    <tr style="text-align:center">
+                        <td>@user.Username</td>
+                        <td>@(user.FirstName + " " + user.LastName)</td>
+                        <td>@user.Age</td>
+                        <td>
+                            @if (user.IsAdmin)
+                            {
+                                @if (user.Username == User.Identity.Name)
+                                {
+                                    <button class="btn btn-dark-green" disabled>Admin</button>
+                                }
+                                else
+                                {
+                                    <form asp-area="Administration" asp-controller="UserManage" asp-action="RemoveAdmin" asp-route-userId="@user.Id" method="post">
+                                        <button class="btn btn-danger" type="submit">Remove Admin</button>
+                                    </form>
+                                }
+                            }
+                            else
+                            {
+                                <form asp-area="Administration" asp-controller="UserManage" asp-action="SetAdmin" asp-route-userId="@user.Id" method="post">
+                                    <button class="btn btn-danger" type="submit">Make Admin</button>
+                                </form>
+                            }
+                        </td>
+                        <td>
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-brown">Profile</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

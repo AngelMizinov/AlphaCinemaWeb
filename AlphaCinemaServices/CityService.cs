@@ -22,7 +22,16 @@ namespace AlphaCinemaServices
 			this.context = context;
 		}
 
-		public async Task<ICollection<City>> GetCities()
+        public async Task<string> GetCityName(int cityId)
+        {
+            var cityName = await this.context.Cities
+                .Where(c => c.Id == cityId)
+                .Select(c => c.Name)
+                .FirstOrDefaultAsync();
+            return cityName;
+        }
+
+        public async Task<ICollection<City>> GetCities()
 		{
 			var cities = await this.context.Cities
 				.ToListAsync();
