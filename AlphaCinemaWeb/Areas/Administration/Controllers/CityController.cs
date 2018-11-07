@@ -162,7 +162,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
 			try
 			{
-				await this.cityService.UpdateName(cityViewModel.Id, cityViewModel.Name);
+				await this.cityService.UpdateName(city.Id, cityViewModel.Name);
 			}
 			catch (EntityAlreadyExistsException e)
 			{

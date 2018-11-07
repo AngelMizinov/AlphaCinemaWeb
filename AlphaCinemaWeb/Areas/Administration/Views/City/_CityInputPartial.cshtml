@@ -19,7 +19,7 @@
                 <label asp-for="Name" class="control-label">New Name</label>
                 <input asp-for="Name" value="" class="form-control" />
                 <span asp-validation-for="Name" class="text-danger"></span>
-                
+
                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
                 <div asp-validation-summary="All" class="text-danger"></div>
             </div>
@@ -27,5 +27,6 @@
     </div>
     <!-- Grid row -->
     <button class="btn btn-light my-sm-0" type="submit">Update</button>
+    <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary">Go Back</a>
 </form>
 <br />

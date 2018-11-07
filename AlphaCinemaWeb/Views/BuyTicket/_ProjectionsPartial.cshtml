@@ -1,43 +1,11 @@
 ﻿@model ProjectionListViewModel
-@using AlphaCinemaWeb.Models.BindingModels.ProjectionModels
 @{
     ViewData["Title"] = "Projections";
 }
 
 <div class="jumbotron" style="padding: 32px;">
-    <div style="display: flex; align-items: center;">
-        <h2 style="padding: 20px 0px">Movie Catalog For @ViewBag.CityName</h2>
-        @if (!User.Identity.IsAuthenticated)
-        {
-            <h5 class="text-danger" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">You should be registered to book a ticket</h5>
-        }
-    </div>
-    <div class="row header peach-gradient" style="font-size: 20px; font-weight: bold">
-        <div class="col-md-2">Image</div>
-        <div class="col-md-2">
-            <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                <input type="hidden" asp-for="Day" value="@Model.Day" />
-                <input type="hidden" asp-for="CityId" value="@Model.CityId" />
-                <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                <input type="hidden" asp-for="SortOrder" value="@Model.TitleSort" />
-                <input type="submit" value="Title" class="makealink" data-ajax="true" data-ajax-update="#ProjectionList">
-            </form>
-        </div>
-        @*<a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.TitleSort" data-ajax="true" data-ajax-update="#ProjectionList">Title</a>*@
-        <div class="col-md-2">Genres</div>
-        <div class="col-md-2">Duration</div>
-        <div class="col-md-2">
-            <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                <input type="hidden" asp-for="Day" value="@Model.Day" />
-                <input type="hidden" asp-for="CityId" value="@Model.CityId" />
-                <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                <input type="hidden" asp-for="SortOrder" value="@Model.HourSort" />
-                <input type="submit" value="Starting" class="makealink">
-            </form>
-        </div>
-        @*<a class="col-md-2" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.Day" asp-route-sortOrder="@ViewBag.HourSort" data-ajax="true" data-ajax-update="#ProjectionList">Starting</a>*@
-        <div class="col-md-2"></div>
-    </div>
+
+    <partial name="_HeaderPartial" model="Model" />
 
     @foreach (var movie in Model.Projections)
     {
@@ -61,9 +29,9 @@
             @if (User.Identity.IsAuthenticated && !movie.IsBooked)
             {
                 <div class="col-md-2">
-                    @{var projection = new ProjectionBookModel();}
                     <form asp-controller="BuyTicket" asp-action="Book" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
                         <input type="hidden" name="UserId" value="@Model.UserId" />
+                        <input type="hidden" name="CityId" value="@Model.CityId" />
                         <input type="hidden" name="ProjectionId" value="@movie.ProjectionId" />
                         <button type="submit" style="width: 100%;" class="btn btn-lg btn-success">Book</button>
                     </form>
@@ -90,43 +58,7 @@
         </div>
     }
 
-    <nav aria-label="Page navigation example">
-        <ul class="pagination pg-blue">
-            @for (int p = 1; p <= Model.MaxPages; p++)
-            {
-                if (p == Model.CurrentPage)
-                {
-                    <li class="page-item active">
-                        <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                            <input type="hidden" asp-for="Day" value="@Model.Day" />
-                            <input type="hidden" asp-for="CityId" value="@Model.CityId" />
-                            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                            <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
-                            <input type="hidden" asp-for="CurrentPage" value="@p" />
-                            <input type="submit" value="@p" class="makealink">
-                        </form>
+    <partial name="_NavigationPartial" model="Model" />
 
-                    </li>
-                    @*<a class="page-link" a asp-route-page=@p data-ajax="true" data-ajax-update="#ProjectionList">@p</a>*@
-                }
-                else
-                {
-                    <li class="page-item">
-                        <form asp-controller="BuyTicket" asp-action="UpdateMovie" method="post" data-ajax="true" data-ajax-update="#ProjectionList">
-                            <input type="hidden" asp-for="Day" value="@Model.Day" />
-                            <input type="hidden" asp-for="CityId" value="@Model.CityId" />
-                            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                            <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
-                            <input type="hidden" asp-for="CurrentPage" value="@p" />
-                            <input type="submit" value="@p" class="makealink">
-                        </form>
-
-                    </li>
-                    @*<li class="page-item">
-                        <a class="page-link" asp-controller="BuyTicket" asp-action="UpdateMovie" asp-route-cityId="@ViewBag.CityId" asp-route-day="@ViewBag.DayOfWeek" asp-route-sortOrder="@ViewBag.CurrentSort" asp-route-page=@p data-ajax="true" data-ajax-update="#ProjectionList">@p</a>
-                    </li>*@
-                }
-            }
-        </ul>
-    </nav>
+    
 </div>

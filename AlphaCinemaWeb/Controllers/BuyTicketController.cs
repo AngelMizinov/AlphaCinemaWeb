@@ -49,7 +49,7 @@ namespace AlphaCinemaWeb.Controllers
             }
             var projections = projectionsService.GetByTownId(cityId, userId).OrderBy(p => p.Movie.Name);
             this.ViewBag.CityName = await this.cityService.GetCityName(cityId);
-            int maxPages = projections.Count() / pageSize;
+            int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
             DayOfWeek day = DateTime.Now.DayOfWeek;
             var projectionsModel = new ProjectionListViewModel(1, maxPages, "title_desc", "hour", "title", cityId, 
                 userId,  day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p)));
@@ -71,7 +71,7 @@ namespace AlphaCinemaWeb.Controllers
             //Винаги когато подадем нещо друго, различно от hour следващото сортиране по час ще е в нарастващ ред
             int cityId = model.CityId;
             int currentPage = model.CurrentPage ?? 1;
-            int maxPages = projections.Count() / pageSize;
+            int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
             switch (model.SortOrder)
             {
                 case "title_desc": projections = projections.OrderByDescending(p => p.Movie.Name); break;
@@ -93,11 +93,9 @@ namespace AlphaCinemaWeb.Controllers
         [Authorize]
         public IActionResult Book(ProjectionBookModel projection)
         {
-            //this.projectionsService.AddReservation(projection.UserName)
+            //this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
 
-            //return RedirectToAction("UpdateMovie", new { cityId = projection.CityId, day = projection.Day });
-
-            return NoContent();
+            return RedirectToAction("Movie", new { cityId = projection.CityId});
         }
 
         public IActionResult Detail(ProjectionViewModel projection)

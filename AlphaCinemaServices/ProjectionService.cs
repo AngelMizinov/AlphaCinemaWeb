@@ -76,5 +76,17 @@ namespace AlphaCinemaServices
                 .Take(count)
                 .ToList();
         }
+
+        public void AddReservation(string userId, int projectionId)
+        {
+            var reservation = new WatchedMovie()
+            {
+                UserId = userId,
+                ProjectionId = projectionId,
+                Date = DateTime.Now
+            };
+
+            this.context.Add(reservation);
+        }
     }
 }

@@ -14,6 +14,8 @@ namespace AlphaCinemaWeb.Models.BindingModels.ProjectionModels
 
         public string UserId { get; set; }
 
+        public int CityId { get; set; }
+
         public int ProjectionId { get; set; }
     }
 }
