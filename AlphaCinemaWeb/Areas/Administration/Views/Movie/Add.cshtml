@@ -62,12 +62,32 @@
                 </div>
             </div>
 
+            <div class="form-row">
+                <div class="col-4">
+                  
+                    <div class="container">
+                        
+                        @foreach (var genre in ViewBag.Genres)
+                        {
+                            <div class="checkbox">
+                                <label><input type="checkbox" @*for="@Model.Genres"*@ value="">@genre.Name</label>
+                            </div>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+
+            <br />
+
             <!-- Grid row -->
             <button class="btn btn-light my-sm-0" type="submit">Add</button>
+
         </form>
 
         <br />
-        
+
         <div asp-validation-summary="All" class="text-danger"></div>
         @await Html.PartialAsync("_ResultPartial")
 

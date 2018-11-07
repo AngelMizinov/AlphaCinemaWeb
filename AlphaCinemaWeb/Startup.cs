@@ -41,10 +41,12 @@ namespace AlphaCinema
 			services.AddScoped<ICityService, CityService>();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IGenreService, GenreService>();
+
         }
 
-		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
