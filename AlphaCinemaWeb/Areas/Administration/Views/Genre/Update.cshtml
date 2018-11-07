@@ -1,11 +1,11 @@
-﻿@model CityUpdateListViewModel
+﻿@model GenreUpdateListViewModel
 
 @{
-    ViewData["Title"] = "Update City";
+    ViewData["Title"] = "Update Genre";
 }
 <div class="card">
     <div class="card-header">
-        <h4>Update City name</h4>
+        <h4>Update Genre name</h4>
     </div>
     <div class="card-body">
         <!-- Grid row -->
@@ -15,13 +15,13 @@
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light my-sm-0 btn-info dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
-                        Choose City
+                        Choose Genre
                     </button>
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        @foreach (var city in Model.Cities)
+                        @foreach (var genre in Model.Genres)
                         {
-                            <a class="dropdown-item" asp-controller="City" asp-action="SetId" asp-route-cityId="@city.Id" asp-route-cityName="@city.Name"
-                               data-ajax="true" data-ajax-update="#city-form">@city.Name</a>
+                            <a class="dropdown-item" asp-controller="Genre" asp-action="SetId" asp-route-genreId="@genre.Id" asp-route-genreName="@genre.Name"
+                               data-ajax="true" data-ajax-update="#genre-form">@genre.Name</a>
                         }
                     </div>
 
@@ -33,8 +33,8 @@
             </div>
         </div>
 
-        <div id="city-form">
-            <partial name="_CityInputPartial" model="@(new CityUpdateViewModel())" />
+        <div id="genre-form">
+            <partial name="_GenreInputPartial" model="@(new GenreUpdateViewModel())" />
         </div>
 
 

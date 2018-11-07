@@ -1,0 +1,35 @@
+﻿@model GenreViewModel
+
+@{
+    ViewData["Title"] = "Remove Genre";
+}
+<div class="card">
+    <div class="card-header">
+        <h4>Remove Genre from database</h4>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Type a genre name</h5>
+        <!-- Grid row -->
+        <form asp-area="Administration" asp-controller="Genre" asp-action="Remove" method="post">
+            <div class="form-row">
+                <!-- Grid column -->
+                <div class="col-4">
+                    <!-- Material input -->
+                    <div class="md-form">
+                        <label asp-for="Name" class="control-label">Genre Name</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid row -->
+            <button class="btn btn-light my-sm-0" type="submit">Remove</button>
+            <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary">Go Back</a>
+        </form>
+        <br />
+        <div asp-validation-summary="All" class="text-danger"></div>
+        @await Html.PartialAsync("_ResultPartial")
+    </div>
+</div>
+
