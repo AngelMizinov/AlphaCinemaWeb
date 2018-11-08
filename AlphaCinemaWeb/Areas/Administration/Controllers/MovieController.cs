@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlphaCinemaData.Models;
+using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaServices.Exceptions;
 using AlphaCinemaWeb.Areas.Administration.Models.GenreViewModels;
@@ -20,11 +22,13 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
     {
         private readonly IMovieService movieService;
         private readonly IGenreService genreService;
+        private readonly IMovieGenreService movieGenreService;
 
-        public MovieController(IMovieService movieService, IGenreService genreService)
+        public MovieController(IMovieService movieService, IGenreService genreService, IMovieGenreService movieGenreService)
         {
             this.movieService = movieService;
             this.genreService = genreService;
+            this.movieGenreService = movieGenreService;
         }
 
         public IActionResult Index()
@@ -36,17 +40,17 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         public async Task<IActionResult> Add()
         {
             //take all genres from Database
-            var allGenres =  await this.genreService.GetGenres();
+            var allGenres = await this.genreService.GetGenres();
 
             var models = allGenres
                 .Select(genre => new GenreViewModel(genre))
                 .ToList();
-            
+
             var movieModel = new MovieViewModel()
             {
                 Genres = models
             };
-            
+
             return View(movieModel);
         }
 
@@ -56,31 +60,61 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return View();
+                return RedirectToAction("Add");
             }
-            
+
             var movie = await this.movieService.GetMovie(viewModel.Name);
 
             if (movie != null)
             {
                 this.TempData["Error-Message"] = $"Movie with name {viewModel.Name} already exist!";
-                return this.View();
+                return RedirectToAction("Add");
             }
 
             try
             {
-                await this.movieService.AddMovie(viewModel.Name, viewModel.Description,
+                movie = await this.movieService.AddMovie(viewModel.Name, viewModel.Description,
                     viewModel.ReleaseYear, viewModel.Duration); ;
             }
             catch (Exception ex)
             {
                 this.TempData["Error-Message"] = ex.Message;
-                return this.View();
+                return RedirectToAction("Add");
             }
 
-            this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
+            //
+            //get all genres that the Admin has choosed and add them to movie
+            foreach (var genre in viewModel.Genres)
+            {
+                if (genre.IsChecked)
+                {
+                    Genre g = new Genre()
+                    {
+                        Id = genre.Id,
+                        Name = genre.Name
+                    };
 
-            return this.View();
+                    try
+                    {
+                        //just add new MovieGenre
+                        await this.movieGenreService.AddNewMovieGenre(movie, g);
+                    }
+                    catch (EntityAlreadyExistsException ex)
+                    {
+                        this.TempData["Error-Message"] = ex.Message;
+                        return RedirectToAction("Add");
+                    }
+                    catch (Exception ex)
+                    {
+                        this.TempData["Error-Message"] = ex.Message;
+                        return RedirectToAction("Add");
+                    }
+                }
+            }
+            //
+
+            this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
+            return RedirectToAction("Add");
         }
 
 
@@ -139,7 +173,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
             var movie = await this.movieService.GetMovie(viewModel.OldName);
 
-            if(movie == null)
+            if (movie == null)
             {
                 this.TempData["Error-Message"] = $"Movie with name [{viewModel.OldName}] doesn't exist!";
                 return this.View();

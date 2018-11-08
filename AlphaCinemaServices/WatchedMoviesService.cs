@@ -55,14 +55,14 @@ namespace AlphaCinemaServices
 				.ToListAsync();
 
 
-			//var movies = await this.context.Movies
-			//	.SelectMany(m => m.Projections)
-			//	.SelectMany(wm => wm.WatchedMovies)
-			//	.Where(u => u.UserId == userId)
-			//	.Select(m => m.Projection.Movie)
-			//	.ToListAsync();
+            //var movies = await this.context.Movies
+            //    .SelectMany(m => m.Projections)
+            //    .SelectMany(wm => wm.WatchedMovies)
+            //    .Where(u => u.UserId == userId)
+            //    .Select(m => m.Projection.Movie)
+            //    .ToListAsync();
 
-			return watchedMovies;
+            return watchedMovies;
 		}
 
 		public async Task<WatchedMovie> GetWatchedMovie(string userId, int projectionId)

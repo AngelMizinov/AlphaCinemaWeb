@@ -20,10 +20,10 @@ namespace AlphaCinemaWeb.Models.GenreViewModels
 			this.Id = genre.Id;
 		}
 
-		[Required]
-		[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Genre name cannot have any numbers.")]
-		[StringLength(15, ErrorMessage = "Genre name should be between 3 and 50 symbols.",
-			MinimumLength = 3)]
+		//[Required]
+		//[RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "Genre name cannot have any numbers.")]
+		//[StringLength(15, ErrorMessage = "Genre name should be between 3 and 50 symbols.",
+		//	MinimumLength = 3)]
 		public string Name { get; set; }
 
 		public int Id { get; set; }
