@@ -120,19 +120,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
 		[Area("Administration")]
 		[Authorize(Roles = "Administrator")]
-		[HttpGet]
-		public IActionResult SetId(int genreId, string genreName)
+		[HttpPost]
+		public IActionResult SetId(GenreUpdateListViewModel viewModel)
 		{
-			this.ViewBag.GenreId = genreId;
-			this.ViewBag.GenreName = genreName;
+            var model = new GenreUpdateListViewModel()
+            {
+                Id = viewModel.Id,
+                Name = viewModel.Name
+            };
 
-			Genre genre = new Genre()
-			{
-				Id = genreId,
-				Name = genreName
-			};
-
-			return PartialView("_GenreInputPartial", new GenreUpdateViewModel(genre));
+			return PartialView("_GenreInputPartial", model);
 		}
 
 		[Area("Administration")]

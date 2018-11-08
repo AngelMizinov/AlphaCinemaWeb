@@ -1,4 +1,4 @@
-﻿@model GenreUpdateViewModel
+﻿@model GenreUpdateListViewModel
 
 <div class="blockquote">
     <div>
@@ -7,7 +7,7 @@
 </div>
 
 
-<form asp-area="Administration" asp-controller="Genre" asp-action="Update" method="post">
+<form id="da-form" asp-area="Administration" asp-controller="Genre" asp-action="Update" method="post">
 
     <div class="form-row">
         <!-- Grid column -->
@@ -16,17 +16,16 @@
             <!-- Material input -->
 
             <div class="md-form">
-                <label asp-for="Name" class="control-label">New Name</label>
-                <input asp-for="Name" value="" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="@Model.Name" class="control-label">New Name</label>
+                <input asp-for="@Model.Name" value="" class="form-control" />
+                <span asp-validation-for="@Model.Name" class="text-danger"></span>
 
                 <input type="hidden" asp-for="@Model.Id" value="@Model.Id" />
-                <div asp-validation-summary="All" class="text-danger"></div>
             </div>
+            <div asp-validation-summary="All" class="text-danger"></div>
         </div>
     </div>
     <!-- Grid row -->
     <button class="btn btn-outline-dark-green waves-effect my-sm-0" type="submit">Update</button>
     <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary waves-effect">Go Back</a>
 </form>
-<br />
