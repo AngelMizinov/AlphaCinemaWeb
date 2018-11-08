@@ -18,7 +18,7 @@
         }
 
 .page-content {
-    padding: 20px;
+    padding: 0px;
     margin: 10px auto;
 }
 
@@ -305,4 +305,11 @@ input[type="submit"].makealink {
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+    max-height: 600px;
+    overflow-y: auto;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
 }

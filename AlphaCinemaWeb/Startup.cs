@@ -42,6 +42,7 @@ namespace AlphaCinema
 			services.AddScoped<IMovieService, MovieService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IGenreService, GenreService>();
+			services.AddScoped<IWatchedMoviesService, WatchedMoviesService>();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
