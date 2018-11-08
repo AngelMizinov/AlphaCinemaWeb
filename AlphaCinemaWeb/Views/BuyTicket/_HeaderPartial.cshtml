@@ -9,6 +9,21 @@
     {
         <h5 class="text-danger" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">You should be registered to book a ticket</h5>
     }
+    else
+    {
+        if (User.Identity.IsAuthenticated && ((string)(TempData["Success-Message"] ?? "")).Any())
+        {
+            <div class="alert alert-success" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <strong>Success!</strong> @TempData["Success-Message"]
+            </div>
+        }
+        if (User.Identity.IsAuthenticated && ((string)(TempData["Warning-Message"] ?? "")).Any())
+        {
+            <div class="alert alert-primary" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <strong>Warning!</strong> @TempData["Warning-Message"]
+            </div>
+        }
+    }
 </div>
 <div class="row header peach-gradient" style="font-size: 20px; font-weight: bold">
     <div class="col-md-2">Image</div>

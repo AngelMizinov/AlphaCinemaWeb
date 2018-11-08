@@ -26,8 +26,10 @@ namespace AlphaCinemaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
+            this.ViewData["ReturnUrl"] = "/BuyTicket/Index";
             var cities = await cityService.GetCities();
             var projections = projectionsService.GetTopProjections(3);
 
@@ -39,8 +41,10 @@ namespace AlphaCinemaWeb.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> Movie(int cityId)
         {
+            this.ViewData["ReturnUrl"] = "/BuyTicket/Movie/?cityId=" + cityId;
             string userId = "";
             const int pageSize = 3;
             if (this.User.Identity.IsAuthenticated)
@@ -59,6 +63,7 @@ namespace AlphaCinemaWeb.Controllers
         [HttpPost]
         public IActionResult UpdateMovie(ProjectionListViewModel model)
         {
+            //this.ViewData["ReturnUrl"] = "/BuyTicket/Movie";
             if (!this.User.Identity.IsAuthenticated)
             {
                 model.UserId = "";
@@ -94,17 +99,18 @@ namespace AlphaCinemaWeb.Controllers
         public IActionResult Book(ProjectionListViewModel projection)
         {
             this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
-
+            this.TempData["Success-Message"] = "You booked a ticket!";
             return RedirectToAction("Movie", new { cityId = projection.CityId});
         }
 
+        [HttpPost]
+        [Authorize]
         public IActionResult Decline(ProjectionBookModel projection)
         {
             this.projectionsService.DeclineReservation(projection.UserId, projection.ProjectionId);
-
+            this.TempData["Warning-Message"] = "You declined your reservation!";
             return RedirectToAction("Movie", new { cityId = projection.CityId });
         }
-
 
         public IActionResult Detail(ProjectionViewModel projection)
         {

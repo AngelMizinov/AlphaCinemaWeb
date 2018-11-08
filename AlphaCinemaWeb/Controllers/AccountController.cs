@@ -31,6 +31,7 @@ namespace AlphaCinema.Controllers
 		[AllowAnonymous]
 		public async Task<IActionResult> Login(string returnUrl = null)
 		{
+
 			// Clear the existing external cookie to ensure a clean login process
 			await HttpContext.SignOutAsync(IdentityConstants.ExternalScheme);
 
@@ -106,11 +107,12 @@ namespace AlphaCinema.Controllers
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Logout()
+		public async Task<IActionResult> Logout(string returnUrl = null)
 		{
 			await this.signInManager.SignOutAsync();
-			return RedirectToAction("Index", "Home");
-		}
+            ViewData["ReturnUrl"] = returnUrl;
+            return RedirectToLocal(returnUrl);
+        }
 
 		[HttpGet]
 		public IActionResult AccessDenied()

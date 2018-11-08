@@ -13,7 +13,8 @@ namespace AlphaCinema.Controllers
 	{
 		public IActionResult Index()
 		{
-			return View();
+            this.ViewData["ReturnUrl"] = "/Home/Index";
+            return View();
 		}
 
 		public IActionResult About()

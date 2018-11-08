@@ -49,6 +49,8 @@ namespace AlphaCinemaServices
                     .ToHashSet();
             }
 
+
+            //TODO: Fix the to show the projections for the next days for all hours
             var projections = this.context.Projections
                 .Where(p => p.CityId == townId)
                 .Include(p => p.OpenHour)
