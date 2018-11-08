@@ -1,4 +1,6 @@
-﻿using System;
+﻿using AlphaCinemaWeb.Models.MovieViewModels;
+using AlphaCinemaWeb.Models.WatchedMovieModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -17,6 +19,8 @@ namespace AlphaCinema.Models.ManageViewModels
 
 
 		public string StatusMessage { get; set; }
+
+		public ICollection<WatchedMovieViewModel> WatchedMovieViewModels { get; set; }
 
 	}
 }
