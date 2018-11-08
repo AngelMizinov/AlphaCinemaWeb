@@ -8,9 +8,8 @@
         <h4>Update Genre name</h4>
     </div>
     <div class="card-body">
-        <!-- Grid row -->
 
-        <div class="d-inline-block">
+        <div>
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <div class="btn-group" role="group">
                     <button id="btnGroupDrop1" type="button" class="btn btn-light my-sm-0 btn-info dropdown-toggle" data-toggle="dropdown"
@@ -20,13 +19,16 @@
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         @foreach (var genre in Model.Genres)
                         {
-                            <a class="dropdown-item" asp-controller="Genre" asp-action="SetId" asp-route-genreId="@genre.Id" asp-route-genreName="@genre.Name"
-                               data-ajax="true" data-ajax-update="#genre-form">@genre.Name</a>
-                        }
-                    </div>
+                            <form asp-controller="Genre" asp-action="SetId" method="post"
+                                  data-ajax="true"
+                                  data-ajax-update="#genre-form"
+                                  data-ajax-complete="onCompleteFunction">
+                                <input type="hidden" asp-for="@Model.Id" value="@genre.Id" />
+                                <input type="hidden" asp-for="@Model.Name" value="@genre.Name" />
+                                <button type="submit" class="dropdown-item">@genre.Name</button>
+                            </form>
 
-                    <div>
-                        <h3></h3>
+                        }
                     </div>
 
                 </div>
@@ -34,10 +36,21 @@
         </div>
 
         <div id="genre-form">
-            <partial name="_GenreInputPartial" model="@(new GenreUpdateViewModel())" />
+            <partial name="_GenreInputPartial" model="@Model" />
         </div>
 
 
         @await Html.PartialAsync("_ResultPartial")
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function onCompleteFunction() {
+            var form = $("#da-form");
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+        }
+    </script>
+}
