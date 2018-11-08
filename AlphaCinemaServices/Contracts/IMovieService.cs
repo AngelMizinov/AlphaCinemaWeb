@@ -1,7 +1,5 @@
 ﻿using AlphaCinemaData.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AlphaCinemaServices.Contracts
@@ -13,5 +11,6 @@ namespace AlphaCinemaServices.Contracts
         Task AddMovie(string name,string description,string releaseYear,string duration);
         Task DeleteMovie(string movieName);
         Task UpdateName(string oldName, string newName);
+        //Task<Movie> GetMovie(int movieId);
     }
 }

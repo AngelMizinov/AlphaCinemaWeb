@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using AlphaCinemaServices.Contracts;
-using AlphaCinemaServices.Exceptions;
 using AlphaCinemaWeb.Areas.Administration.Models.MovieModels;
-using AlphaCinemaWeb.Exceptions;
 using AlphaCinemaWeb.Models.MovieViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinemaWeb.Areas.Administration.Controllers
@@ -34,7 +33,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         public async Task<IActionResult> Add()
         {
             //take all genres from Database
-            var allGenres =  await this.genreService.GetGenres();
+            var allGenres = await this.genreService.GetGenres();
 
             this.ViewBag.Genres = allGenres;
 
@@ -113,11 +112,24 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        public ActionResult Update()
+        public async Task<ActionResult> Update()
         {
-            return this.View();
+            var movies = await this.movieService.GetMovies();//Тук реално ни трябват само имената на филмите
+
+            var model = movies.Select(movie => new MovieUpdateViewModel(movie));
+
+            return this.View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetMovie(string movieName)
+        {
+            var movie = await this.movieService.GetMovie(movieName);
+            this.ViewBag.MovieName = movieName;
+            var model = new MovieUpdateViewModel(movie);
+
+            return PartialView("_MovieInputPartial", model);
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -128,36 +140,76 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
                 return View();
             }
 
-            var movie = await this.movieService.GetMovie(viewModel.OldName);
+            var movie = await this.movieService.GetMovie(viewModel.Name);
 
-            if(movie == null)
+            if (movie == null)
             {
-                this.TempData["Error-Message"] = $"Movie with name [{viewModel.OldName}] doesn't exist!";
-                return this.View();
-            }
-
-            try
-            {
-                await this.movieService.UpdateName(viewModel.OldName, viewModel.Name);
-            }
-            catch (EntityAlreadyExistsException e)
-            {
-                this.TempData["Error-Message"] = e.Message;
-                return this.View();
-            }
-            catch (InvalidClientInputException e)
-            {
-                this.TempData["Error-Message"] = e.Message;
-                return this.View();
-            }
-            catch (EntityDoesntExistException e)
-            {
-                this.TempData["Error-Message"] = e.Message;
+                this.TempData["Error-Message"] = $"Movie with name [{viewModel.Name}] doesn't exist!";
                 return this.View();
             }
 
-            this.TempData["Success-Message"] = $"You successfully changed movie name {viewModel.OldName} to {viewModel.Name}!";
+            //try
+            //{
+            //    await this.movieService.UpdateName(viewModel.OldName, viewModel.Name);
+            //}
+            //catch (EntityAlreadyExistsException e)
+            //{
+            //    this.TempData["Error-Message"] = e.Message;
+            //    return this.View();
+            //}
+            //catch (InvalidClientInputException e)
+            //{
+            //    this.TempData["Error-Message"] = e.Message;
+            //    return this.View();
+            //}
+            //catch (EntityDoesntExistException e)
+            //{
+            //    this.TempData["Error-Message"] = e.Message;
+            //    return this.View();
+            //}
+
+            this.TempData["Success-Message"] = $"You successfully changed movie name {viewModel.Name}!";
             return this.View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Avatar([FromForm] MovieUpdateViewModel movieModel)
+        {//Файлът(снимката), която получим ще дойде тук от този формат
+            if (movieModel.Image == null)
+            {
+                this.ViewBag.Message = "Error: Please provide an image";
+                return this.PartialView("_MovieInputPartial", movieModel);
+            }
+
+            if (!this.IsValidImage(movieModel.Image))
+            {
+                this.ViewBag.Message = "Error: Please provide a .jpg, .png ro jpeg file smaller than 1MB";
+                return this.PartialView("_MovieInputPartial", movieModel);
+            }
+
+            using (var ms = new MemoryStream())
+            {
+                movieModel.Image.CopyTo(ms);
+                var fileBytes = ms.ToArray();
+                string base64 = Convert.ToBase64String(fileBytes);
+                movieModel.ImageString = string.Format("data:image/{0};base64,{1}", movieModel.Image.ContentType, base64);
+            }
+
+            this.ViewBag.Success = "Movie image updated";
+
+            return this.PartialView("_MovieInputPartial", movieModel);
+        }
+
+        private bool IsValidImage(IFormFile image)
+        {
+            string type = image.ContentType;
+            if (type != "image/png" && type != "image/jpg" && type != "image/jpeg")
+            {
+                return false;
+            }
+
+            return image.Length <= 1024 * 1024;
         }
     }
 }

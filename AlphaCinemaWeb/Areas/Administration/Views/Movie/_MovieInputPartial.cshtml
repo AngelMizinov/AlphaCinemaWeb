@@ -1,27 +1,55 @@
 ﻿@model MovieUpdateViewModel
 
-<form asp-area="Administration" asp-controller="Movie" asp-action="Update" method="post">
-    <div class="form-row">
-        <!-- Grid column -->
-        <div class="col-4">
-            <!-- Material input -->
+<div class="row">
+    <div class="col-4">
+        <form asp-area="Administration" asp-controller="Movie" asp-action="Update" method="post">
             <div class="md-form" style="margin-bottom:40px;">
-                <label asp-for="OldName" class="control-label">Old Movie Name</label>
-                <input asp-for="OldName" class="form-control" />
-                <span asp-validation-for="OldName" class="text-danger"></span>
-            </div>
-            <div class="md-form">
-                <label asp-for="Name" class="control-label">New Movie Name</label>
-                <input asp-for="Name" class="form-control" />
+                <p>Old Movie Name</p>
+                <input asp-for="Name" class="form-control" readonly />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-        </div>
-        
-        <div asp-validation-summary="All" class="text-danger"></div>
-    
+            <button class="btn btn-light my-sm-0" type="submit">Update</button>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </form>
     </div>
-    <!-- Grid row -->
-    <button class="btn btn-light my-sm-0" type="submit">Update</button>
-    <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary">Go Back</a>
-</form>
-<br />
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4">
+        @if (ViewBag.Success != null)
+        {
+            <div class="alert alert-success" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <strong>Success!</strong> @ViewBag.Success
+            </div>
+        }
+        else if (ViewBag.Message != null)
+        {
+            <div class="alert alert-warning" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <strong>Success!</strong> @ViewBag.Message
+            </div>
+        }
+        @if (Model.ImageString != null)
+        {
+            <img src="@Model.ImageString" class="manage-avatar-image img-thumbnail" alt="Default avatar" />
+        }
+        else
+        {
+            <img src="~/images/defaultMovie.jpg" class="manage-avatar-image img-thumbnail" alt="Default avatar" />
+        }
+        <form asp-area="Administration" asp-controller="Movie" asp-action="Avatar" method="post" enctype="multipart/form-data" data-ajax="true" data-ajax-update="#form-partial">
+            <div class="modal-body">
+                <label class="avatar-upload-label">
+                    Choose new image..
+                    <input type="file" asp-for="@Model.Image" />
+                </label>
+                <img class="img-rounded avatar-img-preview hidden" />
+            </div>
+            <div class="modal-footer" style="display: flex;justify-content: space-between;">
+                @*<button type="button" class="btn btn-danger" onclick="this.form.reset();">Clear</button>
+                Same effect using javascript (for info)*@
+                <button type="submit" class="btn btn-success">Save</button>
+                <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+

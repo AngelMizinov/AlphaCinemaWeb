@@ -112,9 +112,5 @@ namespace AlphaCinemaWeb.Controllers
             return RedirectToAction("Movie", new { cityId = projection.CityId });
         }
 
-        public IActionResult Detail(ProjectionViewModel projection)
-        {
-            return View();
-        }
     }
 }

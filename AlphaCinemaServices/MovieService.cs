@@ -7,7 +7,6 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AlphaCinemaServices
@@ -113,7 +112,12 @@ namespace AlphaCinemaServices
 
             this.context.Movies.Update(movie);
             await this.context.SaveChangesAsync();
-
         }
+
+        //public async Task<Movie> GetMovie(int movieId)
+        //{
+        //    return await this.context.Movies
+        //        .FirstOrDefaultAsync(movie => movie.Id == movieId);
+        //}
     }
 }
