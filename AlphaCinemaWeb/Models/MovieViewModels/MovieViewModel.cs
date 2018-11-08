@@ -1,5 +1,8 @@
 ﻿using AlphaCinemaData.Models;
 using AlphaCinemaData.Models.Associative;
+using AlphaCinemaWeb.Areas.Administration.Models.GenreViewModels;
+using AlphaCinemaWeb.Models.GenreViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -12,7 +15,7 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
     {
         public MovieViewModel()
         {
-           
+            this.Genres = new List<GenreViewModel>();
         }
 
         public MovieViewModel(Movie movie)
@@ -21,10 +24,9 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
             this.Description = movie.Description;
             this.ReleaseYear = movie.ReleaseYear.ToString();
             this.Duration = movie.Duration.ToString();
-
-            this.Genres = new List<Genre>();
+            
         }
-
+        
         [Required]
         [MaxLength(50, ErrorMessage = "Movie length cannot be more tha 50 symbols.")]
         public string Name { get; set; }
@@ -41,6 +43,8 @@ namespace AlphaCinemaWeb.Models.MovieViewModels
         [Required]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Duration must have only digits.")]
         public string Duration { get; set; }
-        public ICollection<Genre> Genres { get; set; }
+
+        public List<GenreViewModel> Genres{ get; set; }
+
     }
 }

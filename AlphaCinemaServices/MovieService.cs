@@ -21,7 +21,7 @@ namespace AlphaCinemaServices
             this.context = context;
         }
 
-        public async Task AddMovie(string name, string description, string releaseYear, string duration)
+        public async Task<Movie> AddMovie(string name, string description, string releaseYear, string duration)
         {
             if (name.Length > 50)
             {
@@ -37,13 +37,12 @@ namespace AlphaCinemaServices
                 {
                     movie.IsDeleted = false;
                     await this.context.SaveChangesAsync();
-                    return;
+                    return movie;
                 }
                 else
                 {
-                    throw new Exception($"\nCity {name} is already present in the database.");
+                    throw new Exception($"\nMovie {name} is already present in the database.");
                     //throw new EntityAlreadyExistException($"\nCity {cityName} is already present in the database.");
-
                 }
             }
             else
@@ -58,6 +57,8 @@ namespace AlphaCinemaServices
 
                 await this.context.AddAsync(movie);
                 await this.context.SaveChangesAsync();
+
+                return movie;
             }
 
         }

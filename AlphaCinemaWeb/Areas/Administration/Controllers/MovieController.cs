@@ -2,8 +2,14 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AlphaCinemaData.Models;
+using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaServices.Exceptions;
+using AlphaCinemaWeb.Areas.Administration.Models.GenreViewModels;
 using AlphaCinemaWeb.Areas.Administration.Models.MovieModels;
+using AlphaCinemaWeb.Exceptions;
+using AlphaCinemaWeb.Models.GenreViewModels;
 using AlphaCinemaWeb.Models.MovieViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,11 +23,13 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
     {
         private readonly IMovieService movieService;
         private readonly IGenreService genreService;
+        private readonly IMovieGenreService movieGenreService;
 
-        public MovieController(IMovieService movieService, IGenreService genreService)
+        public MovieController(IMovieService movieService, IGenreService genreService, IMovieGenreService movieGenreService)
         {
             this.movieService = movieService;
             this.genreService = genreService;
+            this.movieGenreService = movieGenreService;
         }
 
         public IActionResult Index()
@@ -35,9 +43,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             //take all genres from Database
             var allGenres = await this.genreService.GetGenres();
 
-            this.ViewBag.Genres = allGenres;
+            var models = allGenres
+                .Select(genre => new GenreViewModel(genre))
+                .ToList();
 
-            return View();
+            var movieModel = new MovieViewModel()
+            {
+                Genres = models
+            };
+
+            return View(movieModel);
         }
 
         [HttpPost]
@@ -46,7 +61,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         {
             if (!this.ModelState.IsValid)
             {
-                return View();
+                return RedirectToAction("Add");
             }
 
             var movie = await this.movieService.GetMovie(viewModel.Name);
@@ -54,23 +69,53 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             if (movie != null)
             {
                 this.TempData["Error-Message"] = $"Movie with name {viewModel.Name} already exist!";
-                return this.View();
+                return RedirectToAction("Add");
             }
 
             try
             {
-                await this.movieService.AddMovie(viewModel.Name, viewModel.Description,
+                movie = await this.movieService.AddMovie(viewModel.Name, viewModel.Description,
                     viewModel.ReleaseYear, viewModel.Duration); ;
             }
             catch (Exception ex)
             {
                 this.TempData["Error-Message"] = ex.Message;
-                return this.View();
+                return RedirectToAction("Add");
             }
 
-            this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
+            //
+            //get all genres that the Admin has choosed and add them to movie
+            foreach (var genre in viewModel.Genres)
+            {
+                if (genre.IsChecked)
+                {
+                    Genre g = new Genre()
+                    {
+                        Id = genre.Id,
+                        Name = genre.Name
+                    };
 
-            return this.View();
+                    try
+                    {
+                        //just add new MovieGenre
+                        await this.movieGenreService.AddNewMovieGenre(movie, g);
+                    }
+                    catch (EntityAlreadyExistsException ex)
+                    {
+                        this.TempData["Error-Message"] = ex.Message;
+                        return RedirectToAction("Add");
+                    }
+                    catch (Exception ex)
+                    {
+                        this.TempData["Error-Message"] = ex.Message;
+                        return RedirectToAction("Add");
+                    }
+                }
+            }
+            //
+
+            this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
+            return RedirectToAction("Add");
         }
 
 
@@ -178,13 +223,13 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         {//Файлът(снимката), която получим ще дойде тук от този формат
             if (movieModel.Image == null)
             {
-                this.ViewBag.Message = "Error: Please provide an image";
+                this.ViewBag.Message = "Please provide an image";
                 return this.PartialView("_MovieInputPartial", movieModel);
             }
 
             if (!this.IsValidImage(movieModel.Image))
             {
-                this.ViewBag.Message = "Error: Please provide a .jpg, .png ro jpeg file smaller than 1MB";
+                this.ViewBag.Message = "Please provide a .jpg, .png ro jpeg file smaller than 1MB";
                 return this.PartialView("_MovieInputPartial", movieModel);
             }
 

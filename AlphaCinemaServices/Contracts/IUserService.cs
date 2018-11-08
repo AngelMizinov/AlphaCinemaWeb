@@ -13,5 +13,6 @@ namespace AlphaCinemaServices.Contracts
 		Task SetRole(string userId, string roleName);
 		Task<bool> IsUserAdmin(string userId, string roleName);
 		Task RemoveRole(string userId, string roleName);
+		//Task Modify(string userId);
 	}
 }

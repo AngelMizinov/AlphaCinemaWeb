@@ -15,15 +15,17 @@
         <div>
             <div class="btn-group" role="group" aria-label="Button group with nested dropdown">
                 <div class="btn-group" role="group">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-light my-sm-0 btn-info dropdown-toggle" data-toggle="dropdown"
+                    <button id="btnGroupDrop1" type="button" class="btn btn-outline-deep-purple waves-effect my-sm-0 dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
                         Choose City
                     </button>
-
                     <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                         @foreach (var city in Model.Cities)
                         {
-                            <form asp-controller="City" asp-action="SetId" method="post" data-ajax="true" data-ajax-update="#city-form">
+                           <form asp-controller="City" asp-action="SetId" method="post"
+                                  data-ajax="true"
+                                  data-ajax-update="#city-form"
+                                  data-ajax-complete="onCompleteFunction">
                                 <input type="hidden" asp-for="@Model.Id" value="@city.Id" />
                                 <input type="hidden" asp-for="@Model.Name" value="@city.Name" />
                                 <button type="submit" class="dropdown-item">@city.Name</button>
@@ -36,11 +38,20 @@
         </div>
 
         <div id="city-form">
-
             <partial name="_CityInputPartial" model="@Model" />
-
         </div>
 
         @await Html.PartialAsync("_ResultPartial")
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function onCompleteFunction() {
+            var form = $("#da-form");
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+        }
+    </script>
+}

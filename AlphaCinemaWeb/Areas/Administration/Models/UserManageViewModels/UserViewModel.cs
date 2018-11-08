@@ -19,7 +19,8 @@ namespace AlphaCinemaWeb.Areas.Administration.Models.UserManageViewModels
 			FirstName = user.FirstName;
 			LastName = user.LastName;
 			Age = user.Age;
-			this.Id = user.Id;
+			Id = user.Id;
+			CreatedOn = user.CreatedOn;
 		}
 
 		public string Id { get; set; }
@@ -28,5 +29,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Models.UserManageViewModels
 		public string LastName { get; set; }
 		public int Age { get; set; }
 		public bool IsAdmin { get; set; }
+		public DateTime? CreatedOn { get; set; }
 	}
 }

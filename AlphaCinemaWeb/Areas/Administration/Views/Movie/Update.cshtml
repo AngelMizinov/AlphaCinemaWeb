@@ -6,29 +6,29 @@
 
 <div class="card">
     <div class="card-header">
-        <div class="card-body">
-            <h5 class="card-title">Choose Movie</h5><div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-                <div class="btn-group" role="group" style="padding: 30px">
-                    <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                        Choose Movie
-                    </button>
-                    <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                        @foreach (var movie in Model)
-                        {
-                            <a class="dropdown-item" asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" asp-route-movieName="@movie.Name" data-ajax="true" data-ajax-update="#form-partial">@movie.Name</a>
-                        }
-                    </div>
-                </div>
-                <div id="form-partial">
-                    @if (this.ViewBag.MovieName != null)
+        <h5 class="card-title">Choose Movie</h5><div class="btn-group" role="group" aria-label="Button group with nested dropdown">
+            <div class="btn-group" role="group" style="padding: 30px">
+                <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    Choose Movie
+                </button>
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                    @foreach (var movie in Model)
                     {
-                        <partial name="_MovieInputPartial" model="Model" />
+                        <a class="dropdown-item" asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" asp-route-movieName="@movie.Name" data-ajax="true" data-ajax-update="#form-partial">@movie.Name</a>
                     }
                 </div>
-
-                <partial name="_ResultPartial" model="Model" />
             </div>
         </div>
-    </div>
+        <div class="card-body">
+            <div id="form-partial">
+                @if (this.ViewBag.MovieName != null)
+                {
+                    <partial name="_MovieInputPartial" model="Model" />
+                }
+            </div>
 
+            <partial name="_ResultPartial" model="Model" />
+        </div>
+    </div>
+</div>

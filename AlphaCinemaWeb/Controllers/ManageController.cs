@@ -8,8 +8,11 @@ using AlphaCinema.Models.ManageViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using System.Linq;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaWeb.Models.MovieViewModels;
+using AlphaCinemaWeb.Models.WatchedMovieModels;
 
 namespace AlphaCinema.Controllers
 {
@@ -20,18 +23,20 @@ namespace AlphaCinema.Controllers
 		private readonly UserManager<User> userManager;
 		private readonly SignInManager<User> signInManager;
 		private readonly IUserService userService;
+		private readonly IWatchedMoviesService watchedMoviesService;
 
 		//private readonly IUsersService usersService;
-
 
 		public ManageController(
 		  UserManager<User> userManager,
 		  SignInManager<User> signInManager,
-		  IUserService userService)
+		  IUserService userService,
+		  IWatchedMoviesService watchedMoviesService)
 		{
 			this.userManager = userManager;
 			this.signInManager = signInManager;
 			this.userService = userService;
+			this.watchedMoviesService = watchedMoviesService;
 		}
 
 		[TempData]
@@ -45,16 +50,27 @@ namespace AlphaCinema.Controllers
 			{
 				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 			}
+			var watchedMovies = await watchedMoviesService.GetWatchedMoviesByUserId(user.Id);
+			//var watchedMovieViewModel = watchedMovies.Select(m => new MovieViewModel(m)).ToList();
+			var watchedMovieViewModels = watchedMovies.Select(wm => new WatchedMovieViewModel()
+			{
+				CityName = wm.Projection.City.Name,
+				Hours = wm.Projection.OpenHour.Hours,
+				Minutes = wm.Projection.OpenHour.Minutes,
+				WatchedOn = wm.Date,
+				MovieName = wm.Projection.Movie.Name
+			}).ToList();
 
 			var model = new IndexViewModel
 			{
 				FirstName = user.FirstName,
 				LastName = user.LastName,
 				Age = user.Age,
-				// Watched movies collection? 
+				WatchedMovieViewModels = watchedMovieViewModels,
 				Username = user.UserName,
-				//Email = user.Email,
-				ImageUrl = user.AvatarImageName,
+				CreatedOn = user.CreatedOn,
+				ModifiedOn = user.ModifiedOn ?? user.CreatedOn,
+				ImageUrl = user.Image,
 				StatusMessage = StatusMessage
 			};
 			return View(model);

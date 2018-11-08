@@ -4,29 +4,30 @@
     <div class="col-4">
         <form asp-area="Administration" asp-controller="Movie" asp-action="Update" method="post">
             <div class="md-form" style="margin-bottom:40px;">
-                <p>Old Movie Name</p>
+                <p>Movie Name</p>
                 <input asp-for="Name" class="form-control" readonly />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <button class="btn btn-light my-sm-0" type="submit">Update</button>
+            <button class="btn btn-outline-dark-green waves-effect my-sm-0" type="submit">Update</button>
+            <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-outline-primary waves-effect">Go Back</a>
             <div asp-validation-summary="All" class="text-danger"></div>
         </form>
-    </div>
-    <div class="col-md-4">
     </div>
     <div class="col-md-4">
         @if (ViewBag.Success != null)
         {
             <div class="alert alert-success" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
-                <strong>Success!</strong> @ViewBag.Success
+                <strong>Success! </strong> @ViewBag.Success
             </div>
         }
         else if (ViewBag.Message != null)
         {
-            <div class="alert alert-warning" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
-                <strong>Success!</strong> @ViewBag.Message
+            <div class="alert alert-danger" style="margin-left: auto; margin-top: auto; margin-bottom: auto;">
+                <strong>Error! </strong> @ViewBag.Message
             </div>
         }
+    </div>
+    <div class="col-md-4">
         @if (Model.ImageString != null)
         {
             <img src="@Model.ImageString" class="manage-avatar-image img-thumbnail" alt="Default avatar" />
@@ -50,6 +51,6 @@
                 <button type="reset" class="btn btn-danger" value="Reset">Reset</button>
             </div>
         </form>
+        
     </div>
 </div>
-

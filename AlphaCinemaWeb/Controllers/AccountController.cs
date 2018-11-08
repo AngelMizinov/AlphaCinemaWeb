@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using AlphaCinema.Models;
 using AlphaCinema.Models.AccountViewModels;
 using AlphaCinemaData.Models;
+using System;
 
 namespace AlphaCinema.Controllers
 {
@@ -88,7 +89,8 @@ namespace AlphaCinema.Controllers
 					Age = model.Age,
 					// Maybe initialize watched movies collection?
 					UserName = model.Email,
-					Email = model.Email
+					Email = model.Email,
+					CreatedOn = DateTime.Now
 				};
 
 				var result = await this.userManager.CreateAsync(user, model.Password);
