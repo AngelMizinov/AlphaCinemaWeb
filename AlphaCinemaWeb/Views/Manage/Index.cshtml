@@ -6,12 +6,14 @@
 @(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
 <div class="row form-group">
     <div class="col-md-6">
-        <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail" style="width:200px;" alt="Default avatar" />
+        <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail"
+             style="width:200px;" alt="Default avatar" />
     </div>
 </div>
 <div class="row form-group">
     <div class="col-md-6">
         <button class="p2 btn btn-primary" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
+        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-danger" role="link">Change password</a>
     </div>
 </div>
 
