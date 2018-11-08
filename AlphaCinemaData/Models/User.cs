@@ -16,16 +16,12 @@ namespace AlphaCinemaData.Models
 
 		public int Age { get; set; }
 
-		//[Required(ErrorMessage = "The email address is required")]
-		//[EmailAddress(ErrorMessage = "Invalid Email Address")]
-		//public override string Email { get; set; }
-
-		public string AvatarImageName { get; set; }
+		public string Image { get; set; }
 
 		public ICollection<WatchedMovie> WatchedMovies { get; set; }
 
 		[DataType(DataType.DateTime)]
-		public DateTime? CreatedOn { get; set; }
+		public DateTime CreatedOn { get; set; }
 
 		[DataType(DataType.DateTime)]
 		public DateTime? ModifiedOn { get; set; }

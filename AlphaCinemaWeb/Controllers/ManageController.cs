@@ -68,7 +68,9 @@ namespace AlphaCinema.Controllers
 				Age = user.Age,
 				WatchedMovieViewModels = watchedMovieViewModels,
 				Username = user.UserName,
-				ImageUrl = user.AvatarImageName,
+				CreatedOn = user.CreatedOn,
+				ModifiedOn = user.ModifiedOn ?? user.CreatedOn,
+				ImageUrl = user.Image,
 				StatusMessage = StatusMessage
 			};
 			return View(model);

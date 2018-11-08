@@ -10,6 +10,7 @@ namespace AlphaCinemaData.Models
 		public string Description { get; set; }
 		public int ReleaseYear { get; set; }
 		public int Duration { get; set; }
+		public string Image { get; set; }
 		public ICollection<MovieGenre> MovieGenres { get; set; }
 		public ICollection<Projection> Projections { get; set; }
     }

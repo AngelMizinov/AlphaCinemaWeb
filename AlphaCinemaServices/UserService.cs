@@ -27,8 +27,8 @@ namespace AlphaCinemaServices
 
 		public async Task<ICollection<User>> GetAllUsers()
 		{
-			var users = await this.context
-				.Users.ToListAsync();
+			var users = await this.context.Users
+				.ToListAsync();
 			return users;
 		}
 
@@ -43,6 +43,7 @@ namespace AlphaCinemaServices
 		public async Task SetRole(string userId, string roleName)
 		{
 			var user = await GetUser(userId);
+			// check if user is alredady added in role
 			await this.userManager.AddToRoleAsync(user, roleName);
 		}
 
@@ -58,5 +59,12 @@ namespace AlphaCinemaServices
 				.IsInRoleAsync(GetUser(userId).Result, roleName);
 			return result;
 		}
+
+		//public async Task Modify(string userId)
+		//{
+		//	var user = GetUser(userId);
+		//	this.userManager
+		//		.GetUserAsync()
+		//}
 	}
 }
