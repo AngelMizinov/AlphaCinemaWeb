@@ -4,8 +4,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaServices.Exceptions;
+using AlphaCinemaWeb.Areas.Administration.Models.GenreViewModels;
 using AlphaCinemaWeb.Areas.Administration.Models.MovieModels;
 using AlphaCinemaWeb.Exceptions;
+using AlphaCinemaWeb.Models.GenreViewModels;
 using AlphaCinemaWeb.Models.MovieViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,9 +38,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             //take all genres from Database
             var allGenres =  await this.genreService.GetGenres();
 
-            this.ViewBag.Genres = allGenres;
-
-            return View();
+            var models = allGenres
+                .Select(genre => new GenreViewModel(genre))
+                .ToList();
+            
+            var movieModel = new MovieViewModel()
+            {
+                Genres = models
+            };
+            
+            return View(movieModel);
         }
 
         [HttpPost]
@@ -49,7 +58,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             {
                 return View();
             }
-
+            
             var movie = await this.movieService.GetMovie(viewModel.Name);
 
             if (movie != null)
