@@ -10,6 +10,8 @@ namespace AlphaCinemaServices.Contracts
 
         Task<Movie> GetMovie(string movieName);
 
+        Task<Movie> GetMovie(int movieId);
+        
         Task<Movie> AddMovie(string name,string description,string releaseYear,string duration);
 
         Task DeleteMovie(string movieName);

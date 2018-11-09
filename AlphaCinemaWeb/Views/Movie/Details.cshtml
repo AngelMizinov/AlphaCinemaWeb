@@ -1,21 +1,56 @@
-﻿
+﻿@model MovieViewModel
+
 @{
     ViewData["Title"] = "Details";
 }
 
 <div class="modal-content">
-    <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
-        <div class="modal-body">
-            <label class="avatar-upload-label">
-                Drag or click to upload..
-                <input type="file" name="AvatarImage" />
-            </label>
-            <img class="img-rounded avatar-img-preview hidden" />
-        </div>
-        <div class="modal-footer">
-            <button type="button" id="remove-img" class="btn btn-danger">Discard</button>
-            <button type="submit" class="btn btn-success">Save Changes</button>
+    <form asp-controller="Movie" asp-action="Details" method="post">
+        <div class="card" style="padding:10px; border:inherit">
+
+            <div class="row">
+                <div class="col-6">
+                    <img src="~/images/Movie.jpg" class="manage-avatar-image img-thumbnail"
+                         style="width:500px; height:500px" alt="Default avatar" />
+                </div>
+
+                <div class="col-6">
+                    <div class="card">
+
+                        <div class="card-body" style="border:groove">
+                            <!-- Title -->
+                            <h3 class="card-title text-center">Movie info</h3>
+                            <hr />
+
+                            <!-- Text -->
+                            <br />
+                            <h4><b>Name</b>: @Model.Name</h4>
+                            <br />
+                            <h4><b>Description</b>: </h4>
+                            <h4>@Model.Description</h4>
+                            <br />
+                            <h4><b>Release year</b>: @Model.ReleaseYear</h4>
+                            <br />
+                            <h4><b>Duration</b>:@Model.Duration</h4>
+
+                            <div class="card" id="genres-container" style="padding:10px; border:groove">
+
+                                <h4><b>Genres:</b></h4>
+                                <ul>
+                                    @foreach (var genre in Model.Genres)
+                                    {
+                                        <li style="font-size:16px">@genre.Name</li>
+                                    }
+                                </ul>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </form>
 </div>
-

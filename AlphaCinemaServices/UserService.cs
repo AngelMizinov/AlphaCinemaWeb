@@ -1,6 +1,7 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaWeb.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -60,11 +61,18 @@ namespace AlphaCinemaServices
 			return result;
 		}
 
-		//public async Task Modify(string userId)
-		//{
-		//	var user = GetUser(userId);
-		//	this.userManager
-		//		.GetUserAsync()
-		//}
+		public async Task Modify(string userId)
+		{
+			var user = await GetUser(userId);
+
+			if (user == null || user.IsDeleted)
+			{
+				throw new EntityDoesntExistException($"\nUser is not present in the database.");
+			}
+			user.ModifiedOn = DateTime.Now;
+
+			this.context.Users.Update(user);
+			await this.context.SaveChangesAsync();
+		}
 	}
 }

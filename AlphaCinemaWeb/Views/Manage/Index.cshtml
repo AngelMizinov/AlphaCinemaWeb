@@ -2,42 +2,44 @@
 @{
     ViewData["Title"] = "Profile";
 }
-<h2>Welcome @Model.Username</h2>
-<h4>Manage your account</h4>
-<hr />
-<div class="row">
-    <div class="col-6">
-        <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail"
-             style="width:300px;" alt="Default avatar" />
-    </div>
-    <div class="col-6">
-        <!-- Card -->
-        <div class="card">
-
-            <!-- Card content -->
-            <div class="card-body">
-
-                <!-- Title -->
-                <h3 class="card-title text-center">Account info</h3>
-                <hr />
-                <!-- Text -->
-                <br />
-                <h4><b>Name</b>: @(Model.FirstName + " " + Model.LastName)</h4>
-                <br />
-                <h4><b>Age</b>: @Model.Age</h4>
-                <br />
-                <h4><b>Registered on</b>: @(Model.CreatedOn.ToString("dd/MMMM/yyyy"))</h4>
-                @if (User.IsInRole("Administrator"))
-                {
-                <br />
-                <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
-                }
-                <br />
-                <h4><b>Total watched movies</b>: @Model.WatchedMovieViewModels.Count</h4>
-            </div>
-
+<div class="card" style="padding:10px; border:inherit">
+    <h2>Welcome @Model.Username</h2>
+    <h4>Manage your account</h4>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail"
+                 style="width:300px;" alt="Default avatar" />
         </div>
-        <!-- Card -->
+        <div class="col-6">
+            <!-- Card -->
+            <div class="card">
+
+                <!-- Card content -->
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <h3 class="card-title text-center">Account info</h3>
+                    <hr />
+                    <!-- Text -->
+                    <br />
+                    <h4><b>Name</b>: @(Model.FirstName + " " + Model.LastName)</h4>
+                    <br />
+                    <h4><b>Age</b>: @Model.Age</h4>
+                    <br />
+                    <h4><b>Registered on</b>: @(Model.CreatedOn.ToString("dd/MMMM/yyyy"))</h4>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <br />
+                        <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
+                    }
+                    <br />
+                    <h4><b>Total watched movies</b>: @Model.WatchedMovieViewModels.Count</h4>
+                </div>
+
+            </div>
+            <!-- Card -->
+        </div>
     </div>
 </div>
 <br />
@@ -58,7 +60,9 @@
             <table class="table table-hover table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="th-lg" scope="col" style="text-align:center">Movie Title</th>
+                        <th class="th-lg" scope="col" style="text-align:center">
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@Model.UserId" asp-route-sortBy="@ViewData["MovieTitleSortParam"]">Movie Title</a>
+                        </th>
                         <th class="th-lg" scope="col" style="text-align:center">City Name</th>
                         <th class="th-lg" scope="col" style="text-align:center">Projection Hour</th>
                         <th class="th-lg" scope="col" style="text-align:center">Watched On</th>
@@ -66,7 +70,7 @@
                 </thead>
                 <tbody>
                     @foreach (var wm in Model.WatchedMovieViewModels)
-    {
+                    {
                         <tr style="text-align:center">
                             <td>@wm.MovieName</td>
                             <td>@wm.CityName</td>
@@ -80,6 +84,7 @@
     </div>
 </div>
 <!-- Card -->
+
 
 @(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
 
@@ -106,8 +111,11 @@
     </div>
 </div>
 
+
+
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    @* <script src="~/js/upload.js"></script>*@
+     <script src="~/js/upload.js"></script>
 }
+

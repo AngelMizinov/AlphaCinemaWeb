@@ -1,4 +1,4 @@
-﻿.logo {
+﻿/*.logo {
     font-family: 'Coda', cursive;
     font-size: 1.8em;
     font-weight: bold;
@@ -15,7 +15,7 @@
             transition: ease;
             text-decoration: none;
             transition-duration: 0.5s;
-        }
+        }*/
 
 .page-content {
     padding: 0px;
@@ -320,4 +320,53 @@ input[type="submit"].makealink {
 
 .update-movie-image {
     max-width: 60%;
+}
+
+body {
+    background-image: url("/images/background_home_page.jpg");
+    background-size: cover;
+}
+
+.navbar {
+    z-index: 10000;
+    top: 5px;
+    width: 100%;
+    opacity:0.8
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button:hover {
+    background-color: darkgrey
+}
+
+.button:active {
+    background-color: #f4bbbb;
+    box-shadow: 0 5px #666;
+}
+
+.my-zoom {
+    padding: 50px;
+    /*background-color: black;*/
+    transition: transform .10s; /* Animation */
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.my-zoom:hover {
+    transform: scale(1.2);
 }
