@@ -1,0 +1,49 @@
+﻿@model MovieUpdateListViewModel
+@{
+    ViewData["Title"] = "_MovieImagePartial";
+}
+
+<div style="float: right;">
+    <form asp-area="Administration" asp-controller="Movie" asp-action="Avatar" method="post" enctype="multipart/form-data" data-ajax="true" data-ajax-update="#form-partial" data-ajax-complete="onCompleteFunction">
+        <input type="hidden" asp-for="ImageString" value="@Model.OldImageString" />
+        <input type="hidden" asp-for="OldImageString" value="@Model.OldImageString" />
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="Name" value="@Model.Name" />
+        <input type="hidden" asp-for="Description" value="@Model.Description" />
+        <input type="hidden" asp-for="ReleaseYear" value="@Model.ReleaseYear" />
+        <input type="hidden" asp-for="Duration" value="@Model.Duration" />
+        <button type="submit" class="btn btn-danger">Reset</button>
+    </form>
+</div>
+<div>
+    @if (Model.ImageString != ViewBag.DefaultImage)
+    {
+        <img src="@Model.ImageString" class="update-movie-image manage-avatar-image img-thumbnail" alt="Default avatar" />
+    }
+    else
+    {
+        <img src="~/images/defaultMovie.jpg" class="update-movie-image manage-avatar-image img-thumbnail" alt="Default avatar" />
+    }
+</div>
+<div style="float: left;">
+    <form asp-area="Administration" asp-controller="Movie" asp-action="Avatar" method="post" enctype="multipart/form-data" data-ajax="true" data-ajax-update="#form-partial" data-ajax-complete="onCompleteFunction">
+        <label class="avatar-upload-label">
+            Choose new image..
+            <input type="file" asp-for="@Model.Image" />
+        </label>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input type="hidden" asp-for="Name" value="@Model.Name" />
+        <input type="hidden" asp-for="Description" value="@Model.Description" />
+        <input type="hidden" asp-for="ReleaseYear" value="@Model.ReleaseYear" />
+        <input type="hidden" asp-for="Duration" value="@Model.Duration" />
+        <input type="hidden" asp-for="ImageString" value="@Model.OldImageString" />
+        <input type="hidden" asp-for="OldImageString" value="@Model.OldImageString" />
+        @*<button type="button" class="btn btn-danger" onclick="this.form.reset();">Clear</button>
+            Same effect using javascript (for info)*@
+        <div style="flex: auto; justify-content: space-between">
+            <button type="submit" class="btn btn-success">Save</button>
+            <button type="reset" class="btn btn-dark" value="Reset">Clear</button>
+        </div>
+    </form>
+</div>
+

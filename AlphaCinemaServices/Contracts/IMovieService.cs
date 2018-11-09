@@ -14,6 +14,6 @@ namespace AlphaCinemaServices.Contracts
 
         Task DeleteMovie(string movieName);
 
-        Task UpdateName(string oldName, string newName);
+        Task<Movie> UpdateMovie(int id, string name, string description, string releaseYear, string duration, string image);
     }
 }

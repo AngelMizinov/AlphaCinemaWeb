@@ -7,48 +7,58 @@
 
     <partial name="_HeaderPartial" model="Model" />
 
-    @foreach (var movie in Model.Projections)
+    @if (Model.Projections.Count() == 0)
     {
-        <div class="row" style="display:flex; align-items:center;">
-            <div class="col-md-2">
-                <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
-                    @if (movie.ImageUrl == null)
-                    {
-                        <img src="~/images/defaultMovie.jpg" class="imageCell" />
-                    }
-                    else
-                    {
-                        <img src="movie.ImageUrl" class="imageCell" />
-                    }
-                </a>
-            </div>
-            <div class="col-md-2">@movie.MovieName</div>
-            <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
-            <div class="col-md-2">@movie.MovieDuration</div>
-            <div class="col-md-2">@movie.MovieStart</div>
-            <div class="col-md-2">
-                @if (User.Identity.IsAuthenticated)
-                {
-                    <form asp-controller="BuyTicket" asp-action="@(movie.IsBooked ? "Decline" : "Book")" method="post">
-                        <input type="hidden" asp-for="ProjectionId" value="@movie.ProjectionId" />
-                        <input type="hidden" asp-for="Day" value="@Model.Day" />
-                        <input type="hidden" asp-for="CityId" value="@Model.CityId" />
-                        <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                        <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
-                        <input type="hidden" asp-for="CurrentPage" value="@Model.CurrentPage" />
-                        <button type="submit" style="width: 100%;" class="btn btn-lg @(movie.IsBooked ? "btn-danger" : "btn-success")">@(movie.IsBooked ? "Decline" : "Book")</button>
-                    </form>
-                }
-                else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
-                {
-                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-warning disabled">@movie.Seats Left</button>
-                }
-                else if (!User.Identity.IsAuthenticated && (movie.Seats == 0))
-                {
-                    <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">NoSeats</button>
-                }
-            </div>
+        <div class="col-md-12" style="text-align: center; padding: 40px;">
+            <h4>Currently they aren't any scheduled projections</h4>
         </div>
+    }
+    else
+    {
+        @foreach (var movie in Model.Projections)
+        {
+            <div class="row" style="display:flex; align-items:center;">
+                <div class="col-md-2">
+                    <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
+                        @if (movie.Image != ViewBag.DefaultImage)
+                        {
+                            <img src="@movie.Image" class="imageCell" alt="Default avatar" />
+                        }
+                        else
+                        {
+                            <img src="~/images/defaultMovie.jpg" class="imageCell" alt="Default avatar" />
+                        }
+                    </a>
+                </div>
+                <div class="col-md-2">@movie.MovieName</div>
+                <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
+                <div class="col-md-2">@movie.MovieDuration</div>
+                <div class="col-md-2">@movie.MovieStart</div>
+                <div class="col-md-2">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <form asp-controller="BuyTicket" asp-action="@(movie.IsBooked ? "Decline" : "Book")" method="post">
+                            <input type="hidden" asp-for="Day" value="@Model.Day" />
+                            <input type="hidden" asp-for="Image" value="@Model.Image" />
+                            <input type="hidden" asp-for="CityId" value="@Model.CityId" />
+                            <input type="hidden" asp-for="UserId" value="@Model.UserId" />
+                            <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
+                            <input type="hidden" asp-for="CurrentPage" value="@Model.CurrentPage" />
+                            <input type="hidden" asp-for="ProjectionId" value="@movie.ProjectionId" />
+                            <button type="submit" style="width: 100%;" class="btn btn-lg @(movie.IsBooked ? "btn-danger" : "btn-success")">@(movie.IsBooked ? "Decline" : "Book")</button>
+                        </form>
+                    }
+                    else if (!User.Identity.IsAuthenticated && (movie.Seats > 0))
+                    {
+                        <button type="submit" style="width: 100%;" class="btn btn-lg btn-warning disabled">@movie.Seats Left</button>
+                    }
+                    else if (!User.Identity.IsAuthenticated && (movie.Seats == 0))
+                    {
+                        <button type="submit" style="width: 100%;" class="btn btn-lg btn-danger disabled">NoSeats</button>
+                    }
+                </div>
+            </div>
+        }
     }
 
     <partial name="_NavigationPartial" model="Model" />

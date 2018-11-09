@@ -52,16 +52,14 @@
             <!--Card Narrower-->
             <div class="card card-cascade narrower">
                 <!--Card image-->
-                <div class="view view-cascade overlay">
-                    @if (movie.ImageUrl == null)
+                <div id="front-card" class="view view-cascade overlay">
+                    @if (movie.Image != ViewBag.DefaultImage)
                     {
-                        <img src="~/images/defaultMovie.jpg" class="card-img-top"
-                             alt="narrower">
+                        <img src="@movie.Image" class="card-img-top" alt="narrower">
                     }
                     else
                     {
-                        <img src="movie.ImageUrl" class="card-img-top"
-                             alt="narrower">
+                        <img src="~/images/defaultMovie.jpg" class="manage-avatar-image img-thumbnail" alt="Default avatar" />
                     }
                     <a>
                         <div class="mask rgba-white-slight"></div>
@@ -77,8 +75,6 @@
                     <p class="card-text">
                         @movie.MovieDescription.Substring(0, Math.Min(movie.MovieDescription.Length, 200))...
                     </p>
-                    @*<a class="btn btn-unique">Button</a>*@
-                    @*Ако решим да добавим бутон за нещо*@
                 </div>
                 <!--/.Card content-->
             </div>

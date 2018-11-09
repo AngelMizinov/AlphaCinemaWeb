@@ -25,6 +25,8 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
         }
         public int ProjectionId { get; set; }
 
+        public string Image { get; set; }
+
         public DayOfWeek Day { get; set; }
 
         public string SortOrder { get; set; }

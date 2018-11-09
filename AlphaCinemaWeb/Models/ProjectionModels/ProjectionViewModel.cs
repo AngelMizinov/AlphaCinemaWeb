@@ -1,13 +1,18 @@
 ﻿using AlphaCinemaData.Models.Associative;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace AlphaCinemaWeb.Models.ProjectionModels
 {
     public class ProjectionViewModel
     {
-        public ProjectionViewModel(Projection projection)
-        {
+        private static readonly Regex imageUriPattern =
+           new Regex(@"^data\:image\/(?<type>image\/(png|jpg|jpeg));base64,(?<data>[A-Z0-9\+\/\=]+)$", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
+
+        public ProjectionViewModel(Projection projection, string defaultImage)
+        {//Regex-a проверява дали стринга на филма е валидна снимка, ако не е му присвояв default-на стойност
+            this.Image = !imageUriPattern.Match(projection.Movie.Image).Success ? defaultImage : projection.Movie.Image;
             this.Seats = projection.Seats;
             this.ProjectionId = projection.Id;
             this.IsBooked = projection.IsBooked;
@@ -32,7 +37,7 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
 
         public IEnumerable<string> Genres { get; set; }
 
-        public string ImageUrl { get; set; }
+        public string Image { get; set; }
 
         public string MovieDescription { get; private set; }
     }

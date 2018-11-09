@@ -1,31 +1,22 @@
-﻿using AlphaCinemaData.Models;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 namespace AlphaCinemaWeb.Areas.Administration.Models.MovieModels
 {
-    public class MovieUpdateViewModel
+    public class MovieUpdateListViewModel
     {
-        private readonly Regex imageUriPattern =
-            new Regex(@"^data\:image\/(?<type>image\/(png|jpg|jpeg));base64,(?<data>[A-Z0-9\+\/\=]+)$", RegexOptions.Compiled | RegexOptions.ExplicitCapture | RegexOptions.IgnoreCase);
-
-        public MovieUpdateViewModel()
+        public MovieUpdateListViewModel()
         {
 
         }
 
-        public MovieUpdateViewModel(Movie movie, string defaultImage)
+        public MovieUpdateListViewModel(IEnumerable<MovieUpdateViewModel> movies)
         {
-            this.Id = movie.Id;
-            this.Name = movie.Name;
-            this.Description = movie.Description;
-            this.ReleaseYear = movie.ReleaseYear.ToString();
-            this.Duration = movie.Duration.ToString();
-            this.ImageString = !imageUriPattern.Match(movie.Image).Success ? defaultImage : movie.Image;
-            this.OldImageString = !imageUriPattern.Match(movie.Image).Success ? defaultImage : movie.Image;
-            //Този regex просто проверява дали стринга е валиден image
+            this.Movies = movies;
         }
+
+        public IEnumerable<MovieUpdateViewModel> Movies { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "Value must be non-negative integer")]
         public int Id { get; set; }

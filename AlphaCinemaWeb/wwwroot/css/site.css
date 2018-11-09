@@ -313,3 +313,11 @@ input[type="submit"].makealink {
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+#front-card {
+    height: 190px;
+}
+
+.update-movie-image {
+    max-width: 60%;
+}
