@@ -10,45 +10,49 @@
     ViewData["Title"] = "Log in";
 }
 
-<h2>@ViewData["Title"]</h2>
-<div class="row">
-    <div class="col-md-4">
-        <section>
-            <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
-                <h4>Use a local account to log in.</h4>
-                <hr />
-                <div asp-validation-summary="All" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Email"></label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Password"></label>
-                    <input asp-for="Password" class="form-control" />
-                    <span asp-validation-for="Password" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <div class="custom-control custom-checkbox">
-                        <input asp-for="RememberMe" type="checkbox" class="custom-control-input" id="defaultUnchecked">
-                        <label asp-for="RememberMe" class="custom-control-label" for="defaultUnchecked">
-                            @Html.DisplayNameFor(m => m.RememberMe)
-                        </label>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-outline-primary waves-effect">Log in</button>
-                </div>
-                <div class="form-group">
-                    <p>
-                        <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
-                    </p>
-                </div>
-            </form>
-        </section>
-    </div>
-</div>
+<div class="card" style="padding:15px; border:inset; border-radius:6px 6px">
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
-}
+    <h2>@ViewData["Title"]</h2>
+    <div class="row">
+        <div class="col-md-4"; style="background-color:aliceblue; border:inset; border-radius:6px 6px">
+            <section>
+                <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
+                    <h4>Use a local account to log in.</h4>
+                    <hr />
+                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input asp-for="Email" class="form-control" />
+                        <span asp-validation-for="Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Password"></label>
+                        <input asp-for="Password" class="form-control" />
+                        <span asp-validation-for="Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input asp-for="RememberMe" type="checkbox" class="custom-control-input" id="defaultUnchecked">
+                            <label asp-for="RememberMe" class="custom-control-label" for="defaultUnchecked">
+                                @Html.DisplayNameFor(m => m.RememberMe)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-outline-primary waves-effect">Log in</button>
+                    </div>
+                    <div class="form-group">
+                        <p>
+                            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]">Register as a new user?</a>
+                        </p>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+    }
+
+</div>

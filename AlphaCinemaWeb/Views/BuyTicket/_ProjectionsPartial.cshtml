@@ -10,8 +10,8 @@
     @foreach (var movie in Model.Projections)
     {
         <div class="row" style="display:flex; align-items:center;">
-            <div class="col-md-2">
-                <a asp-controller="BuyTicket" asp-action="Detail" asp-route-projection="@movie">
+            <div class="col-md-2 zoom">
+                <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@movie.MovieName">
                     @if (movie.ImageUrl == null)
                     {
                         <img src="~/images/defaultMovie.jpg" class="imageCell" />
@@ -20,9 +20,16 @@
                     {
                         <img src="movie.ImageUrl" class="imageCell" />
                     }
+
                 </a>
             </div>
-            <div class="col-md-2">@movie.MovieName</div>
+
+
+            <div class="col-md-2 my-zoom">
+                <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@movie.MovieName">
+                    @movie.MovieName
+                </a>
+            </div>
             <div class="col-md-2">@string.Join(", ", movie.Genres)</div>
             <div class="col-md-2">@movie.MovieDuration</div>
             <div class="col-md-2">@movie.MovieStart</div>

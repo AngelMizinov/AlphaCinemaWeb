@@ -84,6 +84,13 @@ namespace AlphaCinemaServices
                 .FirstOrDefaultAsync();
         }
 
+        public async Task<Movie> GetMovie(int movieId)
+        {
+            return await this.context.Movies
+                .Where(mov => mov.Id == movieId)
+                .FirstOrDefaultAsync();
+        }
+
         public async Task<ICollection<Movie>> GetMovies()
         {
             return await this.context.Movies

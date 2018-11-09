@@ -68,11 +68,9 @@ namespace AlphaCinemaServices
         {
             var genres = await this.context.Movies
                 .Where(mov => mov.Id == int.Parse(movieId))
-                .Select(mov => mov.MovieGenres
-                    .Select(mg => mg.Genre)
-                    .FirstOrDefault())
-                 .ToListAsync();
-
+                .Select(m => m.MovieGenres.Select(mg => mg.Genre).ToList())
+                .FirstOrDefaultAsync();
+            
             return genres;
         }
 

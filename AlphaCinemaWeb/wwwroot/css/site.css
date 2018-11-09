@@ -352,5 +352,19 @@ body {
 .button:active {
     background-color: #f4bbbb;
     box-shadow: 0 5px #666;
-    transform: translateY(4px);
+}
+
+//========================================================================================
+
+.my-zoom {
+    padding: 50px;
+    background-color: black;
+    transition: transform .10s; /* Animation */
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+}
+
+.my-zoom:hover {
+    transform: scale(1.2);
 }
