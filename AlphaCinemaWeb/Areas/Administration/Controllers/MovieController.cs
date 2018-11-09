@@ -159,21 +159,20 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         [HttpGet]
         public async Task<ActionResult> Update()
         {
-            var movies = await this.movieService.GetMovies();//Тук реално ни трябват само имената на филмите
+            var movies = await this.movieService.GetMovies();
 
             var model = movies.Select(movie => new MovieUpdateViewModel(movie));
 
             return this.View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetMovie(string movieName)
+        [HttpPost]
+        public IActionResult GetMovie(MovieUpdateViewModel movie)
         {
-            var movie = await this.movieService.GetMovie(movieName);
-            this.ViewBag.MovieName = movieName;
-            var model = new MovieUpdateViewModel(movie);
+            this.ViewBag.MovieName = movie.Name;
+            this.ViewBag.MovieOldImage = movie.ImageString;
 
-            return PartialView("_MovieInputPartial", model);
+            return PartialView("_MovieInputPartial", movie);
         }
 
         [HttpPost]
@@ -219,31 +218,34 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Avatar([FromForm] MovieUpdateViewModel movieModel)
+        public IActionResult Avatar([FromForm] MovieUpdateViewModel movie)
         {//Файлът(снимката), която получим ще дойде тук от този формат
-            if (movieModel.Image == null)
+            this.ViewBag.MovieName = movie.Name;
+            this.ViewBag.MovieOldImage = movie.ImageString;
+
+            if (movie.Image == null && movie.ImageString == null)
             {
                 this.ViewBag.Message = "Please provide an image";
-                return this.PartialView("_MovieInputPartial", movieModel);
+                return this.PartialView("_MovieInputPartial", movie);
             }
 
-            if (!this.IsValidImage(movieModel.Image))
+            if (!this.IsValidImage(movie.Image))
             {
                 this.ViewBag.Message = "Please provide a .jpg, .png ro jpeg file smaller than 1MB";
-                return this.PartialView("_MovieInputPartial", movieModel);
+                return this.PartialView("_MovieInputPartial", movie);
             }
 
             using (var ms = new MemoryStream())
             {
-                movieModel.Image.CopyTo(ms);
+                movie.Image.CopyTo(ms);
                 var fileBytes = ms.ToArray();
                 string base64 = Convert.ToBase64String(fileBytes);
-                movieModel.ImageString = string.Format("data:image/{0};base64,{1}", movieModel.Image.ContentType, base64);
+                movie.ImageString = string.Format("data:image/{0};base64,{1}", movie.Image.ContentType, base64);
             }
 
             this.ViewBag.Success = "Movie image updated";
 
-            return this.PartialView("_MovieInputPartial", movieModel);
+            return this.PartialView("_MovieInputPartial", movie);
         }
 
         private bool IsValidImage(IFormFile image)

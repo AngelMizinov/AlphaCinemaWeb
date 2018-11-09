@@ -15,7 +15,15 @@
                 <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
                     @foreach (var movie in Model)
                     {
-                        <a class="dropdown-item" asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" asp-route-movieName="@movie.Name" data-ajax="true" data-ajax-update="#form-partial">@movie.Name</a>
+                        <form asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" method="post" data-ajax="true" data-ajax-update="#form-partial">
+                            <input type="hidden" asp-for="@movie.Id" value="@movie.Id" />
+                            <input type="hidden" asp-for="@movie.Name" value="@movie.Name" />
+                            <input type="hidden" asp-for="@movie.Description" value="@movie.Description" />
+                            <input type="hidden" asp-for="@movie.ReleaseYear" value="@movie.ReleaseYear" />
+                            <input type="hidden" asp-for="@movie.Duration" value="@movie.Duration" />
+                            <button type="submit" class="dropdown-item">@movie.Name</button>
+                        </form>
+                        @*<a class="dropdown-item" asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" asp-route-movieName="@movie.Name" data-ajax="true" data-ajax-update="#form-partial">@movie.Name</a>*@
                     }
                 </div>
             </div>
@@ -32,3 +40,4 @@
         </div>
     </div>
 </div>
+
