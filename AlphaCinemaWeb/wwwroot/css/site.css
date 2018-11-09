@@ -313,3 +313,44 @@ input[type="submit"].makealink {
     overflow-y: auto;
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
+
+
+body {
+    background-image: url("/images/background_home_page.jpg");
+    background-size: cover;
+}
+
+.navbar {
+    z-index: 10000;
+    top: 5px;
+    width: 100%;
+    opacity:0.8
+}
+
+
+//=======================================================================
+
+.button {
+    display: inline-block;
+    padding: 15px 25px;
+    font-size: 24px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: white;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+}
+
+.button:hover {
+    background-color: darkgrey
+}
+
+.button:active {
+    background-color: #f4bbbb;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+}
