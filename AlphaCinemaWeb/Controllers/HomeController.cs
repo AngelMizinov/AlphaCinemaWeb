@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using AlphaCinema.Models;
-
+using Microsoft.Extensions.Caching.Memory;
 
 namespace AlphaCinema.Controllers
 {
@@ -13,21 +13,9 @@ namespace AlphaCinema.Controllers
 	{
 		public IActionResult Index()
 		{
-            this.ViewData["ReturnUrl"] = "/Home/Index";
-            return View();
-		}
-
-		public IActionResult About()
-		{
-			ViewData["Message"] = "Your application description page.";
-
+			this.ViewData["ReturnUrl"] = "/Home/Index";
 			return View();
 		}
-		public IActionResult Contact()
-		{
-			ViewData["Message"] = "Your contact page.";
 
-			return View();
-		}
 	}
 }

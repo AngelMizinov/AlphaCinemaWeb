@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaWeb.Areas.Administration.Models.UserManageViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,10 +17,12 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 	{
 		// GET: /<controller>/
 		private readonly IUserService userService;
+		private readonly IMemoryCache cache;
 
-		public UserManageController(IUserService userService)
+		public UserManageController(IUserService userService, IMemoryCache cache)
 		{
 			this.userService = userService;
+			this.cache = cache;
 		}
 		// GET: /<controller>/
 		[Area("Administration")]
@@ -26,7 +30,9 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
-			var users = await this.userService.GetAllUsers();
+			//var users = await this.userService.GetAllUsers();
+			var users = await GetUsersCached();
+
 			var userViewModels = users.Select(u => new UserViewModel(u)).ToList();
 			foreach (var user in userViewModels)
 			{
@@ -77,6 +83,16 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			this.TempData["Success-Message"] = $"You successfully removed [{user.UserName}] from administrator!";
 
 			return this.RedirectToAction("Index", "UserManage");
+		}
+
+		private async Task<IEnumerable<User>> GetUsersCached()
+		{
+			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+			return await this.cache.GetOrCreateAsync("Users", entry =>
+			{
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(2);
+				return this.userService.GetAllUsers();
+			});
 		}
 	}
 }

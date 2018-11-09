@@ -5,8 +5,6 @@
 <div class="card" style="padding:10px; border:inherit">
     <h2>Welcome @Model.Username</h2>
     <h4>Manage your account</h4>
-
-
     <hr />
     <div class="row">
         <div class="col-6">
@@ -43,79 +41,81 @@
             <!-- Card -->
         </div>
     </div>
-    </div>
-    <br />
-    <div class="col">
-        <button class="p2 btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
-        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-danger waves-effect" role="link">Change password</a>
-    </div>
-    <br />
-    <!-- Card -->
-    <div class="card">
-        <div class="table-wrapper-scroll-y">
-            <!-- Card content -->
-            <div class="card-body">
+</div>
+<br />
+<div class="col">
+    <button class="p2 btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
+    <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-danger waves-effect" role="link">Change password</a>
+</div>
+<br />
+<!-- Card -->
+<div class="card">
+    <div class="table-wrapper-scroll-y">
+        <!-- Card content -->
+        <div class="card-body">
 
-                <!-- Title -->
-                <h4 class="card-title text-center">Watched Movies by @Model.FirstName</h4>
-                <!-- Button -->
-                <table class="table table-hover table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th class="th-lg" scope="col" style="text-align:center">Movie Title</th>
-                            <th class="th-lg" scope="col" style="text-align:center">City Name</th>
-                            <th class="th-lg" scope="col" style="text-align:center">Projection Hour</th>
-                            <th class="th-lg" scope="col" style="text-align:center">Watched On</th>
+            <!-- Title -->
+            <h4 class="card-title text-center">Watched Movies by @Model.FirstName</h4>
+            <!-- Button -->
+            <table class="table table-hover table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th class="th-lg" scope="col" style="text-align:center">
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@Model.UserId" asp-route-sortBy="@ViewData["MovieTitleSortParam"]">Movie Title</a>
+                        </th>
+                        <th class="th-lg" scope="col" style="text-align:center">City Name</th>
+                        <th class="th-lg" scope="col" style="text-align:center">Projection Hour</th>
+                        <th class="th-lg" scope="col" style="text-align:center">Watched On</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var wm in Model.WatchedMovieViewModels)
+                    {
+                        <tr style="text-align:center">
+                            <td>@wm.MovieName</td>
+                            <td>@wm.CityName</td>
+                            <td>@(wm.Hours + ":" + wm.Minutes)</td>
+                            <td>@wm.WatchedOn</td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var wm in Model.WatchedMovieViewModels)
-                        {
-                            <tr style="text-align:center">
-                                <td>@wm.MovieName</td>
-                                <td>@wm.CityName</td>
-                                <td>@(wm.Hours + ":" + wm.Minutes)</td>
-                                <td>@wm.WatchedOn</td>
-                            </tr>
-                        }
-                    </tbody>
-                </table>
-            </div>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-    <!-- Card -->
+</div>
+<!-- Card -->
 
 
-    @(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
+@(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
 
-    @*upload modal*@
-    <div id="upload-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
+@*upload modal*@
+<div id="upload-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
 
-            <!-- Modal content-->
-            <div class="modal-content">
-                <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
-                    <div class="modal-body">
-                        <label class="avatar-upload-label">
-                            Drag or click to upload..
-                            <input type="file" name="AvatarImage" />
-                        </label>
-                        <img class="img-rounded avatar-img-preview hidden" />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="remove-img" class="btn btn-danger">Discard</button>
-                        <button type="submit" class="btn btn-success">Save Changes</button>
-                    </div>
-                </form>
-            </div>
+        <!-- Modal content-->
+        <div class="modal-content">
+            <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <label class="avatar-upload-label">
+                        Drag or click to upload..
+                        <input type="file" name="AvatarImage" />
+                    </label>
+                    <img class="img-rounded avatar-img-preview hidden" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="remove-img" class="btn btn-danger">Discard</button>
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 
 
 
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
 
-        @* <script src="~/js/upload.js"></script>*@
-    }
+     <script src="~/js/upload.js"></script>
+}
 

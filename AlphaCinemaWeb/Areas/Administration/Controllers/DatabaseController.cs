@@ -12,6 +12,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 	public class DatabaseController : Controller
 	{
 		// GET: /<controller>/
+		[ResponseCache(CacheProfileName = "Default")]
 		[Area("Administration")]
 		[Authorize(Roles = "Administrator")]
 		public IActionResult Index()

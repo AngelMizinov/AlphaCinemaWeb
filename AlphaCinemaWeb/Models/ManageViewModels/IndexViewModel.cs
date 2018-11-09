@@ -28,6 +28,7 @@ namespace AlphaCinema.Models.ManageViewModels
 		[Required]
 		[Range(1, 100, ErrorMessage ="Age must be between 1 and 100")]
 		public int Age { get; set; }
+		public string UserId { get; set; }
 		public bool IsDeleted { get; set; }
 
 		[DataType(DataType.DateTime)]
