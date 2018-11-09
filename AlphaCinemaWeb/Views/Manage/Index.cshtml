@@ -2,55 +2,57 @@
 @{
     ViewData["Title"] = "Profile";
 }
-<h2>Welcome @Model.Username</h2>
-<h4>Manage your account</h4>
-<hr />
-<div class="row">
-    <div class="col-6">
-        <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail"
-             style="width:300px;" alt="Default avatar" />
-    </div>
-    <div class="col-6">
-        <!-- Card -->
-        <div class="card">
+<div class="card">
+    <h2>Welcome @Model.Username</h2>
+    <h4>Manage your account</h4>
+    <hr />
+    <div class="row">
+        <div class="col-6">
+            <img src="~/images/avatars/@(Model.ImageUrl ?? "DefaultAvatar.png")" class="manage-avatar-image img-thumbnail"
+                 style="width:300px;" alt="Default avatar" />
+        </div>
+        <div class="col-6">
+            <!-- Card -->
+            <div class="card">
 
+                <!-- Card content -->
+                <div class="card-body">
+
+                    <!-- Title -->
+                    <h3 class="card-title text-center">Account info</h3>
+                    <hr />
+                    <!-- Text -->
+                    <br />
+                    <h4><b>Name</b>: @(Model.FirstName + " " + Model.LastName)</h4>
+                    <br />
+                    <h4><b>Age</b>: @Model.Age</h4>
+                    <br />
+                    <h4><b>Registered on</b>: @(Model.CreatedOn.ToString("dd/MMMM/yyyy"))</h4>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <br />
+                        <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
+                    }
+                    <br />
+                    <h4><b>Total watched movies</b>: @Model.WatchedMovieViewModels.Count</h4>
+                </div>
+
+            </div>
+            <!-- Card -->
+        </div>
+    </div>
+    </div>
+    <br />
+    <div class="col">
+        <button class="p2 btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
+        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-danger waves-effect" role="link">Change password</a>
+    </div>
+    <br />
+    <!-- Card -->
+    <div class="card">
+        <div class="table-wrapper-scroll-y">
             <!-- Card content -->
             <div class="card-body">
-
-                <!-- Title -->
-                <h3 class="card-title text-center">Account info</h3>
-                <hr />
-                <!-- Text -->
-                <br />
-                <h4><b>Name</b>: @(Model.FirstName + " " + Model.LastName)</h4>
-                <br />
-                <h4><b>Age</b>: @Model.Age</h4>
-                <br />
-                <h4><b>Registered on</b>: @(Model.CreatedOn.ToString("dd/MMMM/yyyy"))</h4>
-                @if (User.IsInRole("Administrator"))
-                {
-                    <br />
-                    <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
-                }
-                <br />
-                <h4><b>Total watched movies</b>: @Model.WatchedMovieViewModels.Count</h4>
-            </div>
-
-        </div>
-        <!-- Card -->
-    </div>
-</div>
-<br />
-<div class="col">
-    <button class="p2 btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
-    <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-danger waves-effect" role="link">Change password</a>
-</div>
-<br />
-<!-- Card -->
-<div class="card">
-    <div class="table-wrapper-scroll-y">
-        <!-- Card content -->
-        <div class="card-body">
 
             <!-- Title -->
             <h4 class="card-title text-center">Watched Movies by @Model.FirstName</h4>
@@ -75,41 +77,55 @@
                             <td>@(wm.Hours + ":" + wm.Minutes)</td>
                             <td>@wm.WatchedOn</td>
                         </tr>
-                    }
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach (var wm in Model.WatchedMovieViewModels)
+                        {
+                            <tr style="text-align:center">
+                                <td>@wm.MovieName</td>
+                                <td>@wm.CityName</td>
+                                <td>@(wm.Hours + ":" + wm.Minutes)</td>
+                                <td>@wm.WatchedOn</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
-<!-- Card -->
+    <!-- Card -->
 
-@(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
 
-@*upload modal*@
-<div id="upload-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    @(await Html.PartialAsync("_StatusMessage", Model.StatusMessage))
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
-                <div class="modal-body">
-                    <label class="avatar-upload-label">
-                        Drag or click to upload..
-                        <input type="file" name="AvatarImage" />
-                    </label>
-                    <img class="img-rounded avatar-img-preview hidden" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" id="remove-img" class="btn btn-danger">Discard</button>
-                    <button type="submit" class="btn btn-success">Save Changes</button>
-                </div>
-            </form>
+    @*upload modal*@
+    <div id="upload-modal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <label class="avatar-upload-label">
+                            Drag or click to upload..
+                            <input type="file" name="AvatarImage" />
+                        </label>
+                        <img class="img-rounded avatar-img-preview hidden" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="remove-img" class="btn btn-danger">Discard</button>
+                        <button type="submit" class="btn btn-success">Save Changes</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
-    @await Html.PartialAsync("_ValidationScriptsPartial")
 
-    @* <script src="~/js/upload.js"></script>*@
-}
+
+    @section Scripts {
+        @await Html.PartialAsync("_ValidationScriptsPartial")
+
+        @* <script src="~/js/upload.js"></script>*@
+    }
+
