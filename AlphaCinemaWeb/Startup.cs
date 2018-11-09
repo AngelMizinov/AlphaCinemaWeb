@@ -11,6 +11,7 @@ using AlphaCinemaServices;
 
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinema
 {
@@ -35,7 +36,18 @@ namespace AlphaCinema
 
 			// Add application services.
 
-			services.AddMvc();
+
+			services.AddResponseCaching();
+
+			services.AddMvc(options =>
+			{
+				options.CacheProfiles.Add("Default",
+				new CacheProfile()
+				{
+					Duration = 3600
+				});
+			});
+			services.AddMemoryCache();
 
 			services.AddScoped<IProjectionService, ProjectionService>();
 			services.AddScoped<ICityService, CityService>();
@@ -43,11 +55,11 @@ namespace AlphaCinema
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IGenreService, GenreService>();
 			services.AddScoped<IWatchedMoviesService, WatchedMoviesService>();
-            services.AddScoped<IMovieGenreService, MovieGenreService>();
-        }
+			services.AddScoped<IMovieGenreService, MovieGenreService>();
+		}
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
+		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
 		{
 			if (env.IsDevelopment())
 			{
@@ -64,9 +76,11 @@ namespace AlphaCinema
 
 			app.UseAuthentication();
 
+			app.UseResponseCaching();
+
+
 			// seed an admin account
 			//AdministrationManager(serviceProvider);
-
 
 			app.UseMvc(routes =>
 			{

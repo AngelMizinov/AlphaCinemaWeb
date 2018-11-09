@@ -29,8 +29,8 @@
                 <h4><b>Registered on</b>: @(Model.CreatedOn.ToString("dd/MMMM/yyyy"))</h4>
                 @if (User.IsInRole("Administrator"))
                 {
-                <br />
-                <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
+                    <br />
+                    <h4><b>Last modified on</b>: @(Model.ModifiedOn.Value.ToString("dd/MMMM/yyyy HH:mm"))</h4>
                 }
                 <br />
                 <h4><b>Total watched movies</b>: @Model.WatchedMovieViewModels.Count</h4>
@@ -58,7 +58,9 @@
             <table class="table table-hover table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="th-lg" scope="col" style="text-align:center">Movie Title</th>
+                        <th class="th-lg" scope="col" style="text-align:center">
+                            <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@Model.UserId" asp-route-sortBy="@ViewData["MovieTitleSortParam"]">Movie Title</a>
+                        </th>
                         <th class="th-lg" scope="col" style="text-align:center">City Name</th>
                         <th class="th-lg" scope="col" style="text-align:center">Projection Hour</th>
                         <th class="th-lg" scope="col" style="text-align:center">Watched On</th>
@@ -66,7 +68,7 @@
                 </thead>
                 <tbody>
                     @foreach (var wm in Model.WatchedMovieViewModels)
-    {
+                    {
                         <tr style="text-align:center">
                             <td>@wm.MovieName</td>
                             <td>@wm.CityName</td>
