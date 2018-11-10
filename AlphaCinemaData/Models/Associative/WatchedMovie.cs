@@ -8,6 +8,7 @@ namespace AlphaCinemaData.Models.Associative
     public class WatchedMovie : Entity
 	{
 		public string UserId { get; set; }
+
 		public int ProjectionId { get; set; }
 
 		public User User { get; set; }
@@ -15,6 +16,5 @@ namespace AlphaCinemaData.Models.Associative
 		public Projection Projection { get; set; }
 
 		public DateTime Date { get; set; }
-
 	}
 }

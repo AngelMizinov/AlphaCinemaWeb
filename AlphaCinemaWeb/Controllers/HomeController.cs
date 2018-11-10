@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using AlphaCinema.Models;
-using Microsoft.Extensions.Caching.Memory;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinema.Controllers
 {
-	public class HomeController : Controller
+    public class HomeController : Controller
 	{
 		public IActionResult Index()
 		{

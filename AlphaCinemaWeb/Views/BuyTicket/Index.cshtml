@@ -45,6 +45,11 @@
 
         <p1 style="text-shadow:1px 1px black; font-display:swap; font-size: 30px; padding: 10px 40px">Our week Specials</p1>
 
+        @*@if(TempData["Error-Message"] != null){
+        <div class="alert alert-danger" role="alert" style="float:right ">
+            @TempData["Error-Message"]
+        </div>
+        }*@
     </div>
 
     <!-- Grid row -->

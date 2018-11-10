@@ -1,5 +1,6 @@
 ﻿using AlphaCinemaData.Models.Associative;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -22,6 +23,7 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
             this.Genres = projection.Movie.MovieGenres.Select(mg => mg.Genre.Name);
             this.MovieStart = $"{projection.OpenHour.Hours:D2}:{projection.OpenHour.Minutes:D2}h";
         }
+
 
         public bool IsBooked { get; set; }
 

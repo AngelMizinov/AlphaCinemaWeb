@@ -216,13 +216,13 @@ input[type="submit"].makealink {
 #scrollToTopBtn {
     display: none;
     position: fixed;
-    bottom: 15px;
-    right: 20px;
+    bottom: 20px;
+    right: 15px;
     z-index: 99;
     font-size: 18px;
     border: none;
     outline: none;
-    background-color: dodgerblue;
+    background-color: burlywood;
     color: white;
     cursor: pointer;
     padding: 12px;
@@ -233,7 +233,7 @@ input[type="submit"].makealink {
 }
 
     #scrollToTopBtn:hover {
-        background-color: dodgerblue;
+        background-color: burlywood;
         opacity: 1;
     }
 
@@ -329,7 +329,7 @@ body {
 
 .navbar {
     z-index: 10000;
-    top: 5px;
+    top: 0px;
     width: 100%;
     opacity:0.8
 }

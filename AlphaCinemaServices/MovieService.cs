@@ -1,6 +1,7 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
+using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -97,18 +98,26 @@ namespace AlphaCinemaServices
 
         public async Task<Movie> UpdateMovie(int id, string name, string description, string releaseYear, string duration, string image)
         {
-            movie = this.context.Movies.Find(id);
+            try
+            {
+                movie = this.context.Movies.Find(id);
 
-            movie.Name = name;
-            movie.Description = description;
-            movie.ReleaseYear = int.Parse(releaseYear);
-            movie.Duration = int.Parse(duration);
-            movie.Image = image;
+                movie.Name = name;
+                movie.Description = description;
+                movie.ReleaseYear = int.Parse(releaseYear);
+                movie.Duration = int.Parse(duration);
+                movie.Image = image;
 
-            this.context.Movies.Update(movie);
-            await this.context.SaveChangesAsync();
+                this.context.Movies.Update(movie);
+                await this.context.SaveChangesAsync();
 
-            return movie;
+                return movie;
+
+            }
+            catch (Exception)
+            {
+                throw new EntityDoesntExistException("The specified movie is not present in database.");
+            }
         }
     }
 }

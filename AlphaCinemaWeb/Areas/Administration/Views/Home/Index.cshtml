@@ -2,55 +2,64 @@
     ViewData["Title"] = "Admin Panel";
 }
 
-<div class="container">
-    <!-- Grid row -->
-    <div class="row">
-        <!-- Grid column -->
-        <div class="col-lg-4 col-md-12 mb-4">
-            <!--Card Primary-->
-            <div class="card" style="height:435px; width:350px">
-                <div class="view overlay hovereffect">
-                    <img class="card-img-top" src="~/images/AdminHome/manage_database_card_photo.jpg" alt="Card image" style="height:230px; width:100%">
-                    <a asp-area="Administration" asp-controller="Database" asp-action="Index">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Редактирай базата!</h4>
-                    <p class="card-text">Тук можеш да манипулираш данните в базата!</p>
-                </div>
-                <div class="button card-footer">
-                    <small class="text-muted">
-                        <a asp-area="Administration" asp-controller="Database" asp-action="Index"
-                           class="btn btn-secondary waves-effect">Manage Database</a>
-                    </small>
-                </div>
-            </div>
-            <!--/.Card Primary-->
+<!-- Card -->
+<div class="card">
+    <!-- Card image -->
+    <div class="view overlay hovereffect" style="height:250px;">
+        <img class="card-img-top img-responsive" src="~/images/AdminHome/manage_database_card_photo.jpg" alt="Card image cap">
+
+        <div class="overlay">
+            <h2>Manage Database</h2>
         </div>
-        <!-- Grid column -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <!--Card Primary-->
-            <div class="card" style="height:435px; width:350px">
-                <div class="view overlay hovereffect">
-                    <img class="card-img-top" src="~/images/AdminHome/manage_users_card_photo.jpg" alt="Card image" style="height:230px; width:100%">
-                    <a asp-area="Administration" asp-controller="UserManage" asp-action="Index">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Преглед на потребители!</h4>
-                    <p class="card-text">Тук можеш да прегледаш всички потребители</p>
-                </div>
-                <div class="button card-footer">
-                    <small class="text-muted">
-                        <a asp-area="Administration" asp-controller="UserManage" asp-action="Index"
-                           class="btn btn-secondary waves-effect">Manage Users</a>
-                    </small>
-                </div>
+
+        <a asp-area="Administration" asp-controller="Database" asp-action="Index">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title text-center">Влез тук, за манупулиране на данните в базата</h4>
+        <!-- Button -->
+        <div class="d-flex justify-content-center">
+            <div class="form-row">
+                <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-secondary waves-effect">Manage Database</a>
             </div>
-            <!--/.Card Primary-->
         </div>
     </div>
 </div>
+<!-- Card -->
+<br />
+<!-- Card -->
+<div class="card">
+    <!-- Card image -->
+    <div class="view overlay hovereffect" style="height:250px;">
+        <img class="card-img-top img-responsive" src="~/images/AdminHome/manage_users_card_photo.jpg" alt="Card image cap">
+
+        <div class="overlay">
+            <h2>Manage Users</h2>
+        </div>
+
+        <a asp-area="Administration" asp-controller="UserManage" asp-action="Index">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title text-center">Влез тук, за преглед на всички потребители</h4>
+        <!-- Button -->
+        <div class="d-flex justify-content-center">
+            <div class="form-row">
+                <a asp-area="Administration" asp-controller="UserManage" asp-action="Index" class="btn btn-brown waves-effect">Manage Users</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Card -->
+<br />
 

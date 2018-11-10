@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AlphaCinemaData.Context
 {
@@ -28,12 +29,12 @@ namespace AlphaCinemaData.Context
 		{
 		}
 
-		public override int SaveChanges()
+		public async Task<int> SaveChangesAsync()
 		{
 			this.ApplyAuditInfoRules();
 			this.ApplyDeletionRules();
 
-			return base.SaveChanges();
+			return await base.SaveChangesAsync();
 		}
 
 		protected override void OnModelCreating(ModelBuilder builder)

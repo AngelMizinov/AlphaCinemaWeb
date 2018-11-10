@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,14 +7,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
-
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
 using Microsoft.AspNetCore.Mvc;
+using AlphaCinemaWeb.Utilities.Extensions;
 
 namespace AlphaCinema
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -66,13 +65,15 @@ namespace AlphaCinema
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
-                //Добавих ги за да видим защо гърми azure, тъй като той компилира в production
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+
+                app.UseExceptionHandler("/Error/Index");
             }
 
-			app.UseStaticFiles();
+            app.UseNotFoundExceptionHandler();
+
+            app.UseStaticFiles();
 
 			app.UseAuthentication();
 
@@ -84,7 +85,12 @@ namespace AlphaCinema
 
 			app.UseMvc(routes =>
 			{
-				routes.MapRoute(
+                routes.MapRoute(
+                    name: "notfound",
+                    template: "404",
+                    defaults: new { controller = "Error", action = "PageNotFound" });
+
+                routes.MapRoute(
 					name: "Administration",
 					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
