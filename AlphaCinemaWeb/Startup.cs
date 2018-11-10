@@ -70,7 +70,10 @@ namespace AlphaCinema
 			else
 			{
 				app.UseExceptionHandler("/Home/Error");
-			}
+                //Добавих ги за да видим защо гърми azure, тъй като той компилира в production
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
 
 			app.UseStaticFiles();
 
