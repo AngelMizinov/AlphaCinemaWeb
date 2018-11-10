@@ -9,21 +9,27 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using AlphaCinemaData.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Collections.Generic;
+using Microsoft.Extensions.Caching.Memory;
+using AlphaCinemaData.Models.Associative;
 
 namespace AlphaCinemaWeb.Controllers
 {
     public class BuyTicketController : Controller
     {
-        private IProjectionService projectionsService;
-        private ICityService cityService;
-        private UserManager<User> userManager;
-        private const string defaultImage = "~/images/defaultMovie.jpg";
+        private readonly IProjectionService projectionsService;
+        private readonly ICityService cityService;
+        private readonly UserManager<User> userManager;
+		private readonly IMemoryCache cache;
+		private const string defaultImage = "~/images/defaultMovie.jpg";
 
-        public BuyTicketController(IProjectionService projectionsService, ICityService cityService, UserManager<User> userManager)
-        {
+        public BuyTicketController(IProjectionService projectionsService, ICityService cityService, UserManager<User> userManager,
+		IMemoryCache cache)
+		{
             this.projectionsService = projectionsService;
             this.userManager = userManager;
-            this.cityService = cityService;
+			this.cache = cache;
+			this.cityService = cityService;
         }
 
         [HttpGet]
@@ -31,9 +37,11 @@ namespace AlphaCinemaWeb.Controllers
         public async Task<IActionResult> Index()
         {
             this.ViewData["ReturnUrl"] = "/BuyTicket/Index";
-            var cities = await cityService.GetCities();
-            var projections = await projectionsService.GetTopProjections(3);
-            this.ViewBag.DefaultImage = defaultImage;
+			var cities = await GetCitiesCached();
+
+			var projections = await GetTopProjectionsCached(3);
+
+			this.ViewBag.DefaultImage = defaultImage;
 
             var topProjections = new TopProjectionsViewModel(projections.Select(p => new ProjectionViewModel(p, defaultImage)));
 
@@ -120,5 +128,26 @@ namespace AlphaCinemaWeb.Controllers
             return RedirectToAction("Movie", new { cityId = projection.CityId });
         }
 
-    }
+		private async Task<IEnumerable<City>> GetCitiesCached()
+		{
+			//await watchedMoviesService.GetWatchedMoviesByUserId(user.Id);
+			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+			return await this.cache.GetOrCreateAsync("Cities", entry =>
+			{
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
+				return this.cityService.GetCities();
+			});
+		}
+
+		private async Task<IEnumerable<Projection>> GetTopProjectionsCached(int count)
+		{
+			//await watchedMoviesService.GetWatchedMoviesByUserId(user.Id);
+			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+			return await this.cache.GetOrCreateAsync("TopProjections", entry =>
+			{
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
+				return this.projectionsService.GetTopProjections(count);
+			});
+		}
+	}
 }

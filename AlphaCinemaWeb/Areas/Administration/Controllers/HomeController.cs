@@ -11,6 +11,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 {
 	public class HomeController : Controller
 	{
+		[ResponseCache(CacheProfileName = "Default")]
 		[Area("Administration")]
 		[Authorize(Roles = "Administrator")]
 		// GET: /<controller>/
