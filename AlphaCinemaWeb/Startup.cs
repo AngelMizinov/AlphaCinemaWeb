@@ -67,7 +67,10 @@ namespace AlphaCinema
 			}
 			else
 			{
-				app.UseExceptionHandler("/Error/Index");
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+
+                app.UseExceptionHandler("/Error/Index");
             }
 
             app.UseNotFoundExceptionHandler();
