@@ -17,13 +17,11 @@ namespace AlphaCinemaServices
 	{
 		private readonly IServiceProvider serviceProvider;
 		private readonly AlphaCinemaContext context;
-		private readonly UserManager<User> userManager;
 
 		public UserService(IServiceProvider serviceProvider, AlphaCinemaContext context)
 		{
 			this.serviceProvider = serviceProvider;
 			this.context = context;
-			this.userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 		}
 
 		public async Task<ICollection<User>> GetAllUsers()
@@ -45,18 +43,18 @@ namespace AlphaCinemaServices
 		{
 			var user = await GetUser(userId);
 			// check if user is alredady added in role
-			await this.userManager.AddToRoleAsync(user, roleName);
+			await this.serviceProvider.GetRequiredService<UserManager<User>>().AddToRoleAsync(user, roleName);
 		}
 
 		public async Task RemoveRole(string userId, string roleName)
 		{
 			var user = await GetUser(userId);
-			await this.userManager.RemoveFromRoleAsync(user, roleName);
+			await this.serviceProvider.GetRequiredService<UserManager<User>>().RemoveFromRoleAsync(user, roleName);
 		}
 
 		public async Task<bool> IsUserAdmin(string userId, string roleName)
 		{
-			var result = await this.userManager
+			var result = await this.serviceProvider.GetRequiredService<UserManager<User>>()
 				.IsInRoleAsync(GetUser(userId).Result, roleName);
 			return result;
 		}
