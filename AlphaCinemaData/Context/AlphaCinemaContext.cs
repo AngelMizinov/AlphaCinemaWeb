@@ -29,12 +29,12 @@ namespace AlphaCinemaData.Context
 		{
 		}
 
-		public Task<int> SaveChangesAsync()
+		public async Task<int> SaveChangesAsync()
 		{
 			this.ApplyAuditInfoRules();
 			this.ApplyDeletionRules();
 
-			return base.SaveChangesAsync();
+			return await base.SaveChangesAsync();
 		}
 
 		protected override void OnModelCreating(ModelBuilder builder)

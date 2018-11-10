@@ -26,7 +26,9 @@ namespace AlphaCinema
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
-				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User) ?? "AlphaCinemaConnection"));
+				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection",
+                EnvironmentVariableTarget.User)?? "AlphaCinemaConnection"));
+            //Тъй като в Azure първия connection string  е null ще вземе втория, който е дефиниран при него
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<AlphaCinemaContext>()
@@ -65,9 +67,6 @@ namespace AlphaCinema
 			else
 			{
 				app.UseExceptionHandler("/Home/Error");
-                //Добавих ги за да видим защо гърми azure, тъй като той компилира в production
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
             }
 
 			app.UseStaticFiles();

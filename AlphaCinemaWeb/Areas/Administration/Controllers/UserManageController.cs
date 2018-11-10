@@ -90,7 +90,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
 			return await this.cache.GetOrCreateAsync("Users", entry =>
 			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddHours(2);
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(1);
 				return this.userService.GetAllUsers();
 			});
 		}

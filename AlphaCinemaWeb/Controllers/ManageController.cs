@@ -16,7 +16,6 @@ using AlphaCinemaWeb.Models.WatchedMovieModels;
 using Microsoft.Extensions.Caching.Memory;
 using AlphaCinemaData.Models.Associative;
 using System.Collections.Generic;
-
 namespace AlphaCinema.Controllers
 {
 	[Authorize]
@@ -59,7 +58,7 @@ namespace AlphaCinema.Controllers
 				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 			}
 			var watchedMovies = await GetWatchedMoviesByUserIdCached(userId);
-			
+
 			var watchedMovieViewModels = watchedMovies.Select(wm => new WatchedMovieViewModel()
 			{
 				CityName = wm.Projection.City.Name,
@@ -218,7 +217,7 @@ namespace AlphaCinema.Controllers
 			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
 			return await this.cache.GetOrCreateAsync("User", entry =>
 			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(2);
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
 				return this.userService.GetUser(userId);
 			});
 		}
@@ -229,7 +228,7 @@ namespace AlphaCinema.Controllers
 			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
 			return await this.cache.GetOrCreateAsync("WatchevMovies", entry =>
 			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(2);
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
 				return this.watchedMoviesService.GetWatchedMoviesByUserId(userId);
 			});
 		}
