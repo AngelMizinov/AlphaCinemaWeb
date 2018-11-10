@@ -28,14 +28,11 @@ namespace AlphaCinema
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
-				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User)));
+				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User) ?? "AlphaCinemaConnection"));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<AlphaCinemaContext>()
 				.AddDefaultTokenProviders();
-
-			// Add application services.
-
 
 			services.AddResponseCaching();
 
