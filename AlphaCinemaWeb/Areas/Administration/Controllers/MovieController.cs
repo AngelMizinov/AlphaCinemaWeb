@@ -155,7 +155,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
         [HttpGet]
-        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update()
         {
             var movies = await this.movieService.GetMovies();
@@ -194,15 +193,15 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
                 return this.RedirectToAction("Update");
             }
 
-            try
-            {
-                await this.movieService.UpdateMovie(viewModel.Id, viewModel.Name, viewModel.Description, viewModel.ReleaseYear, viewModel.Duration, viewModel.ImageString);
-            }
-            catch (Exception)
-            {
-                this.TempData["Error-Message"] = "Movie does not exist in database";
-                return this.RedirectToAction("Update");
-            }
+            //try
+            //{
+            await this.movieService.UpdateMovie(viewModel.Id, viewModel.Name, viewModel.Description, viewModel.ReleaseYear, viewModel.Duration, viewModel.ImageString);
+            //}
+            //catch (Exception)
+            //{
+            //    this.TempData["Error-Message"] = "Movie does not exist in database";
+            //    return this.RedirectToAction("Update");
+            //}
 
             this.TempData["Success-Message"] = $"You successfully updated the movie information!";
             return this.RedirectToAction("Update");

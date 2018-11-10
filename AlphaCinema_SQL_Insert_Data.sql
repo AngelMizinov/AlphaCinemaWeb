@@ -30,9 +30,9 @@ INSERT INTO
 Cities([IsDeleted],[Name]) 
 VALUES 
 ('false','Sofia'),
-('false','Plovdiv'),
-('false','Varna'),
-('false','Burgas')
+('false','Plovdiv')
+--('false','Varna'),
+--('false','Burgas')
 --('false','Veliko Turnovo'),
 --('false','Vidin'),
 --('false','Blagoevgrad')
@@ -67,6 +67,7 @@ VALUES
 SELECT * FROM Movies
 
 
+
 --OPENHOURS
 INSERT INTO OpenHours([IsDeleted],[Hours],[Minutes])
 VALUES
@@ -88,22 +89,76 @@ SELECT * FROM OpenHours
 --PROJECTIONS
 INSERT INTO Projections([IsDeleted],[MovieId],[CityId],[OpenHourId],[Day],[Seats])
 VALUES
-('false',1,1,1,0,2),
-('false',2,3,1,0,2),
-('false',3,2,2,1,2),
-('false',3,1,3,1,2),
-('false',4,2,3,2,2),
-('false',5,3,4,2,2),
-('false',5,1,6,3,2),
-('false',6,2,8,3,2),
-('false',7,1,7,4,2),
-('false',6,3,9,4,2),
-('false',5,2,9,5,2),
-('false',4,1,10,5,2),
-('false',4,2,10,6,2),
-('false',3,3,12,6,2),
-('false',2,2,11,1,2),
-('false',3,1,11,2,2)
+('false',1,1,1,0,4),
+('false',2,1,2,0,4),
+('false',3,1,1,0,4),
+('false',1,1,3,0,4),
+('false',4,1,4,0,4),
+('false',1,2,1,0,4),
+('false',7,2,2,0,4),
+('false',4,2,5,0,4),
+('false',5,2,7,0,4),
+('false',2,2,10,0,4),
+('false',1,1,1,1,4),
+('false',4,1,2,1,4),
+('false',5,1,8,1,4),
+('false',7,1,10,1,4),
+('false',3,1,4,1,4),
+('false',2,2,6,1,4),
+('false',1,2,2,1,4),
+('false',5,2,5,1,4),
+('false',3,2,7,1,4),
+('false',2,2,10,1,4),
+('false',1,1,1,2,4),
+('false',3,1,3,2,4),
+('false',5,1,8,2,4),
+('false',6,1,9,2,4),
+('false',4,1,7,2,4),
+('false',2,2,6,2,4),
+('false',4,2,4,2,4),
+('false',5,2,5,2,4),
+('false',1,2,7,2,4),
+('false',2,2,10,2,4),
+('false',2,1,1,3,4),
+('false',3,1,7,3,4),
+('false',6,1,3,3,4),
+('false',5,1,2,3,4),
+('false',1,1,2,3,4),
+('false',2,2,3,3,4),
+('false',3,2,10,3,4),
+('false',4,2,5,3,4),
+('false',1,2,7,3,4),
+('false',1,2,10,3,4),
+('false',1,1,1,4,4),
+('false',6,1,4,4,4),
+('false',5,1,5,4,4),
+('false',3,1,1,4,4),
+('false',1,1,4,4,4),
+('false',5,2,5,4,4),
+('false',6,2,9,4,4),
+('false',7,2,4,4,4),
+('false',1,2,7,4,4),
+('false',2,2,1,4,4),
+('false',1,1,1,5,4),
+('false',6,1,7,5,4),
+('false',3,1,8,5,4),
+('false',2,1,4,5,4),
+('false',4,1,3,5,4),
+('false',7,2,2,5,4),
+('false',2,2,6,5,4),
+('false',1,2,3,5,4),
+('false',6,2,4,5,4),
+('false',3,2,2,5,4),
+('false',1,1,1,6,4),
+('false',5,1,7,6,4),
+('false',4,1,8,6,4),
+('false',1,1,4,6,4),
+('false',7,1,3,6,4),
+('false',6,2,2,6,4),
+('false',3,2,6,6,4),
+('false',4,2,3,6,4),
+('false',5,2,4,6,4),
+('false',7,2,2,6,4)
 SELECT * FROM Projections
 
 --MOVIEGENRES
