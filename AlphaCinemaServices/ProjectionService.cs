@@ -5,71 +5,68 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace AlphaCinemaServices
 {
     public class ProjectionService : IProjectionService
     {
         private readonly AlphaCinemaContext context;
+        private readonly int hour = DateTime.Now.Hour;
+        private readonly int minute = DateTime.Now.Minute;
+        private readonly int dateDay = DateTime.Now.Day;
+        private readonly int dateMonth = DateTime.Now.Month;
+        private readonly int dateYear = DateTime.Now.Year;
+        private readonly int currentDay = (int)DateTime.Now.DayOfWeek;
 
         public ProjectionService(AlphaCinemaContext context)
         {
             this.context = context;
         }
 
-        public IEnumerable<Projection> GetByTownId(int townId, string userId, DayOfWeek? day = null)//Трябва да добавя и UserId
+        public async Task<IEnumerable<Projection>> GetByTownId(int townId, string userId, DayOfWeek? day = null)//Трябва да добавя и UserId
         {
-            var hour = DateTime.Now.Hour;
-            var minute = DateTime.Now.Minute;
-            var dateDay = DateTime.Now.Day;
-            var dateMonth = DateTime.Now.Month;
-            var dateYear = DateTime.Now.Year;
             day = day ?? DateTime.Now.DayOfWeek;
 
-            //Взимаме запазените места за деня за всяка прожекция, които не са били изтрити по някаква причина
-            var bookings = this.context.WatchedMovies
+            //Взимаме запазените места за деня за всяка прожекция, които не са били изтрити
+            var bookings = await this.context.WatchedMovies
                 .Where(booking => booking.IsDeleted == false)
-                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay);
+                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
+                .ToListAsync();
 
-            //Създаваме речник, в който ключа ни е Id-то на прожекцията, стойността броя хора които са я резервирали
-            var projectionSeats = bookings.GroupBy(booking => booking.ProjectionId)
-                .Select(group => new KeyValuePair<int, int>
-                (
-                    group.Key,
-                    group.Count()
-                )).ToDictionary(pair => pair.Key, pair => pair.Value);
+            //Създаваме речник, в който ключа ни е Id-то на прожекцията, а стойността броя хора които са я резервирали
+            var projectionSeats = GetSeatsForEachProjection(bookings);
 
-            //Тук пазим резервациите на нашия User
+            //Тук пазим резервациите на нашия User и ако сме подали такъв ги взимаме
             var userBookings = new HashSet<int>();
             if (!string.IsNullOrWhiteSpace(userId))
             {
-                userBookings = bookings
-                    .Where(booking => booking.UserId == userId)
-                    .Select(booking => booking.ProjectionId)
-                    .ToHashSet();
+                userBookings = GetBookingsOfUser(bookings, userId);
             }
 
-
-            //TODO: Fix the to show the projections for the next days for all hours
-            var projections = this.context.Projections
+            var projections = await this.context.Projections
                 .Where(p => p.CityId == townId)
                 .Include(p => p.OpenHour)
-                //.Where(p => (p.OpenHour.Hours > hour) || (p.OpenHour.Hours == hour && p.OpenHour.Minutes >= minute))
-                //Тук казваме че или отворения час е след настоящия или е равен на него, но минутите са след настоящите
                 .Include(p => p.Movie)
                     .ThenInclude(m => m.MovieGenres)
                         .ThenInclude(mg => mg.Genre)
-                //.Where(p => p.Day == (int)day)//Тук ги взимаме за текущия ден от седмицата
-                .ToList();
+                .Where(p => p.Day == (int)day)//Тук филтрираме за текущия ден от седмицата
+                .ToListAsync();
+
+            //Ако сме в днешния филтрираме по часове
+            if (currentDay == (int)day)
+            {//Тук казваме че или отворения час е след настоящия или е равен на него, но минутите са след настоящите
+                projections = projections.Where(p => (p.OpenHour.Hours > hour) || (p.OpenHour.Hours == hour && p.OpenHour.Minutes >= minute)).ToList();
+            }
 
             projections.ForEach(p => { p.Seats -= projectionSeats.TryGetValue(p.Id, out int taken) ? taken : 0; p.IsBooked = userBookings.Contains(p.Id); });
             //Вадим от всяка прожекция местата и за деня и проверяваме дали в booking-а на нашия user има съответната прожекция
             return projections;
         }
 
-        public IEnumerable<Projection> GetTopProjections(int count)
+        public async Task<IEnumerable<Projection>> GetTopProjections(int count)
         {
-            return this.context.Projections
+            return await this.context.Projections
                 .Include(p => p.OpenHour)
                 .Include(p => p.Movie)
                     .ThenInclude(m => m.MovieGenres)
@@ -77,10 +74,10 @@ namespace AlphaCinemaServices
                 .GroupBy(p => p.Movie)
                 .Select(group => group.First())
                 .Take(count)
-                .ToList();
+                .ToListAsync();
         }
 
-        public WatchedMovie AddReservation(string userId, int projectionId)
+        public async Task<WatchedMovie> AddReservation(string userId, int projectionId)
         {
             var reservation = CheckIfReservationExist(userId, projectionId);
 
@@ -101,37 +98,48 @@ namespace AlphaCinemaServices
                 this.context.Update(reservation);
             }
 
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
             return reservation;
         }
 
-        private WatchedMovie CheckIfReservationExist(string userId, int projectionId)
+
+        public async Task<WatchedMovie> DeclineReservation(string userId, int projectionId)
         {
-            var dateDay = DateTime.Now.Day;
-            var dateMonth = DateTime.Now.Month;
-            var dateYear = DateTime.Now.Year;
-
-            return this.context.WatchedMovies
-                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
-                .Where(booking => booking.UserId == userId && booking.ProjectionId == projectionId)
-                .FirstOrDefault();
-        }
-
-        public WatchedMovie DeclineReservation(string userId, int projectionId)
-        {
-            var dateDay = DateTime.Now.Day;
-            var dateMonth = DateTime.Now.Month;
-            var dateYear = DateTime.Now.Year;
-
             var currentBooking = this.context.WatchedMovies
                 .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
                 .Where(booking => booking.UserId == userId && booking.ProjectionId == projectionId)
                 .FirstOrDefault();
 
             this.context.WatchedMovies.Remove(currentBooking);
-            this.context.SaveChanges();
+            await this.context.SaveChangesAsync();
 
             return currentBooking;
+        }
+
+        private HashSet<int> GetBookingsOfUser(List<WatchedMovie> bookings, string userId)
+        {
+            return bookings
+                .Where(booking => booking.UserId == userId)
+                .Select(booking => booking.ProjectionId)
+                .ToHashSet();
+        }
+
+        private Dictionary<int, int> GetSeatsForEachProjection(List<WatchedMovie> bookings)
+        {
+            return bookings.GroupBy(booking => booking.ProjectionId)
+                .Select(group => new KeyValuePair<int, int>
+                (
+                    group.Key,
+                    group.Count()
+                )).ToDictionary(pair => pair.Key, pair => pair.Value);
+        }
+
+        private WatchedMovie CheckIfReservationExist(string userId, int projectionId)
+        {
+            return this.context.WatchedMovies
+                .Where(booking => booking.Date.Year == dateYear && booking.Date.Month == dateMonth && booking.Date.Day == dateDay)
+                .Where(booking => booking.UserId == userId && booking.ProjectionId == projectionId)
+                .FirstOrDefault();
         }
     }
 }

@@ -17,6 +17,7 @@ namespace AlphaCinemaWeb.Controllers
         private IProjectionService projectionsService;
         private ICityService cityService;
         private UserManager<User> userManager;
+        private const string defaultImage = "~/images/defaultMovie.jpg";
 
         public BuyTicketController(IProjectionService projectionsService, ICityService cityService, UserManager<User> userManager)
         {
@@ -31,9 +32,10 @@ namespace AlphaCinemaWeb.Controllers
         {
             this.ViewData["ReturnUrl"] = "/BuyTicket/Index";
             var cities = await cityService.GetCities();
-            var projections = projectionsService.GetTopProjections(3);
+            var projections = await projectionsService.GetTopProjections(3);
+            this.ViewBag.DefaultImage = defaultImage;
 
-            var topProjections = new TopProjectionsViewModel(projections.Select(p => new ProjectionViewModel(p)));
+            var topProjections = new TopProjectionsViewModel(projections.Select(p => new ProjectionViewModel(p, defaultImage)));
 
             var model = new CityListViewModel(cities.Select(city => new CityViewModel(city)), topProjections);
 
@@ -46,30 +48,36 @@ namespace AlphaCinemaWeb.Controllers
         {
             this.ViewData["ReturnUrl"] = "/BuyTicket/Movie/?cityId=" + cityId;
             string userId = "";
+            this.ViewBag.DefaultImage = defaultImage;
             const int pageSize = 3;
             if (this.User.Identity.IsAuthenticated)
             {
                 userId = this.userManager.GetUserAsync(this.User).Result.Id;
             }
-            var projections = projectionsService.GetByTownId(cityId, userId).OrderBy(p => p.Movie.Name);
+            var projections = await projectionsService.GetByTownId(cityId, userId);
+            projections = projections.OrderBy(p => p.Movie.Name);
+
             this.ViewBag.CityName = await this.cityService.GetCityName(cityId);
+
             int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
+
             DayOfWeek day = DateTime.Now.DayOfWeek;
+
             var projectionsModel = new ProjectionListViewModel(1, maxPages, "title_desc", "hour", "title", cityId, 
-                userId,  day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p)));
+                userId,  day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p, defaultImage)));
             return View(projectionsModel);
         }
 
         [HttpPost]
-        public IActionResult UpdateMovie(ProjectionListViewModel model)
+        public async Task<IActionResult> UpdateMovie(ProjectionListViewModel model)
         {
-            //this.ViewData["ReturnUrl"] = "/BuyTicket/Movie";
+            this.ViewBag.DefaultImage = defaultImage;
             if (!this.User.Identity.IsAuthenticated)
             {
                 model.UserId = "";
             }
             const int pageSize = 3;
-            var projections = projectionsService.GetByTownId(model.CityId, model.UserId, model.Day);
+            var projections = await projectionsService.GetByTownId(model.CityId, model.UserId, model.Day);
             model.TitleSort = model.SortOrder == "title" ? "title_desc" : "title";//Тук нагласяме какво да се подаде от view-то следващия път като кликнем на сорт-линка
             //Винаги когато подадем нещо друго, различно от title следващото сортиране по име ще е в нарастващ ред
             model.HourSort = model.SortOrder == "hour" ? "hour_desc" : "hour";
@@ -89,7 +97,7 @@ namespace AlphaCinemaWeb.Controllers
 
             var projectionsModel = new ProjectionListViewModel(currentPage, maxPages, model.TitleSort, 
                 model.HourSort, model.SortOrder,cityId, model.UserId,
-                model.Day, projections.Select(p => new ProjectionViewModel(p)));
+                model.Day, projections.Select(p => new ProjectionViewModel(p, defaultImage)));
 
             return PartialView("../BuyTicket/_ProjectionsPartial", projectionsModel);
         }

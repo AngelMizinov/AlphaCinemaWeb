@@ -1,0 +1,27 @@
+﻿@model MovieUpdateListViewModel
+@{
+    ViewData["Title"] = "_MovieInfoPartial";
+}
+
+<form id="updated-info" asp-area="Administration" asp-controller="Movie" asp-action="Update" method="post">
+    <div class="md-form" style="margin-bottom:20px;">
+        <p>Movie Name</p>
+        <input type="hidden" asp-for="Id" value="@Model.Id" />
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+        <p>Movie Description</p>
+        <textarea asp-for="Description" class="form-control" rows="5">@Model.Description</textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+        <p>Movie ReleaseYear</p>
+        <input asp-for="ReleaseYear" class="form-control" />
+        <span asp-validation-for="ReleaseYear" class="text-danger"></span>
+        <p>Movie Duration</p>
+        <input asp-for="Duration" class="form-control" />
+        <span asp-validation-for="Duration" class="text-danger"></span>
+        <input type="hidden" asp-for="ImageString" value="@Model.ImageString" />
+        <div asp-validation-summary="All" class="text-danger"></div>
+    </div>
+    <button class="btn btn-dark-green waves-effect my-sm-0" type="submit">Update</button>
+    <a asp-area="Administration" asp-controller="Database" asp-action="Index" class="btn btn-primary waves-effect">Go Back</a>
+</form>
+

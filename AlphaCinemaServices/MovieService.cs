@@ -1,8 +1,6 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models;
 using AlphaCinemaServices.Contracts;
-using AlphaCinemaServices.Exceptions;
-using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -31,7 +29,7 @@ namespace AlphaCinemaServices
             movie = await this.GetMovie(name);
 
             //if movie object is null means that movie doesn't exist
-            if(movie != null)
+            if (movie != null)
             {
                 if (movie.IsDeleted)
                 {
@@ -67,7 +65,7 @@ namespace AlphaCinemaServices
         {
             movie = await this.GetMovie(movieName);
 
-            if(movie == null || movie.IsDeleted)
+            if (movie == null || movie.IsDeleted)
             {
                 throw new Exception($"\nMovie {movieName} is not present in the database.");
                 //throw new EntityDoesntExistException($"\nMovie {movieName} is not present in the database.");
@@ -97,35 +95,20 @@ namespace AlphaCinemaServices
                 .ToListAsync();
         }
 
-        public async Task UpdateName(string oldName, string newName)
+        public async Task<Movie> UpdateMovie(int id, string name, string description, string releaseYear, string duration, string image)
         {
-            if (oldName == newName)
-            {
-                throw new EntityAlreadyExistsException($"\nMovie {oldName} is already present in the database");
-            }
-            
-            if (oldName.Length > 50)
-            {
-                throw new InvalidClientInputException("Movie name should be less than 50 characters");
-            }
+            movie = this.context.Movies.Find(id);
 
-            movie = await this.GetMovie(oldName);
-
-            if(movie == null || movie.IsDeleted)
-            {
-                throw new EntityDoesntExistException($"\nMovie {oldName} is not present in the database.");
-            }
-
-            movie.Name = newName;
+            movie.Name = name;
+            movie.Description = description;
+            movie.ReleaseYear = int.Parse(releaseYear);
+            movie.Duration = int.Parse(duration);
+            movie.Image = image;
 
             this.context.Movies.Update(movie);
             await this.context.SaveChangesAsync();
-        }
 
-        //public async Task<Movie> GetMovie(int movieId)
-        //{
-        //    return await this.context.Movies
-        //        .FirstOrDefaultAsync(movie => movie.Id == movieId);
-        //}
+            return movie;
+        }
     }
 }

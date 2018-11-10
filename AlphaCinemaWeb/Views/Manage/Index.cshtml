@@ -41,11 +41,14 @@
             <!-- Card -->
         </div>
     </div>
-</div>
-<br />
-<div class="col">
-    <button class="p2 btn btn-outline-primary waves-effect" data-toggle="modal" data-target="#upload-modal">Change profile picture</button>
-    <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" class="btn btn-outline-danger waves-effect" role="link">Change password</a>
+    <div class="col-6">
+        <button class="p2 btn btn-primary waves-effect" data-toggle="modal"
+                data-target="#upload-modal">
+            Change profile picture
+        </button>
+        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword"
+           class="btn btn-danger waves-effect" role="link">Change password</a>
+    </div>
 </div>
 <br />
 <!-- Card -->
@@ -116,6 +119,6 @@
 @section Scripts {
     @await Html.PartialAsync("_ValidationScriptsPartial")
 
-     <script src="~/js/upload.js"></script>
+    <script src="~/js/upload.js"></script>
 }
 

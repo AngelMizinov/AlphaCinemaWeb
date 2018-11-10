@@ -54,23 +54,20 @@
             <!-- Grid column -->
             <div class="col-lg-3 view-overlay my-zoom">
                 <!--Card Narrower-->
-
                 <div class="card card-cascade narrower" style="border:outset; background-color:aliceblue">
                     <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@movie.MovieName">
                         <!--Card image-->
-                        <div class="view">
-
-                            @if (movie.ImageUrl == null)
-                            {
-                                <img style="cursor:pointer" src="~/images/defaultMovie.jpg" class="card-img-top"
-                                     alt="narrower">
-                            }
-                            else
-                            {
-                                <img style="cursor:pointer" src="movie.ImageUrl" class="card-img-top"
-                                     alt="narrower">
-                            }
-
+                        <div id="front-card" class="view view-cascade overlay">
+                            <div class="view">
+                                @if (movie.Image != ViewBag.DefaultImage)
+                                {
+                                    <img style="cursor:pointer" src="@movie.Image" class="card-img-top" alt="narrower">
+                                }
+                                else
+                                {
+                                    <img style="cursor:pointer" src="~/images/defaultMovie.jpg" class="card-img-top" alt="Default avatar" />
+                                }
+                            </div>
                         </div>
                         <!--/.Card image-->
                         <!--Card content-->
@@ -82,8 +79,6 @@
                             <p class="card-text">
                                 @movie.MovieDescription.Substring(0, Math.Min(movie.MovieDescription.Length, 200))...
                             </p>
-                            @*<a class="btn btn-unique">Button</a>*@
-                            @*Ако решим да добавим бутон за нещо*@
                         </div>
                         <!--/.Card content-->
                     </a>
@@ -94,6 +89,4 @@
         }
     </div>
     <!-- Grid row -->
-
-
 </div>

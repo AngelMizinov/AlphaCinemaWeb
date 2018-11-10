@@ -1,4 +1,4 @@
-﻿.logo {
+﻿/*.logo {
     font-family: 'Coda', cursive;
     font-size: 1.8em;
     font-weight: bold;
@@ -15,7 +15,7 @@
             transition: ease;
             text-decoration: none;
             transition-duration: 0.5s;
-        }
+        }*/
 
 .page-content {
     padding: 0px;
@@ -314,9 +314,16 @@ input[type="submit"].makealink {
     -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
+#front-card {
+    height: 190px;
+}
+
+.update-movie-image {
+    max-width: 60%;
+}
 
 body {
-    background-image: url("/images/background_home_page.jpg");
+    background-image: url("/images/background.png");
     background-size: cover;
 }
 
@@ -326,9 +333,6 @@ body {
     width: 100%;
     opacity:0.8
 }
-
-
-//=======================================================================
 
 .button {
     display: inline-block;
@@ -345,20 +349,9 @@ body {
     box-shadow: 0 9px #999;
 }
 
-.button:hover {
-    background-color: darkgrey
-}
-
-.button:active {
-    background-color: #f4bbbb;
-    box-shadow: 0 5px #666;
-}
-
-//========================================================================================
-
 .my-zoom {
     padding: 50px;
-    background-color: black;
+    /*background-color: black;*/
     transition: transform .10s; /* Animation */
     width: 150px;
     height: 150px;

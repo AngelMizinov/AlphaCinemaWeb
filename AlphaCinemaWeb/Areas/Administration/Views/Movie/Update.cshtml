@@ -1,4 +1,4 @@
-﻿@model IEnumerable<MovieUpdateViewModel>
+﻿@model MovieUpdateListViewModel
 
 @{
     ViewData["Title"] = "Update Movie";
@@ -7,37 +7,52 @@
 <div class="card">
     <div class="card-header">
         <h5 class="card-title">Choose Movie</h5><div class="btn-group" role="group" aria-label="Button group with nested dropdown">
-            <div class="btn-group" role="group" style="padding: 30px">
+            <div class="btn-group" role="group" style="padding: 10px">
                 <button id="btnGroupDrop1" type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
                     Choose Movie
                 </button>
-                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                    @foreach (var movie in Model)
+                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="float: left;">
+                    @foreach (var movie in Model.Movies)
                     {
-                        <form asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" method="post" data-ajax="true" data-ajax-update="#form-partial">
+                        <form asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" method="post" data-ajax="true" data-ajax-update="#form-partial" data-ajax-complete="onCompleteFunction">
                             <input type="hidden" asp-for="@movie.Id" value="@movie.Id" />
                             <input type="hidden" asp-for="@movie.Name" value="@movie.Name" />
                             <input type="hidden" asp-for="@movie.Description" value="@movie.Description" />
                             <input type="hidden" asp-for="@movie.ReleaseYear" value="@movie.ReleaseYear" />
                             <input type="hidden" asp-for="@movie.Duration" value="@movie.Duration" />
+                            <input type="hidden" asp-for="@movie.ImageString" value="@movie.ImageString" />
+                            <input type="hidden" asp-for="@movie.OldImageString" value="@movie.OldImageString" />
                             <button type="submit" class="dropdown-item">@movie.Name</button>
                         </form>
-                        @*<a class="dropdown-item" asp-area="Administration" asp-controller="Movie" asp-action="GetMovie" asp-route-movieName="@movie.Name" data-ajax="true" data-ajax-update="#form-partial">@movie.Name</a>*@
                     }
                 </div>
             </div>
         </div>
         <div class="card-body">
+
             <div id="form-partial">
                 @if (this.ViewBag.MovieName != null)
                 {
                     <partial name="_MovieInputPartial" model="Model" />
                 }
+                else
+                {
+                    <partial name="_ResultPartial" model="Model" />
+                }
             </div>
 
-            <partial name="_ResultPartial" model="Model" />
         </div>
     </div>
 </div>
 
+@section Scripts {
+    <script>
+        function onCompleteFunction() {
+            var form = $("#updated-info");
+            form.removeData('validator');
+            form.removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse(form);
+        }
+    </script>
+}
