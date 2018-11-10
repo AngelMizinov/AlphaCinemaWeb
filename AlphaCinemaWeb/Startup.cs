@@ -28,7 +28,7 @@ namespace AlphaCinema
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
 				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection",
-                EnvironmentVariableTarget.User)?? "AlphaCinemaConnection"));
+                EnvironmentVariableTarget.User) ?? "AlphaCinemaConnection"));
             //Тъй като в Azure първия connection string  е null ще вземе втория, който е дефиниран при него
 
 			services.AddIdentity<User, IdentityRole>()
@@ -67,9 +67,6 @@ namespace AlphaCinema
 			}
 			else
 			{
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-
                 app.UseExceptionHandler("/Error/Index");
             }
 
