@@ -216,8 +216,8 @@ input[type="submit"].makealink {
 #scrollToTopBtn {
     display: none;
     position: fixed;
-    bottom: 15px;
-    right: 20px;
+    bottom: 20px;
+    right: 15px;
     z-index: 99;
     font-size: 18px;
     border: none;
