@@ -30,17 +30,21 @@ namespace AlphaCinemaWeb.Areas.Administration.Models.MovieModels
         [Range(0, int.MaxValue, ErrorMessage = "Value must be non-negative integer")]
         public int Id { get; set; }
 
+        [Required]
         [MaxLength(50, ErrorMessage = "Movie length cannot be more tha 50 symbols.")]
         public string Name { get; set; }
 
+        [Required]
         [MaxLength(400, ErrorMessage = "Description length cannot be more tha 400 symbols.")]
         public string Description { get; set; }
 
+        [Required]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Year must have only digits.")]
         [MinLength(4, ErrorMessage = "Year must contain 4 digits.")]
         [MaxLength(4, ErrorMessage = "Year must contain 4 digits.")]
         public string ReleaseYear { get; set; }
 
+        [Required]
         [RegularExpression(@"^[0-9]+$", ErrorMessage = "Duration must have only digits.")]
         public string Duration { get; set; }
 

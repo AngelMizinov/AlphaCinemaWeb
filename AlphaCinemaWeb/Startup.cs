@@ -10,6 +10,7 @@ using AlphaCinemaServices;
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
 using Microsoft.AspNetCore.Mvc;
+using AlphaCinemaWeb.Utilities.Extensions;
 
 namespace AlphaCinema
 {
@@ -66,10 +67,12 @@ namespace AlphaCinema
 			}
 			else
 			{
-				app.UseExceptionHandler("/Home/Error");
+				app.UseExceptionHandler("/Error/Index");
             }
 
-			app.UseStaticFiles();
+            app.UseNotFoundExceptionHandler();
+
+            app.UseStaticFiles();
 
 			app.UseAuthentication();
 
@@ -81,7 +84,12 @@ namespace AlphaCinema
 
 			app.UseMvc(routes =>
 			{
-				routes.MapRoute(
+                routes.MapRoute(
+                    name: "notfound",
+                    template: "404",
+                    defaults: new { controller = "Error", action = "PageNotFound" });
+
+                routes.MapRoute(
 					name: "Administration",
 					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 

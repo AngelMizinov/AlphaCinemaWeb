@@ -57,7 +57,7 @@ namespace AlphaCinemaServices
             }
             catch (Exception)
             {
-                throw new EntityDoesntExistException("Sorry! Cannot find the chosen city");
+                throw new EntityDoesntExistException("City with such name cannot be found");
             }
         }
 

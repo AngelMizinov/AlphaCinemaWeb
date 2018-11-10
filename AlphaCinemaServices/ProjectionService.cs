@@ -68,7 +68,7 @@ namespace AlphaCinemaServices
             }
             catch (Exception ex)
             {
-                throw new EntityDoesntExistException("Sorry! Cannot find the chosen projection");
+                throw new EntityDoesntExistException("Projection with that UserId and TownId cannot be found");
             }
 
         }
@@ -106,6 +106,7 @@ namespace AlphaCinemaServices
                 {
                     reservation.Date = DateTime.Now;
                     reservation.IsDeleted = false;
+                    reservation.DeletedOn = null;
                     this.context.Update(reservation);
                 }
 
@@ -114,7 +115,7 @@ namespace AlphaCinemaServices
             }
             catch (Exception ex)
             {
-                throw new EntityDoesntExistException("Sorry! We cannot book your reservation");
+                throw new EntityDoesntExistException("Reservation with that UserId and ProjectionId cannot be booked");
             }
         }
 
@@ -135,7 +136,7 @@ namespace AlphaCinemaServices
             }
             catch (Exception)
             {
-                throw new EntityDoesntExistException("Sorry! We cannot decline your reservation");
+                throw new EntityDoesntExistException("Reservation with that UserId and ProjectionId cannot be declined");
             }
         }
 
