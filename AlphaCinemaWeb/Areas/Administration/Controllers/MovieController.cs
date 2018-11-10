@@ -31,12 +31,14 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             this.movieGenreService = movieGenreService;
         }
 
+        [ValidateAntiForgeryToken]
         public IActionResult Index()
         {
             return View();
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Add()
         {
             //take all genres from Database
@@ -82,8 +84,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
                 return RedirectToAction("Add");
             }
 
-            //
-            //get all genres that the Admin has choosed and add them to movie
+            //Get all genres that the Admin has choosed and add them to movie
             foreach (var genre in viewModel.Genres)
             {
                 if (genre.IsChecked)
@@ -96,7 +97,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 
                     try
                     {
-                        //just add new MovieGenre
+                        //Just add new MovieGenre
                         await this.movieGenreService.AddNewMovieGenre(movie, g);
                     }
                     catch (EntityAlreadyExistsException ex)
@@ -115,7 +116,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             this.TempData["Success-Message"] = $"You successfully added movie with name {viewModel.Name}!";
             return RedirectToAction("Add");
         }
-
 
         [HttpGet]
         public IActionResult Remove()
@@ -155,6 +155,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
         [HttpGet]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Update()
         {
             var movies = await this.movieService.GetMovies();
@@ -167,6 +168,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult GetMovie(MovieUpdateListViewModel movie)
         {
             this.TempData["Success-Message"] = null;
@@ -196,7 +198,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
             {
                 await this.movieService.UpdateMovie(viewModel.Id, viewModel.Name, viewModel.Description, viewModel.ReleaseYear, viewModel.Duration, viewModel.ImageString);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 this.TempData["Error-Message"] = "Movie does not exist in database";
                 return this.RedirectToAction("Update");

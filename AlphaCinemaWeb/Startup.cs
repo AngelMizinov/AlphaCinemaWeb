@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -8,14 +7,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using AlphaCinemaData.Context;
 using AlphaCinemaServices;
-
 using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AlphaCinema
 {
-	public class Startup
+    public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{

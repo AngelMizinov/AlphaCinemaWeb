@@ -7,8 +7,9 @@ namespace AlphaCinemaData.Models
     public class OpenHour : Entity
     {
 		public int Hours { get; set; }
-		public int Minutes { get; set; }
-		public ICollection<Projection> Projections { get; set; }
 
+		public int Minutes { get; set; }
+
+		public ICollection<Projection> Projections { get; set; }
     }
 }

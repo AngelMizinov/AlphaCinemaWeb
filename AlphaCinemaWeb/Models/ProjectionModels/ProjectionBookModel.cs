@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace AlphaCinemaWeb.Models.BindingModels.ProjectionModels
+namespace AlphaCinemaWeb.Models.ProjectionModels
 {
     public class ProjectionBookModel
     {
@@ -12,10 +9,13 @@ namespace AlphaCinemaWeb.Models.BindingModels.ProjectionModels
 
         }
 
+        [Required]
         public string UserId { get; set; }
 
+        [Required]
         public int CityId { get; set; }
 
+        [Required]
         public int ProjectionId { get; set; }
     }
 }

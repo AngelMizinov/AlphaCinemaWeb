@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace AlphaCinemaWeb.Models.ProjectionModels
 {
@@ -27,21 +28,26 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
 
         public string Image { get; set; }
 
+        [Required]
         public DayOfWeek Day { get; set; }
 
+        [Required]
         public string SortOrder { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [Required]
+        [Range(0, int.MaxValue)]
+        public int CityId { get; set; }
 
         public string TitleSort { get; set; }
 
         public string HourSort { get; set; }
 
-        public string UserId { get; set; }
-
         public int? CurrentPage { get; set; }
 
         public int MaxPages { get; set; }
-
-        public int CityId { get; set; }
 
         public IEnumerable<ProjectionViewModel> Projections { get; set; }
     }

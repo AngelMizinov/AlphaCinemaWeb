@@ -7,6 +7,7 @@ namespace AlphaCinemaData.Models
     public class Genre : Entity
     {
 		public string Name { get; set; }
+
 		public ICollection<MovieGenre> MoviesGenres { get; set; }
     }
 }

@@ -1,14 +1,13 @@
-﻿using System.Linq;
-using AlphaCinemaServices.Contracts;
-using Microsoft.AspNetCore.Mvc;
-using AlphaCinemaWeb.Models.ProjectionModels;
-using AlphaCinemaWeb.Models.CityModels;
-using System;
-using AlphaCinemaWeb.Models.BindingModels.ProjectionModels;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
+﻿using System;
+using System.Linq;
 using AlphaCinemaData.Models;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using AlphaCinemaServices.Contracts;
+using Microsoft.AspNetCore.Identity;
+using AlphaCinemaWeb.Models.CityModels;
 using Microsoft.AspNetCore.Authorization;
+using AlphaCinemaWeb.Models.ProjectionModels;
 
 namespace AlphaCinemaWeb.Controllers
 {
@@ -47,78 +46,131 @@ namespace AlphaCinemaWeb.Controllers
         public async Task<IActionResult> Movie(int cityId)
         {
             this.ViewData["ReturnUrl"] = "/BuyTicket/Movie/?cityId=" + cityId;
+            //Този Url е за User-a Използва се при вписване и отписване
             string userId = "";
             this.ViewBag.DefaultImage = defaultImage;
             const int pageSize = 3;
+            int maxPages = 0;
+            DayOfWeek day = DateTime.Now.DayOfWeek;
+
             if (this.User.Identity.IsAuthenticated)
             {
                 userId = this.userManager.GetUserAsync(this.User).Result.Id;
             }
-            var projections = await projectionsService.GetByTownId(cityId, userId);
-            projections = projections.OrderBy(p => p.Movie.Name);
 
-            this.ViewBag.CityName = await this.cityService.GetCityName(cityId);
+            try
+            {
+                this.ViewBag.CityName = await this.cityService.GetCityName(cityId);
 
-            int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
+                var projections = await projectionsService.GetByTownId(cityId, userId);
 
-            DayOfWeek day = DateTime.Now.DayOfWeek;
+                projections = projections.OrderBy(p => p.Movie.Name);
 
-            var projectionsModel = new ProjectionListViewModel(1, maxPages, "title_desc", "hour", "title", cityId, 
-                userId,  day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p, defaultImage)));
-            return View(projectionsModel);
+                maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
+
+                var projectionsModel = new ProjectionListViewModel(1, maxPages, "title_desc", "hour", "title", cityId,
+                    userId, day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p, defaultImage)));
+                return View(projectionsModel);
+            }
+            catch (Exception ex)
+            {
+                this.TempData["Error-Message"] = ex.Message;
+                return this.RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         public async Task<IActionResult> UpdateMovie(ProjectionListViewModel model)
         {
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["Error-Message"] = "Sorry! We cannot execute your request";
+                return this.RedirectToAction("Index");
+            }
+
             this.ViewBag.DefaultImage = defaultImage;
             if (!this.User.Identity.IsAuthenticated)
             {
                 model.UserId = "";
             }
             const int pageSize = 3;
-            var projections = await projectionsService.GetByTownId(model.CityId, model.UserId, model.Day);
-            model.TitleSort = model.SortOrder == "title" ? "title_desc" : "title";//Тук нагласяме какво да се подаде от view-то следващия път като кликнем на сорт-линка
-            //Винаги когато подадем нещо друго, различно от title следващото сортиране по име ще е в нарастващ ред
-            model.HourSort = model.SortOrder == "hour" ? "hour_desc" : "hour";
-            //Винаги когато подадем нещо друго, различно от hour следващото сортиране по час ще е в нарастващ ред
-            int cityId = model.CityId;
-            int currentPage = model.CurrentPage ?? 1;
-            int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
-            switch (model.SortOrder)
+            try
             {
-                case "title_desc": projections = projections.OrderByDescending(p => p.Movie.Name); break;
-                case "hour": projections = projections.OrderBy(p => p.OpenHour.Hours + p.OpenHour.Minutes / 60.0); break;
-                case "hour_desc": projections = projections.OrderByDescending(p => p.OpenHour.Hours + p.OpenHour.Minutes / 60.0); break;
-                default: projections = projections.OrderBy(p => p.Movie.Name); break;
+                var projections = await projectionsService.GetByTownId(model.CityId, model.UserId, model.Day);
+                model.TitleSort = model.SortOrder == "title" ? "title_desc" : "title";//Тук нагласяме какво да се подаде от view-то следващия път като кликнем на сорт-линка
+                                                                                      //Винаги когато подадем нещо друго, различно от title следващото сортиране по име ще е в нарастващ ред
+                model.HourSort = model.SortOrder == "hour" ? "hour_desc" : "hour";
+                //Винаги когато подадем нещо друго, различно от hour следващото сортиране по час ще е в нарастващ ред
+                int cityId = model.CityId;
+                int currentPage = model.CurrentPage ?? 1;
+                int maxPages = (int)Math.Ceiling(projections.Count() / (decimal)pageSize);
+                switch (model.SortOrder)
+                {
+                    case "title_desc": projections = projections.OrderByDescending(p => p.Movie.Name); break;
+                    case "hour": projections = projections.OrderBy(p => p.OpenHour.Hours + p.OpenHour.Minutes / 60.0); break;
+                    case "hour_desc": projections = projections.OrderByDescending(p => p.OpenHour.Hours + p.OpenHour.Minutes / 60.0); break;
+                    default: projections = projections.OrderBy(p => p.Movie.Name); break;
+                }
+
+                projections = projections.Skip((currentPage - 1) * pageSize).Take(pageSize);
+
+                var projectionsModel = new ProjectionListViewModel(currentPage, maxPages, model.TitleSort,
+                    model.HourSort, model.SortOrder, cityId, model.UserId,
+                    model.Day, projections.Select(p => new ProjectionViewModel(p, defaultImage)));
+
+                return PartialView("../BuyTicket/_ProjectionsPartial", projectionsModel);
             }
-
-            projections = projections.Skip((currentPage - 1) * pageSize).Take(pageSize);
-
-            var projectionsModel = new ProjectionListViewModel(currentPage, maxPages, model.TitleSort, 
-                model.HourSort, model.SortOrder,cityId, model.UserId,
-                model.Day, projections.Select(p => new ProjectionViewModel(p, defaultImage)));
-
-            return PartialView("../BuyTicket/_ProjectionsPartial", projectionsModel);
+            catch (Exception ex)
+            {
+                this.TempData["Error-Message"] = ex.Message;
+                return this.RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Book(ProjectionListViewModel projection)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Book(ProjectionBookModel projection)
         {
-            this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
-            this.TempData["Success-Message"] = "You booked a ticket!";
-            return RedirectToAction("Movie", new { cityId = projection.CityId});
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["Error-Message"] = "Sorry! We cannot book your reservation";
+                return this.RedirectToAction("Index");
+            }
+            try
+            {
+                await this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
+                this.TempData["Success-Message"] = "You booked a ticket!";
+                return RedirectToAction("Movie", new { cityId = projection.CityId });
+            }
+            catch (Exception ex)
+            {
+                this.TempData["Error-Message"] = ex.Message;
+                return this.RedirectToAction("Index");
+            }
         }
 
         [HttpPost]
         [Authorize]
-        public IActionResult Decline(ProjectionBookModel projection)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Decline(ProjectionBookModel projection)
         {
-            this.projectionsService.DeclineReservation(projection.UserId, projection.ProjectionId);
-            this.TempData["Warning-Message"] = "You declined your reservation!";
-            return RedirectToAction("Movie", new { cityId = projection.CityId });
+            if (!this.ModelState.IsValid)
+            {
+                this.TempData["Error-Message"] = "Sorry! We cannot decline your reservation";
+                return this.RedirectToAction("Index");
+            }
+            try
+            {
+                await this.projectionsService.DeclineReservation(projection.UserId, projection.ProjectionId);
+                this.TempData["Warning-Message"] = "You declined your reservation!";
+                return RedirectToAction("Movie", new { cityId = projection.CityId });
+            }
+            catch (Exception ex)
+            {
+                this.TempData["Error-Message"] = ex.Message;
+                return this.RedirectToAction("Index");
+            }
         }
-
     }
 }

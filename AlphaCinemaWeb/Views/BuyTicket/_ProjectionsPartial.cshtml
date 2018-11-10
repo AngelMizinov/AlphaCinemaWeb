@@ -46,12 +46,8 @@
                     @if (User.Identity.IsAuthenticated)
                     {
                         <form asp-controller="BuyTicket" asp-action="@(movie.IsBooked ? "Decline" : "Book")" method="post">
-                            <input type="hidden" asp-for="Day" value="@Model.Day" />
-                            <input type="hidden" asp-for="Image" value="@Model.Image" />
                             <input type="hidden" asp-for="CityId" value="@Model.CityId" />
                             <input type="hidden" asp-for="UserId" value="@Model.UserId" />
-                            <input type="hidden" asp-for="SortOrder" value="@Model.SortOrder" />
-                            <input type="hidden" asp-for="CurrentPage" value="@Model.CurrentPage" />
                             <input type="hidden" asp-for="ProjectionId" value="@movie.ProjectionId" />
                             <button type="submit" style="width: 100%;" class="btn btn-lg @(movie.IsBooked ? "btn-danger" : "btn-success")">@(movie.IsBooked ? "Decline" : "Book")</button>
                         </form>
