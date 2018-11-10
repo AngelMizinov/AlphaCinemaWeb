@@ -28,7 +28,7 @@ namespace AlphaCinema
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
-				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection", EnvironmentVariableTarget.User) ?? "AlphaCinemaConnection"));
+				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection")));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<AlphaCinemaContext>()
