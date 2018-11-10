@@ -27,9 +27,7 @@ namespace AlphaCinema
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
-				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection",
-                EnvironmentVariableTarget.User)?? "AlphaCinemaConnection"));
-            //Тъй като в Azure първия connection string  е null ще вземе втория, който е дефиниран при него
+				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection")));
 
 			services.AddIdentity<User, IdentityRole>()
 				.AddEntityFrameworkStores<AlphaCinemaContext>()
