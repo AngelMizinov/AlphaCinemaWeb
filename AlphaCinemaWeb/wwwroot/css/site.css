@@ -323,7 +323,7 @@ input[type="submit"].makealink {
 }
 
 body {
-    background-image: url("/images/background_home_page.jpg");
+    background-image: url("/images/background.png");
     background-size: cover;
 }
 
@@ -347,15 +347,6 @@ body {
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
-}
-
-.button:hover {
-    background-color: darkgrey
-}
-
-.button:active {
-    background-color: #f4bbbb;
-    box-shadow: 0 5px #666;
 }
 
 .my-zoom {

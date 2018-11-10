@@ -37,19 +37,20 @@
                                     else
                                     {
                                         <form asp-area="Administration" asp-controller="UserManage" asp-action="RemoveAdmin" asp-route-userId="@user.Id" method="post">
-                                            <button class="btn btn-outline-danger waves-effect" type="submit">Remove Admin</button>
+                                            <button class="btn btn-danger waves-effect" type="submit">Remove Admin</button>
                                         </form>
                                     }
                                 }
                                 else
                                 {
                                     <form asp-area="Administration" asp-controller="UserManage" asp-action="SetAdmin" asp-route-userId="@user.Id" method="post">
-                                        <button class="btn btn-outline-dark-green waves-effect" type="submit">Make Admin</button>
+                                        <button class="btn btn-dark-green waves-effect" type="submit">Make Admin</button>
                                     </form>
                                 }
                             </td>
                             <td>
-                                <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@user.Id" class="btn btn-outline-brown waves-effect">Profile</a>
+                                <a asp-area="" asp-controller="Manage" asp-action="Index" asp-route-userId="@user.Id"
+                                   class="btn btn-brown waves-effect">Profile</a>
                             </td>
                         </tr>
                     }

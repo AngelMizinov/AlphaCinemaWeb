@@ -218,7 +218,7 @@ namespace AlphaCinema.Controllers
 			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
 			return await this.cache.GetOrCreateAsync("User", entry =>
 			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(1);
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(2);
 				return this.userService.GetUser(userId);
 			});
 		}
@@ -229,7 +229,7 @@ namespace AlphaCinema.Controllers
 			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
 			return await this.cache.GetOrCreateAsync("WatchevMovies", entry =>
 			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(1);
+				entry.AbsoluteExpiration = DateTime.UtcNow.AddMinutes(2);
 				return this.watchedMoviesService.GetWatchedMoviesByUserId(userId);
 			});
 		}

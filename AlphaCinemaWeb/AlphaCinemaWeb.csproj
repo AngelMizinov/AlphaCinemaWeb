@@ -6,9 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Extensions\**" />
     <Compile Remove="Services\**" />
+    <Content Remove="Extensions\**" />
     <Content Remove="Services\**" />
+    <EmbeddedResource Remove="Extensions\**" />
     <EmbeddedResource Remove="Services\**" />
+    <None Remove="Extensions\**" />
     <None Remove="Services\**" />
   </ItemGroup>
 
@@ -28,7 +32,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Administration\Data\" />
-    <Folder Include="Extensions\" />
   </ItemGroup>
 
   <ItemGroup>
