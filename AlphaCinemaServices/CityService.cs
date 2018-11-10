@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace AlphaCinemaServices
 {
-	public class CityService : ICityService
-	{
-		private readonly AlphaCinemaContext context;
-		private City city;
+    public class CityService : ICityService
+    {
+        private readonly AlphaCinemaContext context;
+        private City city;
 
-		public CityService(AlphaCinemaContext context)
-		{
-			this.context = context;
-		}
+        public CityService(AlphaCinemaContext context)
+        {
+            this.context = context;
+        }
 
         public async Task<string> GetCityName(int cityId)
         {
@@ -32,97 +32,98 @@ namespace AlphaCinemaServices
         }
 
         public async Task<ICollection<City>> GetCities()
-		{
-			var cities = await this.context.Cities
-				.ToListAsync();
-			return cities;
-		}
+        {
+            var cities = await this.context.Cities
+                .ToListAsync();
+            return cities;
+        }
 
-		public async Task<City> GetCity(string cityName)
-		{
-			var city = await this.context.Cities
-				.Where(c => c.Name == cityName)
-				.FirstOrDefaultAsync();
-			return city;
-		}
-
-        public async Task<City> GetCity(int cityId)
+        public async Task<City> GetCity(string cityName)
         {
             var city = await this.context.Cities
-                .Where(c => c.Id== cityId)
+                .Where(c => c.Name == cityName)
                 .FirstOrDefaultAsync();
             return city;
         }
 
-        public async Task AddCity(string cityName)
-		{
-			if (cityName.Length > 50 || cityName.Length < 3)
-			{
-				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
-			}
+        public async Task<City> GetCity(int cityId)
+        {
+            var city = await this.context.Cities
+                .Where(c => c.Id == cityId)
+                .FirstOrDefaultAsync();
+            return city;
+        }
 
-			city = await GetCity(cityName);
-			if (city != null)
-			{
-				if (city.IsDeleted)
-				{
-					city.IsDeleted = false;
-					await this.context.SaveChangesAsync();
-					return;
-				}
-				else
-				{
+        public async Task<City> AddCity(string cityName)
+        {
+            if (cityName.Length > 50 || cityName.Length < 3)
+            {
+                throw new InvalidClientInputException("City name should be between 3 and 50 characters");
+            }
 
-					throw new EntityAlreadyExistsException($"\nCity {cityName} is already present in the database.");
-				}
-			}
-			else
-			{
-				city = new City()
-				{
-					Name = cityName
-				};
-				await this.context.Cities.AddAsync(city);
-				await this.context.SaveChangesAsync();
-			}
-		}
+            city = await GetCity(cityName);
+            if (city != null)
+            {
+                if (city.IsDeleted)
+                {
+                    city.IsDeleted = false;
+                    await this.context.SaveChangesAsync();
+                    return city;
+                }
+                else
+                {
+                    throw new EntityAlreadyExistsException($"\nCity {cityName} is already present in the database.");
+                }
+            }
+            else
+            {
+                city = new City()
+                {
+                    Name = cityName
+                };
+                await this.context.Cities.AddAsync(city);
+                await this.context.SaveChangesAsync();
 
-		public async Task DeleteCity(string cityName)
-		{
-			city = await GetCity(cityName);
-			if (city == null || city.IsDeleted)
-			{
-				throw new EntityDoesntExistException($"\nCity [{cityName}] is not present in the database.");
-			}
+                return city;
+            }
+        }
 
-			this.context.Cities.Remove(city);
-			await this.context.SaveChangesAsync();
-		}
+        public async Task DeleteCity(string cityName)
+        {
+            city = await GetCity(cityName);
+            if (city == null || city.IsDeleted)
+            {
+                throw new EntityDoesntExistException($"\nCity [{cityName}] is not present in the database.");
+            }
 
-		public async Task UpdateName(int cityId, string newName)
-		{
+            this.context.Cities.Remove(city);
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task UpdateName(int cityId, string newName)
+        {
             city = await this.GetCity(cityId);
 
-			if (city == null || city.IsDeleted)
-			{
-				throw new EntityDoesntExistException($"\nCity is not present in the database.");
-			}
+            if (city == null || city.IsDeleted)
+            {
+                throw new EntityDoesntExistException($"\nCity is not present in the database.");
+            }
 
-			if (city.Name == newName)
-			{
-				throw new EntityAlreadyExistsException($"\nCity [{city.Name}] is already present in the database");
-			}
+            if (city.Name == newName)
+            {
+                throw new EntityAlreadyExistsException($"\nCity [{city.Name}] is already present in the database");
+            }
 
-			if (city.Name.Length > 50 || city.Name.Length < 3
-				|| newName.Length > 50 || newName.Length < 3)
-			{
-				throw new InvalidClientInputException("City name should be between 3 and 50 characters");
-			}
+            if (city.Name.Length > 50 || city.Name.Length < 3
+                || newName.Length > 50 || newName.Length < 3)
+            {
+                throw new InvalidClientInputException("City name should be between 3 and 50 characters");
+            }
 
-			city.Name = newName;
+            city.Name = newName;
 
-			this.context.Cities.Update(city);
-			await this.context.SaveChangesAsync();
-		}
-	}
+            this.context.Cities.Update(city);
+            await this.context.SaveChangesAsync();
+        }
+    }
 }

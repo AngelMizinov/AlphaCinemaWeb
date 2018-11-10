@@ -16,7 +16,10 @@
 
   <ItemGroup>
     <Folder Include="ControllersTests\GenreControllerTests\" />
-    <Folder Include="ServicesTests\CityServiceTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlphaCinemaServices\AlphaCinemaServices.csproj" />
   </ItemGroup>
 
 </Project>
