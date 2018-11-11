@@ -52,7 +52,7 @@ namespace AlphaCinema.Controllers
 		{
 			ViewData["MovieTitleSortParam"] = String.IsNullOrEmpty(sortBy) ? "movie_title" : "";
 
-			var user = await GetUserCached(userId);
+			var user = await this.userService.GetUser(userId);
 			if (user == null)
 			{
 				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
@@ -212,15 +212,15 @@ namespace AlphaCinema.Controllers
 			}
 		}
 
-		private async Task<User> GetUserCached(string userId)
-		{
-			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
-			return await this.cache.GetOrCreateAsync("User", entry =>
-			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
-				return this.userService.GetUser(userId);
-			});
-		}
+		//private async Task<User> GetUserCached(string userId)
+		//{
+		//	// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+		//	return await this.cache.GetOrCreateAsync("User", entry =>
+		//	{
+		//		entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
+		//		return this.userService.GetUser(userId);
+		//	});
+		//}
 
 		private async Task<IEnumerable<WatchedMovie>> GetWatchedMoviesByUserIdCached(string userId)
 		{
