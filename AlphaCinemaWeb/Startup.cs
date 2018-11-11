@@ -27,6 +27,7 @@ namespace AlphaCinema
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<AlphaCinemaContext>(options =>
+
 				options.UseSqlServer(Environment.GetEnvironmentVariable("AlphaCinemaConnection")));
 
 			services.AddIdentity<User, IdentityRole>()
@@ -65,9 +66,6 @@ namespace AlphaCinema
 			}
 			else
 			{
-                app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
-
                 app.UseExceptionHandler("/Error/Index");
             }
 
