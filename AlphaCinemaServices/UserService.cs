@@ -108,9 +108,9 @@ namespace AlphaCinemaServices
 			{
 				await stream.CopyToAsync(fileStream);
 			}
-
+			
 			user.Image = imageName;
-			await this.context.SaveChangesAsync();
+			await Modify(userId);
 		}
 	}
 }
