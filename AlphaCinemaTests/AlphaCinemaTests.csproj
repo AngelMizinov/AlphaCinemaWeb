@@ -7,6 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="ControllersTests\**" />
+    <Compile Remove="ServicesTests\**" />
+    <EmbeddedResource Remove="ControllersTests\**" />
+    <EmbeddedResource Remove="ServicesTests\**" />
+    <None Remove="ControllersTests\**" />
+    <None Remove="ServicesTests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.1.4" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="Moq" Version="4.10.0" />
@@ -15,8 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ControllersTests\GenreControllerTests\" />
-    <Folder Include="ServicesTests\CityServiceTests\" />
+    <Folder Include="AlphaCinemaServicesTests\CityServiceTests\" />
+    <Folder Include="AlphaCinemaWebTests\ControllersTests\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlphaCinemaData\AlphaCinemaData.csproj" />
+    <ProjectReference Include="..\AlphaCinemaServices\AlphaCinemaServices.csproj" />
+    <ProjectReference Include="..\AlphaCinemaWeb\AlphaCinemaWeb.csproj" />
   </ItemGroup>
 
 </Project>
