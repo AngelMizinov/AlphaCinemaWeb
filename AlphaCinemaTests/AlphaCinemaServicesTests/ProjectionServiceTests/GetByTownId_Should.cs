@@ -27,6 +27,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
         private int currentYear = DateTime.Now.Year;
         private int currentHour = DateTime.Now.Hour;
         private int currentMinute = DateTime.Now.Minute;
+        private DayOfWeek currentDayOfWeek = DateTime.Now.DayOfWeek;
         private int cityId = 1;
         private int openHourId = 1;
         private int movieId = 1;
@@ -40,14 +41,14 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
                 UserId = firstUserId,
                 ProjectionId = firstProjectionId,
                 IsDeleted = true,
-                Date = new DateTime(currentYear, currentDay, currentMonth)
+                Date = new DateTime(currentYear, currentMonth, currentDay)
             };
             validReservation = new WatchedMovie()
             {
                 UserId = firstUserId,
                 ProjectionId = firstProjectionId,
                 IsDeleted = false,
-                Date = new DateTime(currentYear, currentDay, currentMonth)
+                Date = new DateTime(currentYear, currentMonth, currentDay)
             };
             projection = new Projection()
             {
@@ -56,6 +57,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
                 MovieId = movieId,
                 OpenHourId = openHourId,
                 Seats = projectionSeats,
+                Day = (int)currentDayOfWeek
             };
             openHour = new OpenHour() { Id = openHourId, Hours = currentHour, Minutes = currentMinute };
             movie = new Movie() { Id = movieId };

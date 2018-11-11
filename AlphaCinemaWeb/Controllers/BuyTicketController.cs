@@ -67,8 +67,6 @@ namespace AlphaCinemaWeb.Controllers
                 userId = this.userManager.GetUserAsync(this.User).Result.Id;
             }
 
-            //try
-            //{
             this.ViewBag.CityName = await this.cityService.GetCityName(cityId);
 
             var projections = await projectionsService.GetByTownId(cityId, userId);
@@ -80,12 +78,6 @@ namespace AlphaCinemaWeb.Controllers
             var projectionsModel = new ProjectionListViewModel(1, maxPages, "title_desc", "hour", "title", cityId,
                 userId, day, projections.Take(pageSize).Select(p => new ProjectionViewModel(p, defaultImage)));
             return View(projectionsModel);
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.TempData["Error-Message"] = ex.Message;
-            //    return this.RedirectToAction("Index");
-            //}
         }
 
         [HttpPost]
@@ -94,8 +86,6 @@ namespace AlphaCinemaWeb.Controllers
             if (!this.ModelState.IsValid)
             {
                 throw new InvalidClientInputException("Something went wrong when received UpdateMovie parameters");
-                //this.TempData["Error-Message"] = "Sorry! We cannot execute your request";
-                //return this.RedirectToAction("Index");
             }
 
             this.ViewBag.DefaultImage = defaultImage;
@@ -104,8 +94,6 @@ namespace AlphaCinemaWeb.Controllers
                 model.UserId = "";
             }
             const int pageSize = 3;
-            //try
-            //{
             var projections = await projectionsService.GetByTownId(model.CityId, model.UserId, model.Day);
             model.TitleSort = model.SortOrder == "title" ? "title_desc" : "title";//Тук нагласяме какво да се подаде от view-то следващия път като кликнем на сорт-линка
                                                                                   //Винаги когато подадем нещо друго, различно от title следващото сортиране по име ще е в нарастващ ред
@@ -129,12 +117,6 @@ namespace AlphaCinemaWeb.Controllers
                 model.Day, projections.Select(p => new ProjectionViewModel(p, defaultImage)));
 
             return PartialView("../BuyTicket/_ProjectionsPartial", projectionsModel);
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.TempData["Error-Message"] = ex.Message;
-            //    return this.RedirectToAction("Index");
-            //}
         }
 
         [HttpPost]
@@ -145,20 +127,10 @@ namespace AlphaCinemaWeb.Controllers
             if (!this.ModelState.IsValid)
             {
                 throw new InvalidClientInputException("Something went wrong when received Booking parameters");
-                //this.TempData["Error-Message"] = "Sorry! We cannot book your reservation";
-                //return this.RedirectToAction("Index");
             }
-            //try
-            //{
             await this.projectionsService.AddReservation(projection.UserId, projection.ProjectionId);
             this.TempData["Success-Message"] = "You booked a ticket!";
             return RedirectToAction("Movie", new { cityId = projection.CityId });
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.TempData["Error-Message"] = ex.Message;
-            //    return this.RedirectToAction("Index");
-            //}
         }
 
         [HttpPost]
@@ -169,20 +141,10 @@ namespace AlphaCinemaWeb.Controllers
             if (!this.ModelState.IsValid)
             {
                 throw new InvalidClientInputException("Something went wrong when received Decline parameters");
-                //this.TempData["Error-Message"] = "Sorry! We cannot decline your reservation";
-                //return this.RedirectToAction("Index");
             }
-            //try
-            //{
             await this.projectionsService.DeclineReservation(projection.UserId, projection.ProjectionId);
             this.TempData["Warning-Message"] = "You declined your reservation!";
             return RedirectToAction("Movie", new { cityId = projection.CityId });
-            //}
-            //catch (Exception ex)
-            //{
-            //    this.TempData["Error-Message"] = ex.Message;
-            //    return this.RedirectToAction("Index");
-            //}
         }
 
         private async Task<IEnumerable<City>> GetCitiesCached()

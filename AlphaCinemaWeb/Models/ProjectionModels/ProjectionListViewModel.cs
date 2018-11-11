@@ -34,7 +34,6 @@ namespace AlphaCinemaWeb.Models.ProjectionModels
         [Required]
         public string SortOrder { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
         [Required]
