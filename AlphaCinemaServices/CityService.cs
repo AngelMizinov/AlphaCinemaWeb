@@ -61,7 +61,7 @@ namespace AlphaCinemaServices
             }
         }
 
-        public async Task AddCity(string cityName)
+        public async Task<City> AddCity(string cityName)
         {
             if (cityName.Length > 50 || cityName.Length < 3)
             {
@@ -75,7 +75,7 @@ namespace AlphaCinemaServices
                 {
                     city.IsDeleted = false;
                     await this.context.SaveChangesAsync();
-                    return;
+                    return city;
                 }
                 else
                 {
@@ -91,6 +91,8 @@ namespace AlphaCinemaServices
                 };
                 await this.context.Cities.AddAsync(city);
                 await this.context.SaveChangesAsync();
+
+                return city;
             }
         }
 
