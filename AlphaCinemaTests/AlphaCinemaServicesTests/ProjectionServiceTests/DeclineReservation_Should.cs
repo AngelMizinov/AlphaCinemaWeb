@@ -3,6 +3,7 @@ using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices;
 using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
     [TestClass]
     public class DeclineReservation_Should
     {
+        private ServiceProvider serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
         private WatchedMovie deletedReservation;
         private string testUserId = "1234";
         private int testProjectionId = 1;
@@ -39,13 +41,14 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
                 .UseInMemoryDatabase(databaseName: "ChangeIsDeletedToTrue_WhenExistAndParametersAreValid")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
                 //Добавяме старата резервация
-                actContext.Add(deletedReservation);
+                await actContext.AddAsync(deletedReservation);
                 await actContext.SaveChangesAsync();
                 var command = new ProjectionService(actContext);
                 await command.DeclineReservation(testUserId, testProjectionId);
@@ -65,13 +68,14 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
                 .UseInMemoryDatabase(databaseName: "ThrowEntityDoesntExistException_WhenReservationDoesntExist")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act and Assert
             using (var assertContext = new AlphaCinemaContext(contextOptions))
             {
                 var command = new ProjectionService(assertContext);
-                await Assert.ThrowsExceptionAsync<EntityDoesntExistException>(() => command.DeclineReservation(testUserId, testProjectionId));
+                await Assert.ThrowsExceptionAsync<EntityDoesntExistException>(async () => await command.DeclineReservation(testUserId, testProjectionId));
             }
         }
     }

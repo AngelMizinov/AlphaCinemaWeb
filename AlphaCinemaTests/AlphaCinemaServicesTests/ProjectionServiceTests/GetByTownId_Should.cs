@@ -3,6 +3,7 @@ using AlphaCinemaData.Models;
 using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
     [TestClass]
     public class GetByTownId_Should
     {
+        private ServiceProvider serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
         private WatchedMovie deletedReservation;
         private WatchedMovie validReservation;
         private Projection projection;
@@ -65,15 +67,16 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
                 .UseInMemoryDatabase(databaseName: "ReturnListOfNotBookedProjections_WhenUserIdIsNull")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
-                actContext.Add(projection);
-                actContext.Add(validReservation);
-                actContext.Add(movie);
-                actContext.Add(openHour);
+                await actContext.AddAsync(projection);
+                await actContext.AddAsync(validReservation);
+                await actContext.AddAsync(movie);
+                await actContext.AddAsync(openHour);
 
                 await actContext.SaveChangesAsync();
             }
@@ -95,16 +98,17 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
         {
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
-                .UseInMemoryDatabase(databaseName: "ReturnListOfNotDeletedProjections_WhenParametersAreValid")
+                .UseInMemoryDatabase(databaseName: "ReturnListOfNotBookedProjections_WhenUserDidntBookAny")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
-                actContext.Add(projection);
-                actContext.Add(validReservation);
-                actContext.Add(movie);
-                actContext.Add(openHour);
+                await actContext.AddAsync(projection);
+                await actContext.AddAsync(validReservation);
+                await actContext.AddAsync(movie);
+                await actContext.AddAsync(openHour);
 
                 await actContext.SaveChangesAsync();
             }
@@ -126,15 +130,16 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
                 .UseInMemoryDatabase(databaseName: "ReturnListOfBookedProjections_WhenUserBookedAny")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
-                actContext.Add(projection);
-                actContext.Add(deletedReservation);
-                actContext.Add(movie);
-                actContext.Add(openHour);
+                await actContext.AddAsync(projection);
+                await actContext.AddAsync(deletedReservation);
+                await actContext.AddAsync(movie);
+                await actContext.AddAsync(openHour);
 
                 await actContext.SaveChangesAsync();
             }

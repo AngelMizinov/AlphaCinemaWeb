@@ -59,7 +59,6 @@ namespace AlphaCinemaServices
 
                 return movie;
             }
-
         }
 
         public async Task DeleteMovie(string movieName)
