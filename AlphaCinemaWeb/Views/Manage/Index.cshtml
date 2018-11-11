@@ -46,7 +46,7 @@
                 data-target="#upload-modal">
             Change profile picture
         </button>
-        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword"
+        <a asp-area="" asp-controller="Manage" asp-action="ChangePassword" asp-route-userId="@(Model.UserId)"
            class="btn btn-danger waves-effect" role="link">Change password</a>
     </div>
 </div>
@@ -75,7 +75,11 @@
                     @foreach (var wm in Model.WatchedMovieViewModels)
                     {
                         <tr style="text-align:center">
-                            <td>@wm.MovieName</td>
+                            <td>
+                                <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@wm.MovieName">
+                                    @wm.MovieName
+                                </a>
+                            </td>
                             <td>@wm.CityName</td>
                             <td>@(wm.Hours + ":" + wm.Minutes)</td>
                             <td>@wm.WatchedOn</td>
@@ -97,7 +101,7 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <form asp-controller="Manage" asp-action="Avatar" method="post" enctype="multipart/form-data">
+            <form asp-controller="Manage" asp-action="Avatar" asp-route-userId="@(Model.UserId)" method="post" enctype="multipart/form-data">
                 <div class="modal-body">
                     <label class="avatar-upload-label">
                         Drag or click to upload..

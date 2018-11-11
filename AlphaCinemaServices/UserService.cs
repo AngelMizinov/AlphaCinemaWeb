@@ -7,7 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -16,6 +18,7 @@ namespace AlphaCinemaServices
 	public class UserService : IUserService
 	{
 		private readonly IServiceProvider serviceProvider;
+
 		private readonly AlphaCinemaContext context;
 
 		public UserService(IServiceProvider serviceProvider, AlphaCinemaContext context)
@@ -70,6 +73,43 @@ namespace AlphaCinemaServices
 			user.ModifiedOn = DateTime.Now;
 
 			this.context.Users.Update(user);
+			await this.context.SaveChangesAsync();
+		}
+
+		public async Task<IdentityResult> ChangePassword(User user, string oldPassword, string newPassword)
+		{
+			if (user == null || user.IsDeleted)
+			{
+				throw new EntityDoesntExistException($"\nUser is not present in the database.");
+			}
+
+			return await this.serviceProvider.GetRequiredService<UserManager<User>>()
+				.ChangePasswordAsync(user, oldPassword, newPassword);
+		}
+
+		public async Task<User> GetUserFromManager(ClaimsPrincipal User)
+		{
+			return await this.serviceProvider.GetRequiredService<UserManager<User>>()
+				.GetUserAsync(User);
+		}
+
+		public async Task SaveAvatarImageAsync(string root, string filename, Stream stream, string userId)
+		{
+			var user = await GetUser(userId);
+			if (user == null)
+			{
+				throw new EntityDoesntExistException("User not found");
+			}
+
+			var imageName = Guid.NewGuid().ToString() + Path.GetExtension(filename);
+			var path = Path.Combine(root, imageName);
+
+			using (var fileStream = File.Create(path))
+			{
+				await stream.CopyToAsync(fileStream);
+			}
+
+			user.Image = imageName;
 			await this.context.SaveChangesAsync();
 		}
 	}
