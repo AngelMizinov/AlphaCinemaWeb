@@ -25,7 +25,7 @@ namespace AlphaCinemaServices
             this.context = context;
         }
 
-        public async Task<IEnumerable<Projection>> GetByTownId(int townId, string userId, DayOfWeek? day = null)//Трябва да добавя и UserId
+        public async Task<IEnumerable<Projection>> GetByTownId(int townId, string userId, DayOfWeek? day = null)
         {
             day = day ?? DateTime.Now.DayOfWeek;
 
@@ -68,9 +68,9 @@ namespace AlphaCinemaServices
             }
             catch (Exception ex)
             {
-                throw new EntityDoesntExistException("Projection with that UserId and TownId cannot be found");
+                //Това изключение ще бъде хвърлено когато Foreign-Key Constraint бъде нарушен
+                throw new EntityDoesntExistException("Projection with that UserId and TownId cannot be found", ex);
             }
-
         }
 
         public async Task<IEnumerable<Projection>> GetTopProjections(int count)
@@ -114,11 +114,10 @@ namespace AlphaCinemaServices
                 return reservation;
             }
             catch (Exception ex)
-            {
-                throw new EntityDoesntExistException("Reservation with that UserId and ProjectionId cannot be booked");
+            {//Това изключение ще бъде хвърлено когато Foreign-Key Constraint бъде нарушен
+                throw new EntityDoesntExistException("Reservation with that UserId and ProjectionId cannot be booked", ex);
             }
         }
-
 
         public async Task<WatchedMovie> DeclineReservation(string userId, int projectionId)
         {
@@ -135,7 +134,7 @@ namespace AlphaCinemaServices
                 return currentBooking;
             }
             catch (Exception)
-            {
+            {//Това изключение ще бъде хвърлено когато Foreign-Key Constraint бъде нарушен
                 throw new EntityDoesntExistException("Reservation with that UserId and ProjectionId cannot be declined");
             }
         }
