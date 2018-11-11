@@ -90,8 +90,8 @@ namespace AlphaCinema.Controllers
 					// Maybe initialize watched movies collection?
 					UserName = model.Email,
 					Email = model.Email,
-					CreatedOn = DateTime.Now
-				};
+					CreatedOn = DateTime.UtcNow
+			};
 
 				var result = await this.userManager.CreateAsync(user, model.Password);
 				if (result.Succeeded)

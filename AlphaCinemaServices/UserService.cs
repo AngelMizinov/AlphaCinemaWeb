@@ -70,7 +70,7 @@ namespace AlphaCinemaServices
 			{
 				throw new EntityDoesntExistException($"\nUser is not present in the database.");
 			}
-			user.ModifiedOn = DateTime.Now;
+			user.ModifiedOn = DateTime.UtcNow;
 
 			this.context.Users.Update(user);
 			await this.context.SaveChangesAsync();
