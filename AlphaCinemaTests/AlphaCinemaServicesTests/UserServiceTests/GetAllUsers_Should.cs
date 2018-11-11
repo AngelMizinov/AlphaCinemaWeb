@@ -21,7 +21,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Correctly_Return_All_Users_From_DB()
+		public async Task CorrectlyReturnAllUsers()
 		{
 			// Arrange
 			var serviceProviderMock = new Mock<IServiceProvider>();

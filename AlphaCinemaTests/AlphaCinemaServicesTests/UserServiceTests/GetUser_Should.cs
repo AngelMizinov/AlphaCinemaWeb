@@ -21,7 +21,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Return_User_If_UserId_IsFound_In_DB()
+		public async Task ReturnUserIfUserIdIsFound()
 		{
 			// Arrange
 			string userId = "myId";
@@ -52,7 +52,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 		}
 
 		[TestMethod]
-		public async Task Return_Null_If_UserId_Is_Not_Found_In_DB()
+		public async Task ReturnNullIfUserIdIsNotFound()
 		{
 			// Arrange
 			var serviceProviderMock = new Mock<IServiceProvider>();

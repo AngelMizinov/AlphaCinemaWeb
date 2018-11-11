@@ -28,8 +28,6 @@ namespace AlphaCinema.Controllers
 		private readonly IWatchedMoviesService watchedMoviesService;
 		private readonly IMemoryCache cache;
 
-		//private readonly IUsersService usersService;
-
 		public ManageController(
 		  UserManager<User> userManager,
 		  SignInManager<User> signInManager,
@@ -154,35 +152,6 @@ namespace AlphaCinema.Controllers
 			StatusMessage = "Your password has been changed.";
 
 			return RedirectToAction(nameof(ChangePassword));
-		}
-
-
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Avatar(IFormFile avatarImage)
-		{
-			if (avatarImage == null)
-			{
-				this.StatusMessage = "Error: Please provide an image";
-				return this.RedirectToAction(nameof(Index));
-			}
-
-			if (!this.IsValidImage(avatarImage))
-			{
-				this.StatusMessage = "Error: Please provide a .jpg or .png file smaller than 1MB";
-				return this.RedirectToAction(nameof(Index));
-			}
-			// TODO : FIX
-			//await this.usersService.SaveAvatarImageAsync(
-			//	this.GetUploadsRoot(),
-			//	avatarImage.FileName,
-			//	avatarImage.OpenReadStream(),
-			//	this.User.GetId()
-			//);
-
-			this.StatusMessage = "Profile image updated";
-
-			return this.RedirectToAction(nameof(Index));
 		}
 
 		private string GetUploadsRoot()
