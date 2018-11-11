@@ -2,83 +2,66 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="container">
+<!-- Card -->
+<div class="card">
+    <!-- Card image -->
+    <div class="view overlay hovereffect" style="height:250px;">
+        <img class="card-img-top img-responsive" src="~/images/buy_ticket_photo.png" alt="Card image cap">
 
-    <!-- Grid row -->
-    <div class="row">
-        <!-- Grid column -->
-        <div class="col-lg-4 col-md-12 mb-4">
-            <!--Card Primary-->
-            <div class="card" style="height:435px; width:350px">
-                <div class="view overlay zoom">
-                    <img class="card-img-top" src="~/images/buy_ticket_photo.png" alt="Card image" style="height:230px; width:100%">
-                    <a asp-controller="BuyTicket" asp-action="Index">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Резервирай сега!</h4>
-                    <p class="card-text">Вземи своя билет на момента и се наслади на невероятното изживяване!</p>
-                </div>
-                <hr />
-                <div class="button card-footer">
-                    <small class="text-muted">
-                        <a asp-controller="BuyTicket" asp-action="Index"
-                           class="btn btn-deep-orange waves-effect">Book Now</a>
-                    </small>
-                </div>
-            </div>
-            <!--/.Card Primary-->
+        <div class="overlay">
+            <h2>Вземи билет сега</h2>
         </div>
-        <!-- Grid column -->
-        <div class="col-lg-4 col-md-6 mb-4">
-            <!--Card Primary-->
-            <div class="card" style="height:435px; width:350px">
-                <div class="view overlay zoom">
-                    <img class="card-img-top" src="~/images/buy_ticket_photo.png" alt="Card image" style="height:230px; width:100%">
-                    <a href="#">
-                        <div class="mask rgba-white-slight"></div>
-                    </a>
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title">Резервирай сега!</h4>
-                    <p class="card-text">Вземи своя билет на момента и се наслади на невероятното изживяване!</p>
-                </div>
-                <hr />
-                <div class="button card-footer">
-                    <small class="text-muted">
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index"
-                           class="btn btn-deep-orange waves-effect">Book Now</a>
-                    </small>
-                </div>
+
+        <a asp-area="" asp-controller="BuyTicket" asp-action="Index">
+            <div class="mask rgba-white-slight"></div>
+        </a>
+    </div>
+
+    <!-- Card content -->
+    <div class="card-body">
+
+        <!-- Title -->
+        <h4 class="card-title text-center">Вземи своя билет на момента и се наслади на невероятното изживяване!</h4>
+        <!-- Button -->
+        <div class="d-flex justify-content-center">
+            <div class="form-row">
+                <a asp-area="" asp-controller="BuyTicket" asp-action="Index"
+                   class="btn btn-orange waves-effect">Book Now</a>
             </div>
-            <!--/.Card Primary-->
         </div>
-        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
-        {
-            <div class="col-lg-4 col-md-6 mb-4">
-                <!--Card Primary-->
-                <div class="card" style="height:435px; width:350px">
-                    <div class="view overlay zoom">
-                        <img class="card-img-top" src="~/images/AdminPanel3.png" alt="Card image" style="height:230px; width:100%">
-                        <a asp-area="Administration" asp-controller="Home" asp-action="Index">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="card-title">Админ панел</h4>
-                        <p class="card-text">Влез тук, за администраторски права!</p>
-                    </div>
-                    <div class="button card-footer">
-                        <small class="text-muted">
-                            <a asp-area="Administration" asp-controller="Home" asp-action="Index"
-                               class="btn btn-primary waves-effect">Admin Panel</a>
-                        </small>
-                    </div>
-                </div>
-                <!--/.Card Primary-->
-            </div>
-        }
-        <!-- Grid column -->
     </div>
 </div>
+<!-- Card -->
+<br />
+@if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+{
+    <!-- Card -->
+    <div class="card">
+        <!-- Card image -->
+        <div class="view overlay hovereffect" style="height:250px;">
+            <img class="card-img-top img-responsive" src="~/images/AdminPanel.jpg" alt="Card image cap">
+
+            <div class="overlay">
+                <h2>Админ Панел</h2>
+            </div>
+
+            <a asp-area="Administration" asp-controller="Home" asp-action="Index">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title text-center">Влез тук, за администраторски права!</h4>
+            <!-- Button -->
+            <div class="d-flex justify-content-center">
+                <div class="form-row">
+                    <a asp-area="Administration" asp-controller="Home" asp-action="Index"
+                       class="btn btn-primary waves-effect">Admin Panel</a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
