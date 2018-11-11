@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlphaCinemaWeb.Exceptions
 {
-	public class EntityDoesntExistException : Exception
+    public class EntityDoesntExistException : Exception
 	{
-		public EntityDoesntExistException(string message) : base(message)
+        public EntityDoesntExistException(string message, Exception ex = null) : base(message, ex)
 		{
 
 		}

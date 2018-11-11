@@ -13,6 +13,8 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace AlphaCinemaWeb.Areas.Administration.Controllers
 {
+	[Area("Administration")]
+	[Authorize(Roles = "Administrator")]
 	public class UserManageController : Controller
 	{
 		// GET: /<controller>/
@@ -25,8 +27,7 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			this.cache = cache;
 		}
 		// GET: /<controller>/
-		[Area("Administration")]
-		[Authorize(Roles = "Administrator")]
+		
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
@@ -46,8 +47,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			return View(model);
 		}
 
-		[Area("Administration")]
-		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> SetAdmin(string userId)
@@ -65,8 +64,6 @@ namespace AlphaCinemaWeb.Areas.Administration.Controllers
 			return this.RedirectToAction("Index", "UserManage");
 		}
 
-		[Area("Administration")]
-		[Authorize(Roles = "Administrator")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public async Task<IActionResult> RemoveAdmin(string userId)

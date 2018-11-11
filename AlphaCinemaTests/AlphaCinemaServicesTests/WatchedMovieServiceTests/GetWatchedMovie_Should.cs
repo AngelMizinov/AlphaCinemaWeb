@@ -15,19 +15,21 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 	[TestClass]
 	public class GetWatchedMovie_Should
 	{
-		private readonly DbContextOptions<AlphaCinemaContext> contextOptions =
-			new DbContextOptionsBuilder<AlphaCinemaContext>()
-			.UseInMemoryDatabase(databaseName: "AddEntityToBase_WhenEntityIsCorrect")
-				.Options;
+		private DbContextOptions<AlphaCinemaContext> contextOptions;
+		private WatchedMovie watchedMovie;
 
 		[TestMethod]
-		public async Task Return_WatchedMovie_If_UserId_And_ProjectionId_IsFound_In_DB()
+		public async Task ReturnWatchedMovieWhenParamsAreInDatabase()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ReturnWatchedMovieWhenParamsAreInDatabase")
+				.Options;
+
 			var userId = "userId";
 			var projectionId = 5;
 			
-			var watchedMovie = new WatchedMovie()
+			watchedMovie = new WatchedMovie()
 			{
 				UserId = userId,
 				ProjectionId = projectionId
@@ -52,13 +54,17 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 		}
 
 		[TestMethod]
-		public async Task Return_Null_If_UserId_Is_Not_Found_In_DB()
+		public async Task ReturnNullWhenUserIsNotFound()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ReturnNullWhenUserIsNotFound")
+				.Options;
+
 			var userId = "userId";
 			var projectionId = 5;
 			// Assert && Act
-			var watchedMovie = new WatchedMovie()
+			watchedMovie = new WatchedMovie()
 			{
 				UserId = userId,
 				ProjectionId = projectionId

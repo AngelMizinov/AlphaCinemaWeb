@@ -28,8 +28,6 @@ namespace AlphaCinema.Controllers
 		private readonly IWatchedMoviesService watchedMoviesService;
 		private readonly IMemoryCache cache;
 
-		//private readonly IUsersService usersService;
-
 		public ManageController(
 		  UserManager<User> userManager,
 		  SignInManager<User> signInManager,
@@ -52,12 +50,12 @@ namespace AlphaCinema.Controllers
 		{
 			ViewData["MovieTitleSortParam"] = String.IsNullOrEmpty(sortBy) ? "movie_title" : "";
 
-			var user = await GetUserCached(userId);
+			var user = await this.userService.GetUser(userId);
 			if (user == null)
 			{
 				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 			}
-			var watchedMovies = await GetWatchedMoviesByUserIdCached(userId);
+			var watchedMovies = await this.watchedMoviesService.GetWatchedMoviesByUserId(userId);
 
 			var watchedMovieViewModels = watchedMovies.Select(wm => new WatchedMovieViewModel()
 			{
@@ -92,37 +90,16 @@ namespace AlphaCinema.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Index(IndexViewModel model)
-		{
-			if (!ModelState.IsValid)
-			{
-				return View(model);
-			}
-
-			var user = await this.userManager.GetUserAsync(User);
-			if (user == null)
-			{
-				throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
-			}
-			// Ако искаме да ползваме това трябва да extend-нем user-manager, за да може да добавим нашата логика - first name, last name, age и други..
-
-
-			StatusMessage = "Your profile has been updated";
-			return RedirectToAction(nameof(Index));
-		}
-
 		[HttpGet]
-		public async Task<IActionResult> ChangePassword()
+		public async Task<IActionResult> ChangePassword(string userId)
 		{
-			var user = await this.userManager.GetUserAsync(User);
+			var user = await this.userService.GetUser(userId);
 			if (user == null)
 			{
-				throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
+				throw new ApplicationException($"Unable to load user with ID '{userId}'.");
 			}
 
-			var model = new ChangePasswordViewModel { StatusMessage = StatusMessage };
+			var model = new ChangePasswordViewModel { StatusMessage = StatusMessage, UserId = userId };
 			return View(model);
 		}
 
@@ -135,13 +112,15 @@ namespace AlphaCinema.Controllers
 				return View(model);
 			}
 
-			var user = await this.userManager.GetUserAsync(User);
+			var user = await this.userService.GetUserFromManager(User);
 			if (user == null)
 			{
-				throw new ApplicationException($"Unable to load user with ID '{this.userManager.GetUserId(User)}'.");
+				throw new ApplicationException($"Unable to load user with ID '{model.UserId}'.");
 			}
 
-			var changePasswordResult = await this.userManager.ChangePasswordAsync(user, model.OldPassword, model.NewPassword);
+			var changePasswordResult = await this.userService
+				.ChangePassword(user, model.OldPassword, model.NewPassword);
+
 			if (!changePasswordResult.Succeeded)
 			{
 				AddErrors(changePasswordResult);
@@ -149,40 +128,36 @@ namespace AlphaCinema.Controllers
 			}
 
 			await this.userService.Modify(user.Id);
-
-			await this.signInManager.SignInAsync(user, isPersistent: false);
 			StatusMessage = "Your password has been changed.";
-
-			return RedirectToAction(nameof(ChangePassword));
+			return RedirectToAction("ChangePassword", "Manage", new { userId = model.UserId });
 		}
-
 
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Avatar(IFormFile avatarImage)
+		public async Task<IActionResult> Avatar(IFormFile avatarImage, string userId)
 		{
 			if (avatarImage == null)
 			{
 				this.StatusMessage = "Error: Please provide an image";
-				return this.RedirectToAction(nameof(Index));
+				return RedirectToAction("Index", "Manage", new { userId });
 			}
 
 			if (!this.IsValidImage(avatarImage))
 			{
 				this.StatusMessage = "Error: Please provide a .jpg or .png file smaller than 1MB";
-				return this.RedirectToAction(nameof(Index));
+				return RedirectToAction("Index", "Manage", new { userId });
 			}
-			// TODO : FIX
-			//await this.usersService.SaveAvatarImageAsync(
-			//	this.GetUploadsRoot(),
-			//	avatarImage.FileName,
-			//	avatarImage.OpenReadStream(),
-			//	this.User.GetId()
-			//);
+
+			await this.userService.SaveAvatarImageAsync(
+				this.GetUploadsRoot(),
+				avatarImage.FileName,
+				avatarImage.OpenReadStream(),
+				userId
+			);
 
 			this.StatusMessage = "Profile image updated";
 
-			return this.RedirectToAction(nameof(Index));
+			return RedirectToAction("Index", "Manage", new { userId });
 		}
 
 		private string GetUploadsRoot()
@@ -212,25 +187,25 @@ namespace AlphaCinema.Controllers
 			}
 		}
 
-		private async Task<User> GetUserCached(string userId)
-		{
-			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
-			return await this.cache.GetOrCreateAsync("User", entry =>
-			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
-				return this.userService.GetUser(userId);
-			});
-		}
+		//private async Task<User> GetUserCached(string userId)
+		//{
+		//	// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+		//	return await this.cache.GetOrCreateAsync("User", entry =>
+		//	{
+		//		entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
+		//		return this.userService.GetUser(userId);
+		//	});
+		//}
 
-		private async Task<IEnumerable<WatchedMovie>> GetWatchedMoviesByUserIdCached(string userId)
-		{
-			//await watchedMoviesService.GetWatchedMoviesByUserId(user.Id);
-			// Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
-			return await this.cache.GetOrCreateAsync("WatchevMovies", entry =>
-			{
-				entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
-				return this.watchedMoviesService.GetWatchedMoviesByUserId(userId);
-			});
-		}
+		//private async Task<IEnumerable<WatchedMovie>> GetWatchedMoviesByUserIdCached(string userId)
+		//{
+		//	await watchedMoviesService.GetWatchedMoviesByUserId(user.Id);
+		//	Ако има кеш с такъв ключ ми върни него, ако няма ми създай нов.
+		//	return await this.cache.GetOrCreateAsync("WatchevMovies", entry =>
+		//	{
+		//		entry.AbsoluteExpiration = DateTime.UtcNow.AddSeconds(40);
+		//		return this.watchedMoviesService.GetWatchedMoviesByUserId(userId);
+		//	});
+		//}
 	}
 }

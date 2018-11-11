@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <Folder Include="AlphaCinemaWebTests\ControllersTests\" />
+    <Folder Include="AlphaCinemaServicesTests\CityServiceTests\" />
   </ItemGroup>
 
   <ItemGroup>
