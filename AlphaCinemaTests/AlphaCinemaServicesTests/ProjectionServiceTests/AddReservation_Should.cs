@@ -1,8 +1,8 @@
 ﻿using AlphaCinemaData.Context;
 using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices;
-using AlphaCinemaWeb.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Linq;
@@ -13,6 +13,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
     [TestClass]
     public class AddReservation_Should
     {
+        private ServiceProvider serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
         private WatchedMovie deletedReservation;
         private string testUserId = "1234";
         private int testProjectionId = 1;
@@ -41,7 +42,8 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             //and is not designed to mimic a relational database.
             //Simply said InMemory database wont respect the foreign key constraint
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
-                .UseInMemoryDatabase(databaseName: "AddNewWatchedMovie_WhenParametersAreValid")
+                .UseInMemoryDatabase(databaseName: "AddNewWatchedMovie_WhenDontExistAndParametersAreValid")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
@@ -66,12 +68,13 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             // Arrange
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
                 .UseInMemoryDatabase(databaseName: "ChangeIsDeletedToFalse_WhenExistAndParametersAreValid")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             //Act
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
-                actContext.Add(deletedReservation);
+                await actContext.AddAsync(deletedReservation);
                 await actContext.SaveChangesAsync();
                 var command = new ProjectionService(actContext);
                 await command.AddReservation(testUserId, testProjectionId);

@@ -3,6 +3,7 @@ using AlphaCinemaData.Models;
 using AlphaCinemaData.Models.Associative;
 using AlphaCinemaServices;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +14,9 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
     [TestClass]
     public class GetTopProjections_Should
     {
-        private Projection testProjectionOne = new Projection() { MovieId = 1, OpenHourId = 1};
+        // Create a fresh service provider, and therefore a fresh InMemory database instance.
+        private ServiceProvider serviceProvider = new ServiceCollection().AddEntityFrameworkInMemoryDatabase().BuildServiceProvider();
+        private Projection testProjectionOne = new Projection() { MovieId = 1, OpenHourId = 1 };
         private Projection testProjectionTwo = new Projection() { MovieId = 2, OpenHourId = 1 };
         private Projection testProjectionThree = new Projection() { MovieId = 3, CityId = 1, OpenHourId = 1 };
         private Movie testMovieOne = new Movie() { Name = "TestMovieOne" };
@@ -28,8 +31,10 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
         public async Task ReturnCollectionOfProjections_WhenCountIsValid()
         {
             //Arrange
+            // Create a new options instance telling the context to use an InMemory database and the new service provider.
             var contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
-                .UseInMemoryDatabase(databaseName: "ChangeIsDeletedToTrue_WhenExistAndParametersAreValid")
+                .UseInMemoryDatabase(databaseName: "ReturnCollectionOfProjections_WhenCountIsValid")
+                .UseInternalServiceProvider(serviceProvider)
                 .Options;
 
             var listOfProjections = new List<Projection>() { testProjectionOne, testProjectionTwo, testProjectionThree };
@@ -38,10 +43,10 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.ProjectionServiceTests
             //Act and Assert
             using (var actContext = new AlphaCinemaContext(contextOptions))
             {
-                actContext.Projections.AddRange(listOfProjections);
-                actContext.Movies.AddRange(listOfMovies);
-                actContext.OpenHours.Add(testOpenHour);
-                actContext.Cities.Add(testCity);
+                await actContext.AddRangeAsync(listOfProjections);
+                await actContext.AddRangeAsync(listOfMovies);
+                await actContext.AddAsync(testOpenHour);
+                await actContext.AddAsync(testCity);
                 await actContext.SaveChangesAsync();
             }
 
