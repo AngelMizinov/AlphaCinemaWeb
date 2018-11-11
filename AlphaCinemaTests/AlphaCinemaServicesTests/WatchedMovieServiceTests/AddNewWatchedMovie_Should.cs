@@ -14,19 +14,21 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 	[TestClass]
 	public class AddNewWatchedMovie_Should
 	{
-		private readonly DbContextOptions<AlphaCinemaContext> contextOptions =
-			new DbContextOptionsBuilder<AlphaCinemaContext>()
-			.UseInMemoryDatabase(databaseName: "AddEntityToBase_WhenEntityIsCorrect")
-				.Options;
+		private DbContextOptions<AlphaCinemaContext> contextOptions;
+		private WatchedMovie watchedMovie;
 
 		[TestMethod]
 		public async Task ThrowEntityAlreadyExistsExceptionWhenParamsAreValid()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ThrowEntityAlreadyExistsExceptionWhenParamsAreValid")
+				.Options;
+
 			var userId = "userId";
 			var projectionId = 5;
 
-			var watchedMovie = new WatchedMovie()
+			watchedMovie = new WatchedMovie()
 			{
 				UserId = userId,
 				ProjectionId = projectionId
@@ -51,6 +53,10 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 		public async Task SuccessfullyCreateNewWatchedMovieWhenParamsAreValid()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "SuccessfullyCreateNewWatchedMovieWhenParamsAreValid")
+				.Options;
+
 			var userId = "djoni";
 			var projectionId = 6;
 

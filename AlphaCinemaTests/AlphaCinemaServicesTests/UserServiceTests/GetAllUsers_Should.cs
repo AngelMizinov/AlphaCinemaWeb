@@ -15,22 +15,25 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 	[TestClass]
 	public class GetAllUsers_Should
 	{
-		private readonly DbContextOptions<AlphaCinemaContext> contextOptions =
-			new DbContextOptionsBuilder<AlphaCinemaContext>()
-			.UseInMemoryDatabase(databaseName: "AddEntityToBase_WhenEntityIsCorrect")
-				.Options;
+		private DbContextOptions<AlphaCinemaContext> contextOptions;
+		private Mock<IServiceProvider> serviceProviderMock = new Mock<IServiceProvider>();
+		private User user;
 
 		[TestMethod]
 		public async Task CorrectlyReturnAllUsers()
 		{
 			// Arrange
-			var serviceProviderMock = new Mock<IServiceProvider>();
-			var user = new User()
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "CorrectlyReturnAllUsers")
+				.Options;
+
+			user = new User()
 			{
 				FirstName = "Krasimir",
 				LastName = "Etov",
 				Age = 21,
 			};
+
 			//Act
 			using (var actContext = new AlphaCinemaContext(contextOptions))
 			{

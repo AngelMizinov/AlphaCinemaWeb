@@ -17,17 +17,17 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 	[TestClass]
 	public class Modify_Should
 	{
-		private readonly DbContextOptions<AlphaCinemaContext> contextOptions =
-			new DbContextOptionsBuilder<AlphaCinemaContext>()
-			.UseInMemoryDatabase(databaseName: "AddEntityToBase_WhenEntityIsCorrect")
-				.Options;
+		private DbContextOptions<AlphaCinemaContext> contextOptions;
+		private Mock<IServiceProvider> serviceProviderMock =  new Mock<IServiceProvider>();
+		private User user;
 
 		[TestMethod]
 		public async Task ThrowEntityDoesntExistExceptionWhenUserIsNotFound()
 		{
 			// Arrange
-
-			var serviceProviderMock = new Mock<IServiceProvider>();
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ThrowEntityDoesntExistExceptionWhenUserIsNotFound")
+				.Options;
 
 			//Act and Assert
 			using (var assertContext = new AlphaCinemaContext(contextOptions))
@@ -41,10 +41,11 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 		public async Task ThrowEntityDoesntExistExceptionWhenUserIsDeleted()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ThrowEntityDoesntExistExceptionWhenUserIsDeleted")
+				.Options;
 
-			var serviceProviderMock = new Mock<IServiceProvider>();
-
-			var user = new User()
+			user = new User()
 			{
 				Id = "my id",
 				FirstName = "Krasimir",
@@ -70,10 +71,12 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 		public async Task SuccessfullyModifyDateWhenUserIsValid()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "SuccessfullyModifyDateWhenUserIsValid")
+				.Options;
 
-			var serviceProviderMock = new Mock<IServiceProvider>();
 			string userId = "djoni";
-			var user = new User()
+			user = new User()
 			{
 				Id = userId,
 				FirstName = "Krasimir",

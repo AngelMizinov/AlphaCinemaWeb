@@ -14,15 +14,16 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 	[TestClass]
 	public class GetWatchedMoviesByUserId_Should
 	{
-		private readonly DbContextOptions<AlphaCinemaContext> contextOptions =
-			new DbContextOptionsBuilder<AlphaCinemaContext>()
-			.UseInMemoryDatabase(databaseName: "AddEntityToBase_WhenEntityIsCorrect")
-				.Options;
+		private DbContextOptions<AlphaCinemaContext> contextOptions;
 
 		[TestMethod]
 		public async Task ReturnWatchedMoviesWhenUserIsValid()
 		{
 			// Arrange
+			contextOptions = new DbContextOptionsBuilder<AlphaCinemaContext>()
+			.UseInMemoryDatabase(databaseName: "ReturnWatchedMoviesWhenUserIsValid")
+				.Options;
+
 			var userId = "Mitio";
 
 			var watchedMovies = new List<WatchedMovie>()

@@ -43,55 +43,53 @@
             </div>
         </div>
 
-        <p1 style="text-shadow:1px 1px black; font-display:swap; font-size: 30px; padding: 10px 40px">Our week Specials</p1>
+        @* <p1 style="text-shadow:1px 1px black; font-display:swap; font-size: 30px; padding: 10px 40px">Check out our week specials below</p1>*@
 
         @*@if(TempData["Error-Message"] != null){
-        <div class="alert alert-danger" role="alert" style="float:right ">
-            @TempData["Error-Message"]
-        </div>
-        }*@
-    </div>
-
-    <!-- Grid row -->
-    <div class="row" style="justify-content: flex-end">
-        @foreach (var movie in Model.ListOfMovies.Projections)
-        {
-            <!-- Grid column -->
-            <div class="col-lg-3 view-overlay my-zoom">
-                <!--Card Narrower-->
-                <div class="card card-cascade narrower" style="border:outset; background-color:aliceblue">
-                    <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@movie.MovieName">
-                        <!--Card image-->
-                        <div id="front-card" class="view view-cascade overlay">
-                            <div class="view">
-                                @if (movie.Image != ViewBag.DefaultImage)
-                                {
-                                    <img style="cursor:pointer" src="@movie.Image" class="card-img-top" alt="narrower">
-                                }
-                                else
-                                {
-                                    <img style="cursor:pointer" src="~/images/defaultMovie.jpg" class="card-img-top" alt="Default avatar" />
-                                }
-                            </div>
-                        </div>
-                        <!--/.Card image-->
-                        <!--Card content-->
-                        <div class="card-body card-body-cascade">
-                            <h5 class="pink-text"><i class="fa fa-cutlery"></i>@string.Join(" ", movie.Genres.Take(2))</h5>
-                            <!--Title-->
-                            <h4 class="card-title">@movie.MovieName</h4>
-                            <!--Text-->
-                            <p class="card-text">
-                                @movie.MovieDescription.Substring(0, Math.Min(movie.MovieDescription.Length, 200))...
-                            </p>
-                        </div>
-                        <!--/.Card content-->
-                    </a>
-                </div>
-                <!--/.Card Narrower-->
+            <div class="alert alert-danger" role="alert" style="float:right ">
+                @TempData["Error-Message"]
             </div>
-            <!-- Grid column -->
-        }
+            }*@
     </div>
-    <!-- Grid row -->
+    <h2 style="text-align:center">Check out our week specials below</h2>
 </div>
+<!-- Grid row -->
+<br />
+@foreach (var movie in Model.ListOfMovies.Projections)
+{
+    <br />
+    <div class="card">
+        <!-- Card image -->
+        <div class="view overlay hovereffect" style="height:350px;">
+            @if (movie.Image != ViewBag.DefaultImage)
+            {
+                <img class="card-img-top" src="@movie.Image" alt="Card image cap">
+            }
+            else
+            {
+                <img class="card-img-top" src="~/images/defaultMovie.jpg" alt="Card image cap">
+            }
+
+            <div class="overlay">
+                <h2>@movie.MovieName</h2>
+            </div>
+
+            <a asp-controller="Movie" asp-action="Details" asp-route-movieName="@movie.MovieName">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+
+        <!-- Card content -->
+        <div class="card-body">
+
+            <!-- Title -->
+            <h4 class="card-title text-center">@movie.MovieName</h4>
+            <hr />
+            <!-- Button -->
+                    <p><b>Genres:</b> @string.Join(", ", movie.Genres.Take(2))</p>
+                    
+                    <p><b>Description:</b> @movie.MovieDescription.Substring(0, Math.Min(movie.MovieDescription.Length, 300))...</p>
+        </div>
+    </div>
+}
+<!-- Grid row -->

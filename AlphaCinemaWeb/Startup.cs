@@ -11,10 +11,11 @@ using AlphaCinemaServices.Contracts;
 using AlphaCinemaData.Models;
 using Microsoft.AspNetCore.Mvc;
 using AlphaCinemaWeb.Utilities.Extensions;
+using System.Threading.Tasks;
 
 namespace AlphaCinema
 {
-    public class Startup
+	public class Startup
 	{
 		public Startup(IConfiguration configuration)
 		{
@@ -66,12 +67,12 @@ namespace AlphaCinema
 			}
 			else
 			{
-                app.UseExceptionHandler("/Error/Index");
-            }
+				app.UseExceptionHandler("/Error/Index");
+			}
 
-            app.UseNotFoundExceptionHandler();
+			app.UseNotFoundExceptionHandler();
 
-            app.UseStaticFiles();
+			app.UseStaticFiles();
 
 			app.UseAuthentication();
 
@@ -83,12 +84,12 @@ namespace AlphaCinema
 
 			app.UseMvc(routes =>
 			{
-                routes.MapRoute(
-                    name: "notfound",
-                    template: "404",
-                    defaults: new { controller = "Error", action = "PageNotFound" });
+				routes.MapRoute(
+					name: "notfound",
+					template: "404",
+					defaults: new { controller = "Error", action = "PageNotFound" });
 
-                routes.MapRoute(
+				routes.MapRoute(
 					name: "Administration",
 					template: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
 
@@ -101,37 +102,36 @@ namespace AlphaCinema
 	}
 }
 
-
 //		private void AdministrationManager(IServiceProvider serviceProvider)
 //		{
 //			const string adminRoleName = "Administrator";
 //			string[] roleNames = { adminRoleName, "Manager", "Member" };
 
 
-//			CreateRole(serviceProvider, adminRoleName);
+//			//CreateRole(serviceProvider, adminRoleName);
 
-//			Get these value from "appsettings.json" file.
+//			////Get these value from "appsettings.json" file.
 //			string adminUserEmail = "krasimir@alpha.com";
 //			string adminPwd = "Krasimir123!";
 //			AddUserToRole(serviceProvider, adminUserEmail, adminPwd, adminRoleName);
 //		}
 
-//		private void CreateRole(IServiceProvider serviceProvider, string roleName)
-//		{
-//			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+//		//		private void CreateRole(IServiceProvider serviceProvider, string roleName)
+//		//		{
+//		//			var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-//			Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
-//			roleExists.Wait();
+//		//			Task<bool> roleExists = roleManager.RoleExistsAsync(roleName);
+//		//			roleExists.Wait();
 
-//			if (!roleExists.Result)
-//			{
-//				Task<IdentityResult> roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
-//				roleResult.Wait();
-//			}
-//		}
+//		//			if (!roleExists.Result)
+//		//			{
+//		//				Task<IdentityResult> roleResult = roleManager.CreateAsync(new IdentityRole(roleName));
+//		//				roleResult.Wait();
+//		//			}
+//		//		}
 
 //		private static void AddUserToRole(IServiceProvider serviceProvider, string userEmail,
-//			string userPwd, string roleName)
+//		string userPwd, string roleName)
 //		{
 //			var userManager = serviceProvider.GetRequiredService<UserManager<User>>();
 
@@ -148,7 +148,9 @@ namespace AlphaCinema
 //					LastName = "Etov",
 //					Age = 21,
 //					Email = userEmail,
-//					UserName = userEmail
+//					UserName = userEmail,
+//					CreatedOn = DateTime.Now,
+//					ModifiedOn = DateTime.Now
 //				};
 
 //				Task<IdentityResult> taskCreateUser = userManager.CreateAsync(newUser, userPwd);
