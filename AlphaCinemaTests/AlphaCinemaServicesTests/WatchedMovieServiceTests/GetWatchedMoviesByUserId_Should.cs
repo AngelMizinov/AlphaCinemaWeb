@@ -20,7 +20,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Return_Valid_List_Of_Watched_Movies_When_UserId_Is_Correct()
+		public async Task ReturnWatchedMoviesWhenUserIsValid()
 		{
 			// Arrange
 			var userId = "Mitio";

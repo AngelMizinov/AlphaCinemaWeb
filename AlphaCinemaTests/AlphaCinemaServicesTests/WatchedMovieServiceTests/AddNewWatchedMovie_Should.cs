@@ -20,7 +20,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Throw_EntityAlreadyExistsException_When_UserId_And_ProjectionId_Are_ValidAsync()
+		public async Task ThrowEntityAlreadyExistsExceptionWhenParamsAreValid()
 		{
 			// Arrange
 			var userId = "userId";
@@ -48,7 +48,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 		}
 
 		[TestMethod]
-		public async Task Successfully_Create_New_WatchedMovie_When_UserId_And_ProjectionId_Are_Valid()
+		public async Task SuccessfullyCreateNewWatchedMovieWhenParamsAreValid()
 		{
 			// Arrange
 			var userId = "djoni";

@@ -21,7 +21,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Return_WatchedMovie_If_UserId_And_ProjectionId_IsFound_In_DB()
+		public async Task ReturnWatchedMovieWhenParamsAreInDatabase()
 		{
 			// Arrange
 			var userId = "userId";
@@ -52,7 +52,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.WatchedMovieServiceTests
 		}
 
 		[TestMethod]
-		public async Task Return_Null_If_UserId_Is_Not_Found_In_DB()
+		public async Task ReturnNullWhenUserIsNotFound()
 		{
 			// Arrange
 			var userId = "userId";

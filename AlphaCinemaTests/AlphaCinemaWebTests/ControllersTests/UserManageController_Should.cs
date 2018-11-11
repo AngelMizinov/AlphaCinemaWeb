@@ -20,17 +20,17 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 	[TestClass]
 	public class UserManageController_Should
 	{
+		private Mock<IUserService> userServiceMock = new Mock<IUserService>();
+		private User user;
+		private IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+		private UserManageController controller;
 
 		[TestMethod]
 		public async Task IndexAction_ReturnsViewResult()
 		{
-			// Arrange
-			var userServiceMock = this.SetupMockService();
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+			// Arrange && Act
+			var controller = SetupController(1);
 
-			var controller = new UserManageController(userServiceMock.Object, cache);
-
-			// Act
 			var result = await controller.Index();
 
 			// Assert
@@ -40,12 +40,9 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		[TestMethod]
 		public async Task IndexAction_ReturnsCorrectViewModel()
 		{
-			// Arrange
-			var userServiceMock = this.SetupMockService();
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+			// Arrange && Act
+			var controller = SetupController(1);
 
-			// Act
-			var controller = new UserManageController(userServiceMock.Object, cache);
 			var result = await controller.Index() as ViewResult;
 
 			// Assert
@@ -55,12 +52,9 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		[TestMethod]
 		public async Task IndexAction_CallCorrectServiceMethod()
 		{
-			// Arrange
-			var userServiceMock = this.SetupMockService();
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+			// Arrange && Act
+			var controller = SetupController(1);
 
-			// Act
-			var controller = new UserManageController(userServiceMock.Object, cache);
 			var result = await controller.Index() as ViewResult;
 
 			// Assert
@@ -70,15 +64,11 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		}
 
 		[TestMethod]
-		public async Task SetAdminAction_Returns_To_IndexUserManage_WhenUserIsNull_RedirectResult()
+		public async Task SetAdminAction_ReturnsToIndexUserManage_WhenUserIsNull_RedirectResult()
 		{
 			// Arrange
-			var userServiceMock = this.SetupMockService();
-			var controller = this.SetupController();
+			var controller = this.SetupController(2);
 			string userId = "userId";
-			userServiceMock
-				.Setup(x => x.GetUser(It.IsAny<string>()))
-				.ReturnsAsync(Task.FromResult<User>(null).Result);
 
 			// Act
 			var result = await controller.SetAdmin(userId);
@@ -92,32 +82,14 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		}
 
 		[TestMethod]
-		public async Task SetAdminAction_Returns_To_IndexUserManage_WhenUserIsNotNull_RedirectResult()
+		public async Task SetAdminAction_ReturnsToIndexUserManage_WhenUserIsNotNull_RedirectResult()
 		{
 			// Arrange
 			string userId = "userId";
-			User user = new User() { FirstName = "Test me" };
 
-			var userServiceMock = new Mock<IUserService>();
-			userServiceMock
-				.Setup(m => m.GetUser(It.IsAny<string>()))
-				.ReturnsAsync(user);
-
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-
-			var controller = new UserManageController(userServiceMock.Object, cache)
-			{
-				ControllerContext = new ControllerContext()
-				{
-					HttpContext = new DefaultHttpContext()
-					{
-						User = new ClaimsPrincipal()
-					}
-				},
-				TempData = new Mock<ITempDataDictionary>().Object
-			};
-		
 			// Act
+			var controller = SetupController(3);
+
 			var result = await controller.SetAdmin(userId);
 
 			// Assert
@@ -129,13 +101,14 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		}
 
 		[TestMethod]
-		public async Task RemoveAdminAction_Returns_To_IndexUserManage_WhenUserIsNull_RedirectResult()
+		public async Task RemoveAdminAction_ReturnsToIndexUserManage_WhenUserIsNull_RedirectResult()
 		{
 			// Arrange
-			var userServiceMock = this.SetupMockService();
-			var controller = this.SetupController();
 			string userId = "userId";
+
 			// Act
+			var controller = SetupController(2);
+
 			var result = await controller.SetAdmin(userId);
 
 			// Assert
@@ -147,32 +120,14 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		}
 
 		[TestMethod]
-		public async Task RemoveAdminAction_Returns_To_IndexUserManage_WhenUserIsNotNull_RedirectResult()
+		public async Task RemoveAdminAction_ReturnsToIndexUserManage_WhenUserIsNotNull_RedirectResult()
 		{
 			// Arrange
 			string userId = "userId";
-			User user = new User() { FirstName = "Test me" };
-
-			var userServiceMock = new Mock<IUserService>();
-			userServiceMock
-				.Setup(m => m.GetUser(It.IsAny<string>()))
-				.ReturnsAsync(user);
-
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
-
-			var controller = new UserManageController(userServiceMock.Object, cache)
-			{
-				ControllerContext = new ControllerContext()
-				{
-					HttpContext = new DefaultHttpContext()
-					{
-						User = new ClaimsPrincipal()
-					}
-				},
-				TempData = new Mock<ITempDataDictionary>().Object
-			};
 
 			// Act
+			var controller = SetupController(3);
+
 			var result = await controller.RemoveAdmin(userId);
 
 			// Assert
@@ -184,32 +139,55 @@ namespace AlphaCinemaTests.AlphaCinemaWebTests.ControllersTests
 		}
 
 
-		private Mock<IUserService> SetupMockService()
+		private Mock<IUserService> SetupMockService(int test)
 		{
-			var userServiceMock = new Mock<IUserService>();
+			switch (test)
+			{
+				case 1:
+					userServiceMock
+							.Setup(x => x.GetAllUsers())
+					.ReturnsAsync(new List<User>() { new User() { FirstName = "Test" } });
 
-			userServiceMock
-				.Setup(x => x.GetAllUsers())
-				.ReturnsAsync(new List<User>() { new User() { FirstName = "Test" } });
+					userServiceMock
+						.Setup(x => x.IsUserAdmin(It.IsAny<string>(), It.IsAny<string>()))
+						.ReturnsAsync(true);
+					break;
 
-			userServiceMock
-				.Setup(x => x.IsUserAdmin(It.IsAny<string>(), It.IsAny<string>()))
-				.ReturnsAsync(true);
+				case 2:
+					userServiceMock
+						.Setup(x => x.GetUser(It.IsAny<string>()))
+						.ReturnsAsync(Task.FromResult<User>(null).Result);
+					break;
 
-			userServiceMock
-				.Setup(x => x.GetUser(It.IsAny<string>()))
-				.ReturnsAsync(Task.FromResult<User>(null).Result);
-
+				case 3:
+					user = new User() { FirstName = "Test me" };
+					userServiceMock
+						.Setup(m => m.GetUser(It.IsAny<string>()))
+						.ReturnsAsync(user);
+					break;
+			}
 			return userServiceMock;
 		}
 
-		private UserManageController SetupController()
+		private UserManageController SetupController(int test)
 		{
-			var userServiceMock = SetupMockService();
-			IMemoryCache cache = new MemoryCache(new MemoryCacheOptions());
+			switch (test)
+			{
+				case 1:
+					// user list and is admin true
+					userServiceMock = SetupMockService(test);
+					break;
+				case 2:
+					// user == null
+					userServiceMock = SetupMockService(test);
+					break;
+				case 3:
+					// user != null
+					userServiceMock = SetupMockService(test);
+					break;
+			}
 
-
-			var controller = new UserManageController(userServiceMock.Object, cache)
+			controller = new UserManageController(userServiceMock.Object, cache)
 			{
 				ControllerContext = new ControllerContext()
 				{

@@ -23,7 +23,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 				.Options;
 
 		[TestMethod]
-		public async Task Throw_EntityDoesntExistException_When_User_Is_Not_InDB()
+		public async Task ThrowEntityDoesntExistExceptionWhenUserIsNotFound()
 		{
 			// Arrange
 
@@ -38,7 +38,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 		}
 
 		[TestMethod]
-		public async Task Throw_EntityDoesntExistException_When_User_Is_Deleted_InDB()
+		public async Task ThrowEntityDoesntExistExceptionWhenUserIsDeleted()
 		{
 			// Arrange
 
@@ -67,7 +67,7 @@ namespace AlphaCinemaTests.AlphaCinemaServicesTests.UserServiceTests
 		}
 
 		[TestMethod]
-		public async Task Successfully_Modify_Date_When_User_Is_Valid_InDB()
+		public async Task SuccessfullyModifyDateWhenUserIsValid()
 		{
 			// Arrange
 
